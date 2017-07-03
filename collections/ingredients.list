@@ -1,0 +1,27 @@
+<div class="loading-spinner"></div>
+
+<div class="ingredients-list ingredients-wrapper" id="blogList" data-controller="BlogLayout">
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Ethanol</th>
+            <th>Sugar</th>
+            <th>Acid</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {.repeated section items}
+            <tr>
+                <td>{title}</td>
+                <td>{customContent.ethanol}</td>
+                <td>{customContent.sugar}</td>
+                <td>{customContent.acid}</td>
+            </tr>
+        {.end}
+    </tbody>
+</table>
+
+</div>
