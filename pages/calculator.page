@@ -1,0 +1,4 @@
+<div id="calculator-root">
+    <p>Loading...</p>
+</div>
+<squarespace:script src="calculator/app.js" combo="false" />
