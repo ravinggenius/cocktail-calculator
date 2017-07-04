@@ -1,13 +1,36 @@
 {
-  "name": "thomas_ingram-ccl",
+  "name": "cocktail_chemistry-calculator",
   "version": "1.0.0",
-  "description": "",
+  "description": "Squarespace Skye template forked to add custom calculator code",
+  "author": "Thomas Ingram",
+  "private": true,
   "scripts": {
+    "prebuild": "npm run clean",
+    "build": "rollup --config",
+    "build:watch": "rollup --config --watch",
+    "clean": "rm scripts/calculator*",
+    "start": "npm run build:watch & npm run start:dev",
+    "start:dev": "squarespace-server https://thomas-ingram-82lh.squarespace.com --auth --auto-reload",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Thomas Ingram",
-  "license": "ISC",
+  "dependencies": {
+    "polished": "^1.2.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "styled-components": "^2.1.1"
+  },
   "devDependencies": {
-    "@squarespace/server": "^1.1.1"
+    "@squarespace/server": "^1.1.1",
+    "babel-cli": "^6.24.1",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "rollup": "^0.43.0",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-watch": "^4.0.0"
   }
 }

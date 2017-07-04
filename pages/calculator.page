@@ -1,8 +1,5 @@
 <div id="calculator-root">
-    <p>Loading...</p>
+	<p>Loading...</p>
 </div>
 
-<script src="https:/unpkg.com/react@15/dist/react.js"></script>
-<script src="https:/unpkg.com/react-dom@15/dist/react-dom.js"></script>
-
-<squarespace:script src="calculator/app.js" combo="false" />
+<squarespace:script combo="false" src="calculator.js" />
