@@ -23,8 +23,8 @@ export default {
 		commonjs({
 			namedExports: {
 				'react': [
-				   'Component',
-				   'createElement'
+					'Component',
+					'createElement'
 				]
 			},
 			sourceMap: true
