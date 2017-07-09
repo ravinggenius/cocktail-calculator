@@ -15,19 +15,20 @@ export default {
 			jsnext: true,
 			main: true
 		}),
+		commonjs({
+			namedExports: {
+				'react': [
+					'Children',
+					'Component',
+					'createElement'
+				]
+			},
+			sourceMap: true
+		}),
 		replace({
 			values: {
 				'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 			}
-		}),
-		commonjs({
-			namedExports: {
-				'react': [
-				   'Component',
-				   'createElement'
-				]
-			},
-			sourceMap: true
 		}),
 		babel({
 			exclude: 'node_modules/**'
