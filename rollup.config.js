@@ -15,11 +15,6 @@ export default {
 			jsnext: true,
 			main: true
 		}),
-		replace({
-			values: {
-				'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
-			}
-		}),
 		commonjs({
 			namedExports: {
 				'react': [
@@ -28,6 +23,11 @@ export default {
 				]
 			},
 			sourceMap: true
+		}),
+		replace({
+			values: {
+				'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+			}
 		}),
 		babel({
 			exclude: 'node_modules/**'
