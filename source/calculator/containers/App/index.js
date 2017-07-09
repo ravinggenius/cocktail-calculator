@@ -1,35 +1,32 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import Ingredient from '../../components/Ingredient';
+import Ingredients from '../../components/Ingredients';
 import Result from '../../components/Result';
-import Section, { SectionTitle } from '../../components/Section';
 import Technique from '../../components/Technique';
 import Unit from '../../components/Unit';
 
-const App = () => <section>
-	<Section>
-		<SectionTitle>Units</SectionTitle>
-		<p>What units are you working with?</p>
-		<Unit />
-	</Section>
+import {
+	handleIngredientAdd,
+	handleIngredientRemove,
+	handleTechniqueChange,
+	handleUnitChange
+} from './actions';
 
-	<Section>
-		<SectionTitle>Ingredients</SectionTitle>
-		<p>Select or search for ingredients and add measurements</p>
-		<Ingredient />
-	</Section>
-
-	<Section>
-		<SectionTitle>Technique</SectionTitle>
-		<p>Select the type of cocktail</p>
-		<Technique />
-	</Section>
-
-	<Section>
-		<SectionTitle>Results</SectionTitle>
-		<p>Review the final cocktail attributes</p>
-		<Result />
-	</Section>
+const App = ({ ingredients, technique, unit, onIngredientAdd, onIngredientRemove, onTechniqueChange, onUnitChange }) => <section>
+	<Unit onChange={onUnitChange} value={unit} />
+	<Ingredients {...{ ingredients }} onAdd={onIngredientAdd} onRemove={onIngredientRemove} />
+	<Technique onChange={onTechniqueChange} value={technique} />
+	<Result {...{ ingredients, technique, unit }} />
 </section>;
 
-export default App;
+const mapStateToProps = ({ ingredients, technique, unit }) => ({ ingredients, technique, unit });
+
+const mapDispatchToProps = (dispatch) => ({
+	onIngredientAdd: (id, amount) => dispatch(handleIngredientAdd(id, amount)),
+	onIngredientRemove: (id) => dispatch(handleIngredientRemove(id)),
+	onTechniqueChange: (technique) => dispatch(handleTechniqueChange(technique)),
+	onUnitChange: (unit) => dispatch(handleUnitChange(unit))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

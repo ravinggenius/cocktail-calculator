@@ -18,6 +18,7 @@ export default {
 		commonjs({
 			namedExports: {
 				'react': [
+					'Children',
 					'Component',
 					'createElement'
 				]
