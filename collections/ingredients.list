@@ -1,6 +1,6 @@
 <div class="loading-spinner"></div>
 
-<div class="ingredients-list ingredients-wrapper" id="blogList" data-controller="BlogLayout">
+<div class="ingredients-list ingredients-wrapper" id="ingredientList" data-controller="BlogLayout">
 
 <table>
     <thead>

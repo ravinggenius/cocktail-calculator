@@ -1,14 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 
-import App from './containers/App';
-import reducer from './containers/App/reducer';
-
-const store = createStore(reducer);
+import Root from './components/Root';
 
 ReactDOM.render(
-	<Provider {...{ store }}><App /></Provider>,
+	<Root />,
 	document.getElementById('calculator-root')
 );

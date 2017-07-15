@@ -2,20 +2,15 @@ import React from 'react';
 
 import Section, { SectionTitle } from '../../components/Section';
 
-const UNITS = [
-	{ value: 'ml', name: 'Milliliter' },
-	{ value: 'oz', name: 'Ounce' }
-];
-
 const renderOption = ({ name, value }) => <option {...{ value }} key={value}>
 	{name}
 </option>;
 
-const Unit = ({ onChange, value }) => <Section>
+const Unit = ({ available, onChange, selected: value }) => <Section>
 	<SectionTitle>Units</SectionTitle>
 	<p>What units are you working with?</p>
 	<select {...{ onChange, value }}>
-		{UNITS.map(renderOption)}
+		{available.map(renderOption)}
 	</select>
 </Section>;
 
