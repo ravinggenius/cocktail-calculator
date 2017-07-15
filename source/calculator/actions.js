@@ -18,15 +18,30 @@ export const receiveAvailableIngredients = (ingredients) => ({
 export const fetchAvailableIngredientsSuccess = (response) => (dispatch) => {
 	dispatch(decrementOutstandingRequests());
 	return response.json()
-		.then(body => body.items)
-		.then(ingredients => dispatch(receiveAvailableIngredients(ingredients)));
+		.then(body => {
+			if (body.error) {
+				throw new Error(body.error);
+			}
+			return body;
+		})
+		.then(
+			body => dispatch(receiveAvailableIngredients(body.items)),
+			error => {
+				console.log(error);
+				return dispatch(fetchAvailableIngredientsError('Error fetching ingredients'));
+			}
+		);
 };
 
-export const fetchAvailableIngredientsError = (response) => (dispatch) => {
+export const fetchAvailableIngredientsError = (error) => ({
+	type: APP.FETCH_AVAILABLE_INGREDIENTS_ERROR,
+	error
+});
+
+export const fetchAvailableIngredientsNetworkError = (response) => (dispatch) => {
 	dispatch(decrementOutstandingRequests());
-	return response
-		.then(body => body.json())
-		.then(body => console.error(body));
+	return response.json()
+		.then(body => dispatch(fetchAvailableIngredientsError(body)));
 };
 
 export const fetchAvailableIngredients = () => (dispatch) => {
@@ -35,7 +50,7 @@ export const fetchAvailableIngredients = () => (dispatch) => {
 		'/calculator/ingredients?format=json'
 	).then(
 		response => dispatch(fetchAvailableIngredientsSuccess(response)),
-		response => dispatch(fetchAvailableIngredientsError(response))
+		response => dispatch(fetchAvailableIngredientsNetworkError(response))
 	);
 };
 

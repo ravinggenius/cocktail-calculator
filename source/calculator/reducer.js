@@ -24,6 +24,15 @@ const availableIngredients = (state = [], action) => {
 	}
 };
 
+const availableIngredientsError = (state = null, action) => {
+	switch (action.type) {
+		case APP.FETCH_AVAILABLE_INGREDIENTS_ERROR:
+			return action.error;
+		default:
+			return state;
+	}
+};
+
 const selectedIngredients = (state = [], action) => {
 	switch (action.type) {
 		case APP.LIST_SELECTED_INGREDIENTS:
@@ -47,6 +56,7 @@ const selectedUnit = (state = APP.AVAILABLE_UNITS[0].value, action) => {
 export default combineReducers({
 	networkCount,
 	availableIngredients,
+	availableIngredientsError,
 	selectedIngredients,
 	selectedUnit
 });

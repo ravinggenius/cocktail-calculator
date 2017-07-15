@@ -6,6 +6,21 @@ const renderAvailableIngredient = (ingredient) => <li key={ingredient.id}>
 	{ingredient.title}
 </li>;
 
+const renderAvailableIngredients = (error, ingredients) => {
+	if (error && ingredients.length === 0) {
+		return <div>
+			{error}
+		</div>;
+	} else {
+		return <div>
+			<p>Available Ingredients</p>
+			<ul>
+				{ingredients.map(renderAvailableIngredient)}
+			</ul>
+		</div>;
+	}
+};
+
 const findById = (ingredients) => ({ amount, id }) => {
 	const found = ingredients.find((ingredient) => ingredient.id === id);
 	return Object.assign({}, found, { amount });
@@ -15,13 +30,10 @@ const renderSelectedIngredient = (ingredient) => <li key={ingredient.id}>
 	{ingredient.title} - {ingredient.amount}
 </li>;
 
-const Ingredients = ({ available, selected, onAdd, onChange, onRemove }) => <Section>
+const Ingredients = ({ available, error, selected, onAdd, onChange, onRemove }) => <Section>
 	<SectionTitle>Ingredients</SectionTitle>
 	<p>Select or search for ingredients and add measurements</p>
-	<p>Available Ingredients</p>
-	<ul>
-		{available.map(renderAvailableIngredient)}
-	</ul>
+	{renderAvailableIngredients(error, available)}
 	<p>Selected Ingredients</p>
 	<ul>
 		{selected.map(findById(available)).map(renderSelectedIngredient)}

@@ -12,16 +12,17 @@ class SelectIngredients extends React.Component {
 	}
 
 	render() {
-		const { available, onChange, selected } = this.props;
+		const { available, error, onChange, selected } = this.props;
 
 		return <Ingredients
-			{...{ available, onChange, selected }}
+			{...{ available, error, onChange, selected }}
 		/>;
 	}
 }
 
-const mapStateToProps = ({ availableIngredients, selectedIngredients }) => ({
+const mapStateToProps = ({ availableIngredients, availableIngredientsError, selectedIngredients }) => ({
 	available: availableIngredients,
+	error: availableIngredientsError,
 	selected: selectedIngredients
 });
 
