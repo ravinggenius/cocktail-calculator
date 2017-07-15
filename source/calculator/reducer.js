@@ -43,6 +43,35 @@ const selectedIngredients = (state = [], action) => {
 };
 
 
+const availableTechniques = (state = [], action) => {
+	switch (action.type) {
+		case APP.RECEIVE_AVAILABLE_TECHNIQUES:
+			return action.techniques;
+		default:
+			return state;
+	}
+};
+
+const availableTechniquesError = (state = null, action) => {
+	switch (action.type) {
+		case APP.FETCH_AVAILABLE_TECHNIQUES_ERROR:
+			return action.error;
+		default:
+			return state;
+	}
+};
+
+const selectedTechnique = (state = '', action) => {
+	switch (action.type) {
+		case APP.ENSURE_SELECTED_TECHNIQUE:
+		case APP.UPDATE_SELECTED_TECHNIQUE:
+			return action.selectedId;
+		default:
+			return state;
+	}
+};
+
+
 const selectedUnit = (state = APP.AVAILABLE_UNITS[0].value, action) => {
 	switch (action.type) {
 		case APP.UPDATE_SELECTED_UNIT:
@@ -58,5 +87,8 @@ export default combineReducers({
 	availableIngredients,
 	availableIngredientsError,
 	selectedIngredients,
+	availableTechniques,
+	availableTechniquesError,
+	selectedTechnique,
 	selectedUnit
 });
