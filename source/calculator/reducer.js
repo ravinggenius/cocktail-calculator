@@ -3,16 +3,25 @@ import { combineReducers } from 'redux';
 import * as APP from './constants';
 
 
-const networkCount = (state = 0, action) => {
-	switch (action.type) {
-		case APP.DECREMENT_OUTSTANDING_REQUESTS:
-			return state - 1;
-		case APP.INCREMENT_OUTSTANDING_REQUESTS:
-			return state + 1;
-		default:
-			state;
-	}
-};
+// const networkBusy = (state = false, action) => {
+// 	switch (action.type) {
+// 		case APP.DECREMENT_OUTSTANDING_REQUESTS:
+// 			return
+// 		default:
+// 			return state;
+// 	}
+// };
+
+// const networkCount = (state = 0, action) => {
+// 	switch (action.type) {
+// 		case APP.DECREMENT_OUTSTANDING_REQUESTS:
+// 			return state - 1;
+// 		case APP.INCREMENT_OUTSTANDING_REQUESTS:
+// 			return state + 1;
+// 		default:
+// 			state;
+// 	}
+// };
 
 
 const availableIngredients = (state = [], action) => {
@@ -83,7 +92,6 @@ const selectedUnit = (state = APP.AVAILABLE_UNITS[0].value, action) => {
 
 
 export default combineReducers({
-	networkCount,
 	availableIngredients,
 	availableIngredientsError,
 	selectedIngredients,
