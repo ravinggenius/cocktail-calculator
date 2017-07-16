@@ -2,7 +2,7 @@ import React from 'react';
 
 import Section, { SectionTitle } from '../../components/Section';
 
-const renderAvailableIngredient = (ingredient) => <li key={ingredient.id}>
+const renderAvailableIngredient = ingredient => <li key={ingredient.id}>
 	{ingredient.title}
 </li>;
 
@@ -21,8 +21,8 @@ const renderAvailableIngredients = (error, ingredients) => {
 	}
 };
 
-const findById = (ingredients) => ({ amount, id }) => {
-	const found = ingredients.find((ingredient) => ingredient.id === id);
+const findById = ingredients => ({ amount, id }) => {
+	const found = ingredients.find(ingredient => ingredient.id === id);
 
 	if (found) {
 		return Object.assign({}, found, { amount });
@@ -31,7 +31,7 @@ const findById = (ingredients) => ({ amount, id }) => {
 	}
 };
 
-const renderSelectedIngredient = (ingredient) => <li key={ingredient.id}>
+const renderSelectedIngredient = ingredient => <li key={ingredient.id}>
 	{ingredient.title} - {ingredient.amount}
 </li>;
 

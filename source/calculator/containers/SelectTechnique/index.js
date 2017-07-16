@@ -25,9 +25,9 @@ const mapStateToProps = ({ availableTechniques, availableTechniquesError, select
 	selectedId: selectedTechnique
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
 	fetchAvailable: () => dispatch(fetchAvailableTechniques()),
-	onChange: (event) => dispatch(updateSelectedTechnique(event))
+	onChange: event => dispatch(updateSelectedTechnique(event))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectTechnique);

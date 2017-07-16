@@ -6,7 +6,7 @@ const renderOption = ({ id, title }) => <option key={id} value={id}>
 	{title}
 </option>;
 
-const findSelected = (available, selectedId) => available.find((technique) => technique.id === selectedId);
+const findSelected = (available, selectedId) => available.find(technique => technique.id === selectedId);
 
 const Technique = ({ available, onChange, selectedId }) => {
 	const selected = findSelected(available, selectedId);
