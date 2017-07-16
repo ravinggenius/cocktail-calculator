@@ -23,7 +23,12 @@ const renderAvailableIngredients = (error, ingredients) => {
 
 const findById = (ingredients) => ({ amount, id }) => {
 	const found = ingredients.find((ingredient) => ingredient.id === id);
-	return Object.assign({}, found, { amount });
+
+	if (found) {
+		return Object.assign({}, found, { amount });
+	} else {
+		return { amount, id, title: 'cannot find selected ingredient' };
+	}
 };
 
 const renderSelectedIngredient = (ingredient) => <li key={ingredient.id}>
