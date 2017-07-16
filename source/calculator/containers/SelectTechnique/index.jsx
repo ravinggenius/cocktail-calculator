@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -18,6 +19,18 @@ class SelectTechnique extends React.Component {
 		/>;
 	}
 }
+
+SelectTechnique.defaultProps = {
+	error: null
+};
+
+SelectTechnique.propTypes = {
+	available: PropTypes.arrayOf(PropTypes.object).isRequired,
+	error: PropTypes.string,
+	fetchAvailable: PropTypes.func.isRequired,
+	onChange: PropTypes.func.isRequired,
+	selectedId: PropTypes.string.isRequired
+};
 
 const mapStateToProps = ({ availableTechniques, availableTechniquesError, selectedTechnique }) => ({
 	available: availableTechniques,

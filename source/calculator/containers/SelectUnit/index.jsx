@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -9,6 +10,12 @@ import Unit from '../../components/Unit';
 const SelectUnit = ({ available, onChange, selected }) => <Unit
 	{...{ available, onChange, selected }}
 />;
+
+SelectUnit.propTypes = {
+	available: PropTypes.arrayOf(PropTypes.object).isRequired,
+	onChange: PropTypes.func.isRequired,
+	selected: PropTypes.string.isRequired
+};
 
 const mapStateToProps = ({ selectedUnit }) => ({
 	available: AVAILABLE_UNITS,

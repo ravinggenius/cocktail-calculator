@@ -5,7 +5,7 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import replace from 'rollup-plugin-replace';
 
 export default {
-	entry: 'source/calculator/main.js',
+	entry: 'source/calculator/main.jsx',
 	dest: 'scripts/calculator.js',
 	format: 'iife',
 	sourceMap: true,
@@ -13,6 +13,7 @@ export default {
 		nodeResolve({
 			browser: true,
 			jsnext: true,
+			extensions: [ '.js', '.jsx' ],
 			main: true
 		}),
 		commonjs({

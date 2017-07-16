@@ -15,6 +15,11 @@ export const receiveAvailableIngredients = ingredients => ({
 	ingredients
 });
 
+export const fetchAvailableIngredientsError = error => ({
+	type: APP.FETCH_AVAILABLE_INGREDIENTS_ERROR,
+	error
+});
+
 export const fetchAvailableIngredientsSuccess = response => (dispatch) => {
 	dispatch(decrementOutstandingRequests());
 	return response.json()
@@ -27,16 +32,11 @@ export const fetchAvailableIngredientsSuccess = response => (dispatch) => {
 		.then(
 			body => dispatch(receiveAvailableIngredients(body.items)),
 			(error) => {
-				console.log(error);
+				console.log(error); // eslint-disable-line no-console
 				return dispatch(fetchAvailableIngredientsError('Error fetching ingredients'));
 			}
 		);
 };
-
-export const fetchAvailableIngredientsError = error => ({
-	type: APP.FETCH_AVAILABLE_INGREDIENTS_ERROR,
-	error
-});
 
 export const fetchAvailableIngredientsNetworkError = response => (dispatch) => {
 	dispatch(decrementOutstandingRequests());
@@ -55,9 +55,25 @@ export const fetchAvailableIngredients = () => (dispatch) => {
 };
 
 
+export const ensureDefaultTechnique = techniques => ({
+	type: APP.ENSURE_SELECTED_TECHNIQUE,
+	selectedId: techniques[0].id
+});
+
+export const updateSelectedTechnique = event => ({
+	type: APP.UPDATE_SELECTED_TECHNIQUE,
+	selectedId: event.target.value
+});
+
+
 export const receiveAvailableTechniques = techniques => ({
 	type: APP.RECEIVE_AVAILABLE_TECHNIQUES,
 	techniques
+});
+
+export const fetchAvailableTechniquesError = error => ({
+	type: APP.FETCH_AVAILABLE_TECHNIQUES_ERROR,
+	error
 });
 
 export const fetchAvailableTechniquesSuccess = response => (dispatch) => {
@@ -75,16 +91,11 @@ export const fetchAvailableTechniquesSuccess = response => (dispatch) => {
 				return dispatch(ensureDefaultTechnique(body.items));
 			},
 			(error) => {
-				console.log(error);
+				console.log(error); // eslint-disable-line no-console
 				return dispatch(fetchAvailableTechniquesError('Error fetching techniques'));
 			}
 		);
 };
-
-export const fetchAvailableTechniquesError = error => ({
-	type: APP.FETCH_AVAILABLE_TECHNIQUES_ERROR,
-	error
-});
 
 export const fetchAvailableTechniquesNetworkError = response => (dispatch) => {
 	dispatch(decrementOutstandingRequests());
@@ -101,17 +112,6 @@ export const fetchAvailableTechniques = () => (dispatch) => {
 		response => dispatch(fetchAvailableTechniquesNetworkError(response))
 	);
 };
-
-
-export const ensureDefaultTechnique = techniques => ({
-	type: APP.ENSURE_SELECTED_TECHNIQUE,
-	selectedId: techniques[0].id
-});
-
-export const updateSelectedTechnique = event => ({
-	type: APP.UPDATE_SELECTED_TECHNIQUE,
-	selectedId: event.target.value
-});
 
 
 export const updateSelectedUnit = event => ({

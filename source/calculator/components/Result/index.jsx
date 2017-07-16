@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Section, { SectionTitle } from '../../components/Section';
@@ -19,5 +20,11 @@ const Result = ({ ingredients, technique, unit }) => <Section>
 	<p>Sugar (g/100ml) <output>{sugar(technique, unit, ingredients)}</output> - expected range</p>
 	<p>Acid (%) <output>{acid(technique, ingredients)}</output> - expected range</p>
 </Section>;
+
+Result.propTypes = {
+	ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+	technique: PropTypes.string.isRequired,
+	unit: PropTypes.string.isRequired
+};
 
 export default Result;

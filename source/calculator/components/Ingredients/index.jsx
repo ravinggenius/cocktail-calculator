@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Section, { SectionTitle } from '../../components/Section';
@@ -35,7 +36,7 @@ const renderSelectedIngredient = ingredient => <li key={ingredient.id}>
 	{ingredient.title} - {ingredient.amount}
 </li>;
 
-const Ingredients = ({ available, error, selected, onAdd, onChange, onRemove }) => <Section>
+const Ingredients = ({ available, error, selected }) => <Section>
 	<SectionTitle>Ingredients</SectionTitle>
 	<p>Select or search for ingredients and add measurements</p>
 	{renderAvailableIngredients(error, available)}
@@ -44,5 +45,11 @@ const Ingredients = ({ available, error, selected, onAdd, onChange, onRemove }) 
 		{selected.map(findById(available)).map(renderSelectedIngredient)}
 	</ul>
 </Section>;
+
+Ingredients.propTypes = {
+	available: PropTypes.arrayOf(PropTypes.object).isRequired,
+	error: PropTypes.string,
+	selected: PropTypes.arrayOf(PropTypes.object).isRequired
+};
 
 export default Ingredients;

@@ -1,9 +1,9 @@
-export const dilution = (technique, ingredients) => null;
+export const dilution = (_technique, _ingredients) => null;
 
-export const volume = (technique, unit, ingredients) => null;
+export const volume = (_technique, _unit, _ingredients) => null;
 
-export const ethanol = (technique, ingredients) => null;
+export const ethanol = (_technique, _ingredients) => null;
 
-export const sugar = (technique, unit, ingredients) => null;
+export const sugar = (_technique, _unit, _ingredients) => null;
 
-export const acid = (technique, ingredients) => null;
+export const acid = (_technique, _ingredients) => null;
