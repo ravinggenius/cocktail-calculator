@@ -2,26 +2,7 @@ import { combineReducers } from 'redux';
 
 import * as APP from './constants';
 
-
-// const networkBusy = (state = false, action) => {
-// 	switch (action.type) {
-// 		case APP.DECREMENT_OUTSTANDING_REQUESTS:
-// 			return
-// 		default:
-// 			return state;
-// 	}
-// };
-
-// const networkCount = (state = 0, action) => {
-// 	switch (action.type) {
-// 		case APP.DECREMENT_OUTSTANDING_REQUESTS:
-// 			return state - 1;
-// 		case APP.INCREMENT_OUTSTANDING_REQUESTS:
-// 			return state + 1;
-// 		default:
-// 			state;
-// 	}
-// };
+import unit from './containers/SelectUnit/reducer';
 
 
 const availableIngredients = (state = [], action) => {
@@ -81,16 +62,6 @@ const selectedTechnique = (state = '', action) => {
 };
 
 
-const selectedUnit = (state = APP.AVAILABLE_UNITS[0].value, action) => {
-	switch (action.type) {
-	case APP.UPDATE_SELECTED_UNIT:
-		return action.value;
-	default:
-		return state;
-	}
-};
-
-
 export default combineReducers({
 	availableIngredients,
 	availableIngredientsError,
@@ -98,5 +69,5 @@ export default combineReducers({
 	availableTechniques,
 	availableTechniquesError,
 	selectedTechnique,
-	selectedUnit
+	unit
 });

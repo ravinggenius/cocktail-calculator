@@ -16,9 +16,3 @@ export const FETCH_AVAILABLE_TECHNIQUES = 'FETCH_AVAILABLE_TECHNIQUES';
 export const ENSURE_SELECTED_TECHNIQUE = 'ENSURE_SELECTED_TECHNIQUE';
 export const UPDATE_SELECTED_TECHNIQUE = 'UPDATE_SELECTED_TECHNIQUE';
 
-export const AVAILABLE_UNITS = [
-	{ value: 'ml', name: 'Milliliter' },
-	{ value: 'oz', name: 'Ounce' }
-];
-
-export const UPDATE_SELECTED_UNIT = 'UPDATE_SELECTED_UNIT';
