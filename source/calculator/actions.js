@@ -47,7 +47,7 @@ export const fetchAvailableIngredientsNetworkError = (response) => (dispatch) =>
 export const fetchAvailableIngredients = () => (dispatch) => {
 	dispatch(incrementOutstandingRequests());
 	return fetch(
-		'/calculator/ingredients?format=json'
+		'/calculator-ingredients?format=json'
 	).then(
 		response => dispatch(fetchAvailableIngredientsSuccess(response)),
 		response => dispatch(fetchAvailableIngredientsNetworkError(response))
@@ -95,7 +95,7 @@ export const fetchAvailableTechniquesNetworkError = (response) => (dispatch) => 
 export const fetchAvailableTechniques = () => (dispatch) => {
 	dispatch(incrementOutstandingRequests());
 	return fetch(
-		'/calculatorr/techniques?format=json'
+		'/calculator-techniques?format=json'
 	).then(
 		response => dispatch(fetchAvailableTechniquesSuccess(response)),
 		response => dispatch(fetchAvailableTechniquesNetworkError(response))
