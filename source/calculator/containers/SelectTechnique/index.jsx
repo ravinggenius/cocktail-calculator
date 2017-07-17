@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchAvailableTechniques, updateSelectedTechnique } from '../../actions';
-
 import Technique from '../../components/Technique';
+
+import { fetchAvailable, updateSelected } from './actions';
 
 class SelectTechnique extends React.Component {
 	componentDidMount() {
@@ -20,27 +20,23 @@ class SelectTechnique extends React.Component {
 	}
 }
 
-SelectTechnique.defaultProps = {
-	error: null
-};
-
 SelectTechnique.propTypes = {
 	available: PropTypes.arrayOf(PropTypes.object).isRequired,
-	error: PropTypes.string,
+	error: PropTypes.string.isRequired,
 	fetchAvailable: PropTypes.func.isRequired,
 	onChange: PropTypes.func.isRequired,
 	selectedId: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({ availableTechniques, availableTechniquesError, selectedTechnique }) => ({
-	available: availableTechniques,
-	error: availableTechniquesError,
-	selectedId: selectedTechnique
+const mapStateToProps = ({ technique: { available, fetchError: error, selectedId } }) => ({
+	available,
+	error,
+	selectedId
 });
 
 const mapDispatchToProps = dispatch => ({
-	fetchAvailable: () => dispatch(fetchAvailableTechniques()),
-	onChange: event => dispatch(updateSelectedTechnique(event))
+	fetchAvailable: () => dispatch(fetchAvailable()),
+	onChange: event => dispatch(updateSelected(event))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectTechnique);

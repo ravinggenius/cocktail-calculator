@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import * as APP from './constants';
 
+import technique from './containers/SelectTechnique/reducer';
 import unit from './containers/SelectUnit/reducer';
 
 
@@ -33,41 +34,10 @@ const selectedIngredients = (state = [], action) => {
 };
 
 
-const availableTechniques = (state = [], action) => {
-	switch (action.type) {
-	case APP.RECEIVE_AVAILABLE_TECHNIQUES:
-		return action.techniques;
-	default:
-		return state;
-	}
-};
-
-const availableTechniquesError = (state = null, action) => {
-	switch (action.type) {
-	case APP.FETCH_AVAILABLE_TECHNIQUES_ERROR:
-		return action.error;
-	default:
-		return state;
-	}
-};
-
-const selectedTechnique = (state = '', action) => {
-	switch (action.type) {
-	case APP.ENSURE_SELECTED_TECHNIQUE:
-	case APP.UPDATE_SELECTED_TECHNIQUE:
-		return action.selectedId;
-	default:
-		return state;
-	}
-};
-
-
 export default combineReducers({
 	availableIngredients,
 	availableIngredientsError,
 	selectedIngredients,
-	availableTechniques,
-	availableTechniquesError,
-	selectedTechnique,
+	technique,
 	unit
 });
