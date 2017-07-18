@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchAvailableIngredients } from '../../actions';
-
 import Ingredients from '../../components/Ingredients';
+
+import { fetchAvailable, updateSelected } from './actions';
 
 class SelectIngredients extends React.Component {
 	componentDidMount() {
@@ -12,39 +12,31 @@ class SelectIngredients extends React.Component {
 	}
 
 	render() {
-		const { available, error, onChange, selected } = this.props;
+		const { available, error, onChange, selectedIds } = this.props;
 
 		return <Ingredients
-			{...{ available, error, onChange, selected }}
+			{...{ available, error, onChange, selectedIds }}
 		/>;
 	}
 }
 
-SelectIngredients.defaultProps = {
-	error: null
-};
-
 SelectIngredients.propTypes = {
 	available: PropTypes.arrayOf(PropTypes.object).isRequired,
-	error: PropTypes.string,
+	error: PropTypes.string.isRequired,
 	fetchAvailable: PropTypes.func.isRequired,
 	onChange: PropTypes.func.isRequired,
-	selected: PropTypes.arrayOf(PropTypes.object).isRequired
+	selectedIds: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
-const mapStateToProps = ({
-	availableIngredients,
-	availableIngredientsError,
-	selectedIngredients
-}) => ({
-	available: availableIngredients,
-	error: availableIngredientsError,
-	selected: selectedIngredients
+const mapStateToProps = ({ ingredient: { available, fetchError: error, selectedIds } }) => ({
+	available,
+	error,
+	selectedIds
 });
 
 const mapDispatchToProps = dispatch => ({
-	fetchAvailable: () => dispatch(fetchAvailableIngredients()),
-	onChange: () => null
+	fetchAvailable: () => dispatch(fetchAvailable()),
+	onChange: () => dispatch(updateSelected())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectIngredients);

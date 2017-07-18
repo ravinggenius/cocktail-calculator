@@ -36,20 +36,20 @@ const renderSelectedIngredient = ingredient => <li key={ingredient.id}>
 	{ingredient.title} - {ingredient.amount}
 </li>;
 
-const Ingredients = ({ available, error, selected }) => <Section>
+const Ingredients = ({ available, error, selectedIds }) => <Section>
 	<SectionTitle>Ingredients</SectionTitle>
 	<p>Select or search for ingredients and add measurements</p>
 	{renderAvailableIngredients(error, available)}
 	<p>Selected Ingredients</p>
 	<ul>
-		{selected.map(findById(available)).map(renderSelectedIngredient)}
+		{selectedIds.map(findById(available)).map(renderSelectedIngredient)}
 	</ul>
 </Section>;
 
 Ingredients.propTypes = {
 	available: PropTypes.arrayOf(PropTypes.object).isRequired,
 	error: PropTypes.string,
-	selected: PropTypes.arrayOf(PropTypes.object).isRequired
+	selectedIds: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default Ingredients;
