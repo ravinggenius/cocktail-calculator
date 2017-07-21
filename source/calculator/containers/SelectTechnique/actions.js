@@ -20,6 +20,26 @@ export const fetchAvailableError = error => ({
 	error
 });
 
+const normalizeRange = (item, key) => ({
+	[key]: {
+		low: parseFloat(item.customContent[`${key}Low`], 10),
+		high: parseFloat(item.customContent[`${key}High`], 10)
+	}
+});
+
+const normalize = item => Object.assign(
+	{
+		id: item.id,
+		name: item.title,
+		description: item.body
+	},
+	normalizeRange(item, 'dilution'),
+	normalizeRange(item, 'volume'),
+	normalizeRange(item, 'ethanol'),
+	normalizeRange(item, 'sugar'),
+	normalizeRange(item, 'acid')
+);
+
 export const fetchAvailableSuccess = response => dispatch => response.json()
 	.then((body) => {
 		if (body.error) {
@@ -29,8 +49,9 @@ export const fetchAvailableSuccess = response => dispatch => response.json()
 	})
 	.then(
 		(body) => {
-			dispatch(receiveAvailable(body.items));
-			return dispatch(ensureDefault(body.items));
+			const techniques = body.items.map(normalize);
+			dispatch(receiveAvailable(techniques));
+			return dispatch(ensureDefault(techniques));
 		},
 		(error) => {
 			console.log(error); // eslint-disable-line no-console

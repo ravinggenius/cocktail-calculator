@@ -4,7 +4,7 @@ import React from 'react';
 import Section, { SectionTitle } from '../../components/Section';
 
 const renderAvailableIngredient = ingredient => <li key={ingredient.id}>
-	{ingredient.title}
+	{ingredient.name}
 </li>;
 
 const renderAvailableIngredients = (error, ingredients) => {
@@ -28,12 +28,12 @@ const findById = ingredients => ({ amount, id }) => {
 	if (found) {
 		return Object.assign({}, found, { amount });
 	} else {
-		return { amount, id, title: 'cannot find selected ingredient' };
+		return { amount, id, name: 'cannot find selected ingredient' };
 	}
 };
 
 const renderSelectedIngredient = ingredient => <li key={ingredient.id}>
-	{ingredient.title} - {ingredient.amount}
+	{ingredient.name} - {ingredient.amount}
 </li>;
 
 const Ingredients = ({ available, error, selectedIds }) => <Section>
