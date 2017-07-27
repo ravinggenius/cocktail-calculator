@@ -30,6 +30,7 @@ const normalizeRange = (item, key) => ({
 const normalize = item => Object.assign(
 	{
 		id: item.id,
+		position: item.displayIndex,
 		name: item.title,
 		description: item.body
 	},

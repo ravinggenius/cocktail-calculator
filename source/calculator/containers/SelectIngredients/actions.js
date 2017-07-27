@@ -17,6 +17,7 @@ export const fetchAvailableError = error => ({
 
 const normalize = item => ({
 	id: item.id,
+	position: item.displayIndex,
 	name: item.title,
 	description: item.body,
 	ethanol: parseFloat(item.customContent.ethanol, 10),
