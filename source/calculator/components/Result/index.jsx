@@ -8,8 +8,33 @@ import {
 	volume,
 	ethanol,
 	sugar,
-	acid
+	acid,
+	isGood,
+	pickMessage
 } from './utilities';
+
+const ResultRow = ({ actual, range: { low, high }, label, lowMessage, highMessage }) => {
+	const className = isGood(low, high, actual) ? 'good' : 'bad';
+
+	return <tr>
+		<td>{label}</td>
+		<td {...{ className }}><output>{actual}</output></td>
+		<td {...{ className }}><output>{pickMessage(low, high, lowMessage, highMessage, actual)}</output></td>
+		<td>{low}</td>
+		<td>{high}</td>
+	</tr>;
+};
+
+ResultRow.propTypes = {
+	actual: PropTypes.number.isRequired,
+	range: PropTypes.shape({
+		low: PropTypes.number.isRequired,
+		high: PropTypes.number.isRequired
+	}).isRequired,
+	label: PropTypes.string.isRequired,
+	lowMessage: PropTypes.string.isRequired,
+	highMessage: PropTypes.string.isRequired
+};
 
 const Result = ({ ingredients, technique, unit }) => {
 	if (!technique) {
@@ -23,48 +48,53 @@ const Result = ({ ingredients, technique, unit }) => {
 		<table>
 			<thead>
 				<tr>
-					<th colSpan="2" />
-					<th colSpan="2">Expected Range</th>
-				</tr>
-				<tr>
 					<th>Attribute</th>
-					<th>Result</th>
-					<th>Low</th>
-					<th>High</th>
+					<th colSpan={2}>Result</th>
+					<th>Expected Low</th>
+					<th>Expected High</th>
 				</tr>
 			</thead>
 
 			<tbody>
-				<tr>
-					<td>Dilution from mixing (%)</td>
-					<td><output>{dilution(technique, ingredients)}</output></td>
-					<td>{technique.dilution.low}</td>
-					<td>{technique.dilution.high}</td>
-				</tr>
-				<tr>
-					<td>Final Volume</td>
-					<td><output>{volume(technique, unit, ingredients)}</output></td>
-					<td>{technique.volume.low}</td>
-					<td>{technique.volume.high}</td>
-				</tr>
-				<tr>
-					<td>Ethanol (%abv)</td>
-					<td><output>{ethanol(technique, ingredients)}</output></td>
-					<td>{technique.ethanol.low}</td>
-					<td>{technique.ethanol.high}</td>
-				</tr>
-				<tr>
-					<td>Sugar (g/100ml)</td>
-					<td><output>{sugar(technique, unit, ingredients)}</output></td>
-					<td>{technique.sugar.low}</td>
-					<td>{technique.sugar.high}</td>
-				</tr>
-				<tr>
-					<td>Acid (%)</td>
-					<td><output>{acid(technique, ingredients)}</output></td>
-					<td>{technique.acid.low}</td>
-					<td>{technique.acid.high}</td>
-				</tr>
+				<ResultRow
+					actual={dilution(technique, ingredients)}
+					range={technique.dilution}
+					label="Dilution from mixing (%)"
+					lowMessage="Underdiluted"
+					highMessage="Overdiluted"
+				/>
+
+				<ResultRow
+					actual={volume(technique, unit, ingredients)}
+					range={technique.volume}
+					label="Final Volume"
+					lowMessage="Not enough volume"
+					highMessage="Too much volume"
+				/>
+
+				<ResultRow
+					actual={ethanol(technique, ingredients)}
+					range={technique.ethanol}
+					label="Ethanol (%abv)"
+					lowMessage="Not enough ethanol"
+					highMessage="Too much ethanol"
+				/>
+
+				<ResultRow
+					actual={sugar(technique, unit, ingredients)}
+					range={technique.sugar}
+					label="Sugar (g/100ml)"
+					lowMessage="Not sweet enough"
+					highMessage="Too sweet"
+				/>
+
+				<ResultRow
+					actual={acid(technique, ingredients)}
+					range={technique.acid}
+					label="Acid (%)"
+					lowMessage="Not acidic enough"
+					highMessage="Too acidic"
+				/>
 			</tbody>
 		</table>
 	</Section>;
