@@ -9,7 +9,7 @@ import {
 	ethanol,
 	sugar,
 	acid
-} from './calculations';
+} from './utilities';
 
 const Result = ({ ingredients, technique, unit }) => {
 	if (!technique) {
