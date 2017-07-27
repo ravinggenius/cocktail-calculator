@@ -20,10 +20,18 @@ const fetchError = (state = '', action) => {
 	}
 };
 
-const selectedIds = (state = [], action) => {
+const measurements = (state = [], action) => {
+	const withoutMeasurement = ({ id }) => (id !== action.id);
+
 	switch (action.type) {
-	case INGREDIENT.UPDATE_SELECTED:
-		return action.selectedIds;
+	case INGREDIENT.ADD_MEASUREMENT:
+		return state.concat({ id: action.id, amount: action.amount });
+	case INGREDIENT.UPDATE_MEASUREMENT:
+		return state
+			.filter(withoutMeasurement)
+			.concat({ id: action.id, amount: action.amount });
+	case INGREDIENT.REMOVE_MEASUREMENT:
+		return state.filter(withoutMeasurement);
 	default:
 		return state;
 	}
@@ -32,5 +40,5 @@ const selectedIds = (state = [], action) => {
 export default combineReducers({
 	available,
 	fetchError,
-	selectedIds
+	measurements
 });

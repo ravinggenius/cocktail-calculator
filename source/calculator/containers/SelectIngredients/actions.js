@@ -1,8 +1,20 @@
 import * as INGREDIENT from './constants';
 
-export const updateSelected = event => ({
-	type: INGREDIENT.UPDATE_SELECTED,
-	selectedId: event.target.value
+export const addMeasurement = (id, amount) => ({
+	type: INGREDIENT.ADD_MEASUREMENT,
+	id,
+	amount
+});
+
+export const updateMeasurement = (id, amount) => ({
+	type: INGREDIENT.UPDATE_MEASUREMENT,
+	id,
+	amount
+});
+
+export const removeMeasurement = id => ({
+	type: INGREDIENT.REMOVE_MEASUREMENT,
+	id
 });
 
 export const receiveAvailable = ingredients => ({

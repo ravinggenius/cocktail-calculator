@@ -9,11 +9,9 @@ const mapStateToProps = ({ ingredient, technique, unit }) => {
 	const findIngredientById = findById(ingredient.available);
 
 	return {
-		ingredients: ingredient.selectedIds.map(id => Object.assign(
-			{},
-			findIngredientById(id),
-			{ amount: null }
-		)),
+		ingredients: ingredient.measurements.map(
+			({ amount, id }) => Object.assign({}, findIngredientById(id), { amount })
+		),
 		technique: findById(technique.available)(technique.selectedId),
 		unit: UNIT.AVAILABLE.find(u => u.code === unit.selectedCode)
 	};

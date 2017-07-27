@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Ingredients from '../../components/Ingredients';
 
-import { fetchAvailable, updateSelected } from './actions';
+import { fetchAvailable, addMeasurement, updateMeasurement, removeMeasurement } from './actions';
 
 class SelectIngredients extends React.Component {
 	componentDidMount() {
@@ -12,10 +12,16 @@ class SelectIngredients extends React.Component {
 	}
 
 	render() {
-		const { available, error, onChange, selectedIds } = this.props;
+		const { available, error, measurements, onAdd, onUpdate, onRemove } = this.props;
+
+		const measuredIngredients = measurements.map(({ id, amount }) => {
+			const found = available.find(ingredient => ingredient.id === id);
+			return Object.assign({}, found, { amount });
+		});
 
 		return <Ingredients
-			{...{ available, error, onChange, selectedIds }}
+			{...{ available, error, onAdd, onUpdate, onRemove }}
+			measurements={measuredIngredients}
 		/>;
 	}
 }
@@ -24,19 +30,23 @@ SelectIngredients.propTypes = {
 	available: PropTypes.arrayOf(PropTypes.object).isRequired,
 	error: PropTypes.string.isRequired,
 	fetchAvailable: PropTypes.func.isRequired,
-	onChange: PropTypes.func.isRequired,
-	selectedIds: PropTypes.arrayOf(PropTypes.object).isRequired
+	measurements: PropTypes.arrayOf(PropTypes.object).isRequired,
+	onAdd: PropTypes.func.isRequired,
+	onUpdate: PropTypes.func.isRequired,
+	onRemove: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ ingredient: { available, fetchError: error, selectedIds } }) => ({
+const mapStateToProps = ({ ingredient: { available, fetchError: error, measurements } }) => ({
 	available,
 	error,
-	selectedIds
+	measurements
 });
 
 const mapDispatchToProps = dispatch => ({
 	fetchAvailable: () => dispatch(fetchAvailable()),
-	onChange: () => dispatch(updateSelected())
+	onAdd: (id, amount) => dispatch(addMeasurement(id, amount)),
+	onUpdate: (id, amount) => dispatch(updateMeasurement(id, amount)),
+	onRemove: id => dispatch(removeMeasurement(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SelectIngredients);
