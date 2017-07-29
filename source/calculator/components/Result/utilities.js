@@ -1,14 +1,20 @@
-export const round = number => Math.round(number * 100) / 100;
+import { dilutionFor } from '../../containers/SelectTechnique/utilities';
+import * as initial from '../Ingredients/utilities';
 
-export const dilution = (_technique, _ingredients) => 0;
+export const round = initial.round;
 
-export const volume = (_technique, _unit, _ingredients) => 0;
+export const dilution = ({ name }, measurements) => dilutionFor(name, measurements);
 
-export const ethanol = (_technique, _ingredients) => 0;
+export const volume = (technique, measurements) => initial.volume(measurements) * (1 + dilution(technique, measurements));
 
-export const sugar = (_technique, _unit, _ingredients) => 0;
+const buildFinal = key => (technique, measurements) => {
+	const reply = (initial.volume(measurements) * initial[key](measurements)) / volume(technique, measurements);
+	return Number.isNaN(reply) ? null : reply;
+};
 
-export const acid = (_technique, _ingredients) => 0;
+export const ethanol = buildFinal('ethanol');
+export const sugar = buildFinal('sugar');
+export const acid = buildFinal('acid');
 
 export const isGood = (low, high, actual) => (actual >= low) && (actual <= high);
 

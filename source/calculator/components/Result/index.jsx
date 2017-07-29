@@ -4,6 +4,7 @@ import React from 'react';
 import Section, { SectionTitle } from '../../components/Section';
 
 import {
+	round,
 	dilution,
 	volume,
 	ethanol,
@@ -36,7 +37,7 @@ ResultRow.propTypes = {
 	highMessage: PropTypes.string.isRequired
 };
 
-const Result = ({ ingredients, technique, unit }) => {
+const Result = ({ ingredients, technique }) => {
 	if (!technique) {
 		return <p>Select a technique to view results.</p>;
 	}
@@ -57,7 +58,7 @@ const Result = ({ ingredients, technique, unit }) => {
 
 			<tbody>
 				<ResultRow
-					actual={dilution(technique, ingredients)}
+					actual={round(dilution(technique, ingredients))}
 					range={technique.dilution}
 					label="Dilution from mixing (%)"
 					lowMessage="Underdiluted"
@@ -65,7 +66,7 @@ const Result = ({ ingredients, technique, unit }) => {
 				/>
 
 				<ResultRow
-					actual={volume(technique, unit, ingredients)}
+					actual={round(volume(technique, ingredients))}
 					range={technique.volume}
 					label="Final Volume"
 					lowMessage="Not enough volume"
@@ -73,7 +74,7 @@ const Result = ({ ingredients, technique, unit }) => {
 				/>
 
 				<ResultRow
-					actual={ethanol(technique, ingredients)}
+					actual={round(ethanol(technique, ingredients))}
 					range={technique.ethanol}
 					label="Ethanol (%abv)"
 					lowMessage="Not enough ethanol"
@@ -81,7 +82,7 @@ const Result = ({ ingredients, technique, unit }) => {
 				/>
 
 				<ResultRow
-					actual={sugar(technique, unit, ingredients)}
+					actual={round(sugar(technique, ingredients))}
 					range={technique.sugar}
 					label="Sugar (g/100ml)"
 					lowMessage="Not sweet enough"
@@ -89,7 +90,7 @@ const Result = ({ ingredients, technique, unit }) => {
 				/>
 
 				<ResultRow
-					actual={acid(technique, ingredients)}
+					actual={round(acid(technique, ingredients))}
 					range={technique.acid}
 					label="Acid (%)"
 					lowMessage="Not acidic enough"
@@ -106,8 +107,7 @@ Result.defaultProps = {
 
 Result.propTypes = {
 	ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
-	technique: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-	unit: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
+	technique: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 export default Result;
