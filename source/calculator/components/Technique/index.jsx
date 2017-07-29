@@ -3,13 +3,13 @@ import React from 'react';
 
 import Section, { SectionTitle } from '../../components/Section';
 
-const renderOption = ({ id, title }) => <option key={id} value={id}>
-	{title}
+const renderOption = ({ id, name }) => <option key={id} value={id}>
+	{name}
 </option>;
 
 renderOption.propTypes = {
 	id: PropTypes.string.isRequired,
-	title: PropTypes.string.isRequired
+	name: PropTypes.string.isRequired
 };
 
 const findSelected = (available, selectedId) => available.find(
@@ -25,7 +25,7 @@ const Technique = ({ available, onChange, selectedId }) => {
 		<select {...{ onChange }} value={selectedId}>
 			{available.map(renderOption)}
 		</select>
-		<div dangerouslySetInnerHTML={{ __html: selected && selected.body }} />
+		<div dangerouslySetInnerHTML={{ __html: selected && selected.description }} />
 	</Section>;
 };
 

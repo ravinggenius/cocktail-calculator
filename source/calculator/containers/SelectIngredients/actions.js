@@ -1,8 +1,20 @@
 import * as INGREDIENT from './constants';
 
-export const updateSelected = event => ({
-	type: INGREDIENT.UPDATE_SELECTED,
-	selectedId: event.target.value
+export const addMeasurement = (id, amount) => ({
+	type: INGREDIENT.ADD_MEASUREMENT,
+	id,
+	amount
+});
+
+export const updateMeasurement = (id, amount) => ({
+	type: INGREDIENT.UPDATE_MEASUREMENT,
+	id,
+	amount
+});
+
+export const removeMeasurement = id => ({
+	type: INGREDIENT.REMOVE_MEASUREMENT,
+	id
 });
 
 export const receiveAvailable = ingredients => ({
@@ -15,6 +27,16 @@ export const fetchAvailableError = error => ({
 	error
 });
 
+const normalize = item => ({
+	id: item.id,
+	position: item.displayIndex,
+	name: item.title,
+	description: item.body,
+	ethanol: parseFloat(item.customContent.ethanol, 10),
+	sugar: parseFloat(item.customContent.sugar, 10),
+	acid: parseFloat(item.customContent.acid, 10)
+});
+
 export const fetchAvailableSuccess = response => dispatch => response.json()
 	.then((body) => {
 		if (body.error) {
@@ -24,7 +46,8 @@ export const fetchAvailableSuccess = response => dispatch => response.json()
 	})
 	.then(
 		(body) => {
-			dispatch(receiveAvailable(body.items));
+			const ingredients = body.items.map(normalize);
+			return dispatch(receiveAvailable(ingredients));
 		},
 		(error) => {
 			console.log(error); // eslint-disable-line no-console

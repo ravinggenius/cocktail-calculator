@@ -22,6 +22,9 @@ export default {
 		}),
 		commonjs({
 			namedExports: {
+				'redux-logger': [
+					'createLogger'
+				],
 				'react': [
 					'Children',
 					'Component',
