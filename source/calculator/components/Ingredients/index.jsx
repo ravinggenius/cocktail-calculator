@@ -8,7 +8,10 @@ import { BLANK_OPTION } from './constants';
 import {
 	orderByPosition,
 	round,
-	volume
+	volume,
+	ethanol,
+	sugar,
+	acid
 } from './utilities';
 
 class Ingredients extends React.PureComponent {
@@ -39,26 +42,26 @@ class Ingredients extends React.PureComponent {
 	renderMeasurements() {
 		const { measurements } = this.props;
 
-		const renderMeasurement = ({ id, amount, ethanol, sugar, acid }) => <tr key={id}>
+		const renderMeasurement = m => <tr key={m.id}>
 			<td>
 				<button
 					onClick={e => this.handleRemoveIngredient(e)}
-					data-ingredient-id={id}
+					data-ingredient-id={m.id}
 					type="button"
 				>remove</button>
 			</td>
-			<td>{this.renderSelector(id, amount, e => this.handleChangeIngredient(e))}</td>
+			<td>{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}</td>
 			<td>
 				<input
-					data-ingredient-id={id}
+					data-ingredient-id={m.id}
 					onChange={e => this.handleChangeAmount(e)}
 					type="number"
-					value={amount}
+					value={m.amount}
 				/>
 			</td>
-			<td>{ethanol}</td>
-			<td>{sugar}</td>
-			<td>{acid}</td>
+			<td>{m.ethanol}</td>
+			<td>{m.sugar}</td>
+			<td>{m.acid}</td>
 		</tr>;
 
 		return measurements.map(renderMeasurement);
@@ -130,9 +133,9 @@ class Ingredients extends React.PureComponent {
 					<tr>
 						<th colSpan={2}>Initial Totals</th>
 						<td>{round(volume(measurements))}</td>
-						<td>{}</td>
-						<td>{}</td>
-						<td>{}</td>
+						<td>{round(ethanol(measurements))}</td>
+						<td>{round(sugar(measurements))}</td>
+						<td>{round(acid(measurements))}</td>
 					</tr>
 				</tfoot>
 			</table>
