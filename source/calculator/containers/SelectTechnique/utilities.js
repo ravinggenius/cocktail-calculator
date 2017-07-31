@@ -2,6 +2,10 @@ import { ethanol } from '../../components/Ingredients/utilities';
 
 // eslint-disable-next-line import/prefer-default-export
 export const dilutionFor = (code, measurements) => {
+	if (!measurements.length) {
+		return 0;
+	}
+
 	let e;
 
 	switch (code) {
