@@ -3,7 +3,7 @@ import * as initial from '../Ingredients/utilities';
 
 export const round = initial.round;
 
-export const dilution = ({ name }, measurements) => dilutionFor(name, measurements);
+export const dilution = ({ code }, measurements) => dilutionFor(code, measurements);
 
 export const volume = (technique, measurements) => initial.volume(measurements) * (1 + dilution(technique, measurements));
 

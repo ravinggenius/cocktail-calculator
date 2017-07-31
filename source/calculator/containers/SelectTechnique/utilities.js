@@ -1,17 +1,17 @@
 import { ethanol } from '../../components/Ingredients/utilities';
 
 // eslint-disable-next-line import/prefer-default-export
-export const dilutionFor = (name, measurements) => {
+export const dilutionFor = (code, measurements) => {
 	let e;
 
-	switch (name) {
-	case 'Built':
+	switch (code) {
+	case 'built':
 		return 0.24;
-	case 'Stirred':
+	case 'stirred':
 		e = ethanol(measurements) / 100;
 		return (-1.21 * (e ** 2)) + (1.246 * e) + 0.145;
-	case 'Shaken':
-	case 'Shaken with egg white':
+	case 'shaken':
+	case 'shaken-egg':
 		e = ethanol(measurements) / 100;
 		return (-1.567 * (e ** 2)) + (1.742 * e) + 0.203;
 	default:
