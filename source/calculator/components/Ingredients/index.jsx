@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import LinkButton from '../LinkButton';
+import NumberCell from '../NumberCell';
+import NumberInput from '../NumberInput';
 import Section, { SectionTitle } from '../Section';
 
 import { BLANK_OPTION } from './constants';
@@ -51,17 +53,16 @@ class Ingredients extends React.PureComponent {
 				/>
 			</td>
 			<td>{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}</td>
-			<td>
-				<input
+			<NumberCell>
+				<NumberInput
 					data-ingredient-id={m.id}
 					onChange={e => this.handleChangeAmount(e)}
-					type="number"
 					value={m.amount}
 				/>
-			</td>
-			<td>{m.ethanol}</td>
-			<td>{m.sugar}</td>
-			<td>{m.acid}</td>
+			</NumberCell>
+			<NumberCell>{m.ethanol}</NumberCell>
+			<NumberCell>{m.sugar}</NumberCell>
+			<NumberCell>{m.acid}</NumberCell>
 		</tr>;
 
 		return measurements.map(renderMeasurement);
@@ -132,10 +133,10 @@ class Ingredients extends React.PureComponent {
 				<tfoot>
 					<tr>
 						<th colSpan={2}>Initial Totals</th>
-						<td>{round(volume(measurements))}</td>
-						<td>{round(ethanol(measurements))}</td>
-						<td>{round(sugar(measurements))}</td>
-						<td>{round(acid(measurements))}</td>
+						<NumberCell><output><NumberInput readOnly value={round(volume(measurements))} /></output></NumberCell>
+						<NumberCell><output>{round(ethanol(measurements))}</output></NumberCell>
+						<NumberCell><output>{round(sugar(measurements))}</output></NumberCell>
+						<NumberCell><output>{round(acid(measurements))}</output></NumberCell>
 					</tr>
 				</tfoot>
 			</table>

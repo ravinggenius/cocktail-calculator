@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import NumberCell from '../NumberCell';
 import Section, { SectionTitle } from '../Section';
 
 import {
@@ -22,11 +23,11 @@ const ResultRow = ({ actual, range: { low, high }, label, lowMessage, highMessag
 	const style = { backgroundColor, color };
 
 	return <tr>
-		<td>{label}</td>
-		<td {...{ style }}><output>{actual}</output></td>
+		<th>{label}</th>
+		<NumberCell {...{ style }}><output>{actual}</output></NumberCell>
 		<td {...{ style }}><output>{pickMessage(low, high, lowMessage, highMessage, actual)}</output></td>
-		<td>{low}</td>
-		<td>{high}</td>
+		<NumberCell>{low}</NumberCell>
+		<NumberCell>{high}</NumberCell>
 	</tr>;
 };
 
