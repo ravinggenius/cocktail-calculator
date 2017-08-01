@@ -1,3 +1,5 @@
+import { parseToRgb } from 'polished';
+
 import * as initial from '../Ingredients/utilities';
 
 export const round = initial.round;
@@ -46,3 +48,10 @@ export const pickMessage = (low, high, lowMessage, highMessage, actual) => {
 		return 'Good';
 	}
 };
+
+export const yiqBrightness = (color) => {
+	const { red, green, blue } = parseToRgb(color);
+	return ((red * 299) + (green * 587) + (blue * 114)) / 1000;
+};
+
+export const contrastFor = (color, light = '#000000', dark = '#FFFFFF') => ((yiqBrightness(color) >= 128) ? light : dark);

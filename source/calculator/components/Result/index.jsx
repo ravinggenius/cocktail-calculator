@@ -11,16 +11,20 @@ import {
 	sugar,
 	acid,
 	isGood,
-	pickMessage
+	pickMessage,
+	contrastFor
 } from './utilities';
 
 const ResultRow = ({ actual, range: { low, high }, label, lowMessage, highMessage }) => {
-	const className = isGood(low, high, actual) ? 'good' : 'bad';
+	const backgroundColor = isGood(low, high, actual) ? '#5DFD5D' : '#FD5D5D';
+	const color = contrastFor(backgroundColor);
+
+	const style = { backgroundColor, color };
 
 	return <tr>
 		<td>{label}</td>
-		<td {...{ className }}><output>{actual}</output></td>
-		<td {...{ className }}><output>{pickMessage(low, high, lowMessage, highMessage, actual)}</output></td>
+		<td {...{ style }}><output>{actual}</output></td>
+		<td {...{ style }}><output>{pickMessage(low, high, lowMessage, highMessage, actual)}</output></td>
 		<td>{low}</td>
 		<td>{high}</td>
 	</tr>;
