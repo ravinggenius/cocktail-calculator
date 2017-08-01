@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import LinkButton from '../LinkButton';
 import Section, { SectionTitle } from '../Section';
 
 import { BLANK_OPTION } from './constants';
@@ -44,11 +45,10 @@ class Ingredients extends React.PureComponent {
 
 		const renderMeasurement = m => <tr key={m.id}>
 			<td>
-				<button
+				<LinkButton
 					onClick={e => this.handleRemoveIngredient(e)}
 					data-ingredient-id={m.id}
-					type="button"
-				>remove</button>
+				/>
 			</td>
 			<td>{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}</td>
 			<td>
@@ -72,7 +72,7 @@ class Ingredients extends React.PureComponent {
 
 		if (measurements.every(({ amount }) => amount > 0)) {
 			return <tr>
-				<td />
+				<td><LinkButton disabled /></td>
 				<td>{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}</td>
 				<td colSpan={4} />
 			</tr>;
