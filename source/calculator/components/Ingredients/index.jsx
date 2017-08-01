@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Section, { SectionTitle } from '../../components/Section';
+import Section, { SectionTitle } from '../Section';
 
 import { BLANK_OPTION } from './constants';
 
