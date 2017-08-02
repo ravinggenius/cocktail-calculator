@@ -44,7 +44,7 @@ ResultRow.propTypes = {
 	highMessage: PropTypes.string.isRequired
 };
 
-const Result = ({ ingredients, technique }) => {
+const Result = ({ ingredients, technique, unit }) => {
 	if (!technique) {
 		return <p>Select a technique to view results.</p>;
 	}
@@ -77,7 +77,7 @@ const Result = ({ ingredients, technique }) => {
 					actual={volume(technique, ingredients)}
 					format={round}
 					range={technique.volume}
-					label="Final Volume"
+					label={`Final Volume (${unit.name})`}
 					lowMessage="Not enough volume"
 					highMessage="Too much volume"
 				/>
@@ -119,7 +119,8 @@ Result.defaultProps = {
 
 Result.propTypes = {
 	ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
-	technique: PropTypes.object // eslint-disable-line react/forbid-prop-types
+	technique: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+	unit: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
 export default Result;
