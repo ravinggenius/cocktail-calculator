@@ -4,10 +4,10 @@ export const round = number => Math.round(number * 100) / 100;
 
 export const percentage = number => `${round(number * 100)}%`;
 
-export const volume = measurements => measurements.reduce((memo, { amount }) => memo + amount, 0);
+export const volume = measurements => measurements.reduce((memo, { amount }) => memo + (amount || 0), 0);
 
 const buildInitial = key => (measurements) => {
-	const product = measurements.reduce((memo, m) => memo + (m.amount * m[key]), 0);
+	const product = measurements.reduce((memo, m) => memo + ((m.amount || 0) * m[key]), 0);
 	const v = volume(measurements);
 	return v ? (product / v) : v;
 };
