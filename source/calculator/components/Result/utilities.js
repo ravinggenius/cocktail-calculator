@@ -2,7 +2,7 @@ import { parseToRgb } from 'polished';
 
 import * as initial from '../Ingredients/utilities';
 
-export const round = initial.round;
+export const format = initial.format;
 
 export const dilution = ({ code }, measurements) => {
 	if (!measurements.length) {

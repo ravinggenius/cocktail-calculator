@@ -5,7 +5,7 @@ import NumberCell from '../NumberCell';
 import Section, { SectionTitle } from '../Section';
 
 import {
-	round,
+	format,
 	dilution,
 	volume,
 	ethanol,
@@ -16,7 +16,7 @@ import {
 	contrastFor
 } from './utilities';
 
-const ResultRow = ({ actual, range: { low, high }, label, lowMessage, highMessage }) => {
+const ResultRow = ({ actual, format: formatStr, range: { low, high }, label, lowMessage, highMessage }) => {
 	const backgroundColor = isGood(low, high, actual) ? '#5DFD5D' : '#FD5D5D';
 	const color = contrastFor(backgroundColor);
 
@@ -24,15 +24,20 @@ const ResultRow = ({ actual, range: { low, high }, label, lowMessage, highMessag
 
 	return <tr>
 		<th>{label}</th>
-		<NumberCell {...{ style }}><output>{actual}</output></NumberCell>
+		<NumberCell {...{ style }}><output>{format(formatStr, actual)}</output></NumberCell>
 		<td {...{ style }}><output>{pickMessage(low, high, lowMessage, highMessage, actual)}</output></td>
-		<NumberCell>{low}</NumberCell>
-		<NumberCell>{high}</NumberCell>
+		<NumberCell>{format(formatStr, low)}</NumberCell>
+		<NumberCell>{format(formatStr, high)}</NumberCell>
 	</tr>;
+};
+
+ResultRow.defaultProps = {
+	format: ''
 };
 
 ResultRow.propTypes = {
 	actual: PropTypes.number.isRequired,
+	format: PropTypes.string,
 	range: PropTypes.shape({
 		low: PropTypes.number.isRequired,
 		high: PropTypes.number.isRequired
@@ -63,7 +68,8 @@ const Result = ({ ingredients, technique }) => {
 
 			<tbody>
 				<ResultRow
-					actual={round(dilution(technique, ingredients))}
+					actual={dilution(technique, ingredients)}
+					format="%"
 					range={technique.dilution}
 					label="Dilution from mixing (%)"
 					lowMessage="Underdiluted"
@@ -71,7 +77,7 @@ const Result = ({ ingredients, technique }) => {
 				/>
 
 				<ResultRow
-					actual={round(volume(technique, ingredients))}
+					actual={volume(technique, ingredients)}
 					range={technique.volume}
 					label="Final Volume"
 					lowMessage="Not enough volume"
@@ -79,7 +85,8 @@ const Result = ({ ingredients, technique }) => {
 				/>
 
 				<ResultRow
-					actual={round(ethanol(technique, ingredients))}
+					actual={ethanol(technique, ingredients)}
+					format="%"
 					range={technique.ethanol}
 					label="Ethanol (%abv)"
 					lowMessage="Not enough ethanol"
@@ -87,7 +94,7 @@ const Result = ({ ingredients, technique }) => {
 				/>
 
 				<ResultRow
-					actual={round(sugar(technique, ingredients))}
+					actual={sugar(technique, ingredients)}
 					range={technique.sugar}
 					label="Sugar (g/100ml)"
 					lowMessage="Not sweet enough"
@@ -95,7 +102,8 @@ const Result = ({ ingredients, technique }) => {
 				/>
 
 				<ResultRow
-					actual={round(acid(technique, ingredients))}
+					actual={acid(technique, ingredients)}
+					format="%"
 					range={technique.acid}
 					label="Acid (%)"
 					lowMessage="Not acidic enough"
