@@ -15,11 +15,11 @@ export const dilution = ({ code }, measurements) => {
 	case 'built':
 		return 0.24;
 	case 'stirred':
-		e = initial.ethanol(measurements) / 100;
+		e = initial.ethanol(measurements);
 		return (-1.21 * (e ** 2)) + (1.246 * e) + 0.145;
 	case 'shaken':
 	case 'shaken-egg':
-		e = initial.ethanol(measurements) / 100;
+		e = initial.ethanol(measurements);
 		return (-1.567 * (e ** 2)) + (1.742 * e) + 0.203;
 	default:
 		return 0;
