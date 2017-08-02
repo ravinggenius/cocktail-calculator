@@ -11,7 +11,7 @@ import { BLANK_OPTION } from './constants';
 
 import {
 	orderByPosition,
-	format,
+	percentage,
 	round,
 	volume,
 	ethanol,
@@ -65,9 +65,9 @@ class Ingredients extends React.PureComponent {
 					value={m.amount}
 				/>
 			</NumberCell>
-			<NumberCell>{format('%', m.ethanol)}</NumberCell>
-			<NumberCell>{format('', m.sugar)}</NumberCell>
-			<NumberCell>{format('%', m.acid)}</NumberCell>
+			<NumberCell>{percentage(m.ethanol)}</NumberCell>
+			<NumberCell>{round(m.sugar)}</NumberCell>
+			<NumberCell>{percentage(m.acid)}</NumberCell>
 		</tr>;
 
 		return [ ...measurements ].sort(orderByPosition).map(renderMeasurement);
@@ -139,9 +139,9 @@ class Ingredients extends React.PureComponent {
 					<tr>
 						<th colSpan={2}>Initial Totals</th>
 						<NumberCell><output><NumberInput readOnly value={round(volume(measurements))} /></output></NumberCell>
-						<NumberCell><output>{format('%', ethanol(measurements))}</output></NumberCell>
-						<NumberCell><output>{format('', sugar(measurements))}</output></NumberCell>
-						<NumberCell><output>{format('%', acid(measurements))}</output></NumberCell>
+						<NumberCell><output>{percentage(ethanol(measurements))}</output></NumberCell>
+						<NumberCell><output>{round(sugar(measurements))}</output></NumberCell>
+						<NumberCell><output>{percentage(acid(measurements))}</output></NumberCell>
 					</tr>
 				</tfoot>
 			</table>
