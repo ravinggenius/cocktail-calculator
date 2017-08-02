@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import LinkButton from '../LinkButton';
+import Note from '../Note';
 import NumberCell from '../NumberCell';
 import NumberInput from '../NumberInput';
 import Section, { SectionTitle } from '../Section';
@@ -144,6 +145,10 @@ class Ingredients extends React.PureComponent {
 					</tr>
 				</tfoot>
 			</table>
+
+			<Note title="egg white" description="30 ml or 1 oz" />
+			<Note title="dash" description="0.8 ml or 0.027 oz" />
+			<Note title="barspoon" description="4 ml or ~0.125 oz" />
 		</Section>;
 	}
 }
