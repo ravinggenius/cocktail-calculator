@@ -29,8 +29,8 @@ export const dilution = ({ code }, measurements) => {
 export const volume = (technique, measurements) => initial.volume(measurements) * (1 + dilution(technique, measurements));
 
 const buildFinal = key => (technique, measurements) => {
-	const reply = (initial.volume(measurements) * initial[key](measurements)) / volume(technique, measurements);
-	return Number.isNaN(reply) ? null : reply;
+	const v = volume(technique, measurements);
+	return v ? ((initial.volume(measurements) * initial[key](measurements)) / v) : v;
 };
 
 export const ethanol = buildFinal('ethanol');
