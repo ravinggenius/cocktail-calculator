@@ -5,6 +5,7 @@ module.exports = {
 	},
 	'extends': 'airbnb',
 	'rules': {
+		'array-bracket-spacing': [ 'error', 'always' ],
 		'comma-dangle': [ 'error', 'never' ],
 		'indent': [ 'error', 'tab' ],
 		'max-len': [ 'warn' ],

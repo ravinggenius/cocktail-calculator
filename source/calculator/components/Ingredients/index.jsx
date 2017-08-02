@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Section, { SectionTitle } from '../../components/Section';
+import LinkButton from '../LinkButton';
+import Note from '../Note';
+import NumberCell from '../NumberCell';
+import NumberInput from '../NumberInput';
+import Section, { SectionTitle } from '../Section';
 
 import { BLANK_OPTION } from './constants';
 
 import {
 	orderByPosition,
+	percentage,
 	round,
 	volume,
 	ethanol,
@@ -16,18 +21,21 @@ import {
 
 class Ingredients extends React.PureComponent {
 	handleAddIngredient({ target }) {
-		this.props.onAdd(target.value, 0);
+		const position = this.props.measurements.length;
+		this.props.onAdd(target.value, 0, position);
 	}
 
 	handleChangeIngredient({ target }) {
 		const amount = parseFloat(target.dataset.amount, 10);
+		const oldSelected = this.props.measurements.find(({ id }) => id === target.dataset.ingredientId);
 		this.props.onRemove(target.dataset.ingredientId);
-		this.props.onAdd(target.value, amount);
+		this.props.onAdd(target.value, amount, oldSelected.position);
 	}
 
 	handleChangeAmount({ target }) {
 		const amount = parseFloat(target.value, 10);
-		this.props.onUpdate(target.dataset.ingredientId, amount);
+		const selected = this.props.measurements.find(({ id }) => id === target.dataset.ingredientId);
+		this.props.onUpdate(target.dataset.ingredientId, amount, selected.position);
 	}
 
 	handleRemoveIngredient({ target }) {
@@ -44,27 +52,25 @@ class Ingredients extends React.PureComponent {
 
 		const renderMeasurement = m => <tr key={m.id}>
 			<td>
-				<button
+				<LinkButton
 					onClick={e => this.handleRemoveIngredient(e)}
 					data-ingredient-id={m.id}
-					type="button"
-				>remove</button>
-			</td>
-			<td>{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}</td>
-			<td>
-				<input
-					data-ingredient-id={m.id}
-					onChange={e => this.handleChangeAmount(e)}
-					type="number"
-					value={m.amount}
 				/>
 			</td>
-			<td>{m.ethanol}</td>
-			<td>{m.sugar}</td>
-			<td>{m.acid}</td>
+			<td>{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}</td>
+			<NumberCell>
+				<NumberInput
+					data-ingredient-id={m.id}
+					onChange={e => this.handleChangeAmount(e)}
+					value={m.amount}
+				/>
+			</NumberCell>
+			<NumberCell>{percentage(m.ethanol)}</NumberCell>
+			<NumberCell>{round(m.sugar)}</NumberCell>
+			<NumberCell>{percentage(m.acid)}</NumberCell>
 		</tr>;
 
-		return measurements.map(renderMeasurement);
+		return [ ...measurements ].sort(orderByPosition).map(renderMeasurement);
 	}
 
 	renderNewMeasurement() {
@@ -72,7 +78,7 @@ class Ingredients extends React.PureComponent {
 
 		if (measurements.every(({ amount }) => amount > 0)) {
 			return <tr>
-				<td />
+				<td><LinkButton disabled /></td>
 				<td>{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}</td>
 				<td colSpan={4} />
 			</tr>;
@@ -132,13 +138,17 @@ class Ingredients extends React.PureComponent {
 				<tfoot>
 					<tr>
 						<th colSpan={2}>Initial Totals</th>
-						<td>{round(volume(measurements))}</td>
-						<td>{round(ethanol(measurements))}</td>
-						<td>{round(sugar(measurements))}</td>
-						<td>{round(acid(measurements))}</td>
+						<NumberCell><output><NumberInput readOnly value={round(volume(measurements))} /></output></NumberCell>
+						<NumberCell><output>{percentage(ethanol(measurements))}</output></NumberCell>
+						<NumberCell><output>{round(sugar(measurements))}</output></NumberCell>
+						<NumberCell><output>{percentage(acid(measurements))}</output></NumberCell>
 					</tr>
 				</tfoot>
 			</table>
+
+			<Note title="egg white" description="30 ml or 1 oz" />
+			<Note title="dash" description="0.8 ml or 0.027 oz" />
+			<Note title="barspoon" description="4 ml or ~0.125 oz" />
 		</Section>;
 	}
 }

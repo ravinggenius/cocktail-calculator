@@ -14,9 +14,9 @@ class SelectIngredients extends React.Component {
 	render() {
 		const { available, error, measurements, onAdd, onUpdate, onRemove } = this.props;
 
-		const measuredIngredients = measurements.map(({ id, amount }) => {
+		const measuredIngredients = measurements.map(({ id, amount, position }) => {
 			const found = available.find(ingredient => ingredient.id === id);
-			return Object.assign({}, found, { amount });
+			return Object.assign({}, found, { amount, position });
 		});
 
 		return <Ingredients
@@ -44,8 +44,8 @@ const mapStateToProps = ({ ingredient: { available, fetchError: error, measureme
 
 const mapDispatchToProps = dispatch => ({
 	fetchAvailable: () => dispatch(fetchAvailable()),
-	onAdd: (id, amount) => dispatch(addMeasurement(id, amount)),
-	onUpdate: (id, amount) => dispatch(updateMeasurement(id, amount)),
+	onAdd: (id, amount, position) => dispatch(addMeasurement(id, amount, position)),
+	onUpdate: (id, amount, position) => dispatch(updateMeasurement(id, amount, position)),
 	onRemove: id => dispatch(removeMeasurement(id))
 });
 

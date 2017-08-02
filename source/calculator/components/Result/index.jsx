@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Section, { SectionTitle } from '../../components/Section';
+import NumberCell from '../NumberCell';
+import Section, { SectionTitle } from '../Section';
 
 import {
+	percentage,
 	round,
 	dilution,
 	volume,
@@ -11,23 +13,28 @@ import {
 	sugar,
 	acid,
 	isGood,
-	pickMessage
+	pickMessage,
+	contrastFor
 } from './utilities';
 
-const ResultRow = ({ actual, range: { low, high }, label, lowMessage, highMessage }) => {
-	const className = isGood(low, high, actual) ? 'good' : 'bad';
+const ResultRow = ({ actual, format, range: { low, high }, label, lowMessage, highMessage }) => {
+	const backgroundColor = isGood(low, high, actual) ? '#5DFD5D' : '#FD5D5D';
+	const color = contrastFor(backgroundColor);
+
+	const style = { backgroundColor, color };
 
 	return <tr>
-		<td>{label}</td>
-		<td {...{ className }}><output>{actual}</output></td>
-		<td {...{ className }}><output>{pickMessage(low, high, lowMessage, highMessage, actual)}</output></td>
-		<td>{low}</td>
-		<td>{high}</td>
+		<th>{label}</th>
+		<NumberCell {...{ style }}><output>{format(actual)}</output></NumberCell>
+		<td {...{ style }}><output>{pickMessage(low, high, lowMessage, highMessage, actual)}</output></td>
+		<NumberCell>{format(low)}</NumberCell>
+		<NumberCell>{format(high)}</NumberCell>
 	</tr>;
 };
 
 ResultRow.propTypes = {
 	actual: PropTypes.number.isRequired,
+	format: PropTypes.func.isRequired,
 	range: PropTypes.shape({
 		low: PropTypes.number.isRequired,
 		high: PropTypes.number.isRequired
@@ -37,7 +44,7 @@ ResultRow.propTypes = {
 	highMessage: PropTypes.string.isRequired
 };
 
-const Result = ({ ingredients, technique }) => {
+const Result = ({ ingredients, technique, unit }) => {
 	if (!technique) {
 		return <p>Select a technique to view results.</p>;
 	}
@@ -58,7 +65,8 @@ const Result = ({ ingredients, technique }) => {
 
 			<tbody>
 				<ResultRow
-					actual={round(dilution(technique, ingredients))}
+					actual={dilution(technique, ingredients)}
+					format={percentage}
 					range={technique.dilution}
 					label="Dilution from mixing (%)"
 					lowMessage="Underdiluted"
@@ -66,15 +74,17 @@ const Result = ({ ingredients, technique }) => {
 				/>
 
 				<ResultRow
-					actual={round(volume(technique, ingredients))}
+					actual={volume(technique, ingredients)}
+					format={round}
 					range={technique.volume}
-					label="Final Volume"
+					label={`Final Volume (${unit.name})`}
 					lowMessage="Not enough volume"
 					highMessage="Too much volume"
 				/>
 
 				<ResultRow
-					actual={round(ethanol(technique, ingredients))}
+					actual={ethanol(technique, ingredients)}
+					format={percentage}
 					range={technique.ethanol}
 					label="Ethanol (%abv)"
 					lowMessage="Not enough ethanol"
@@ -82,7 +92,8 @@ const Result = ({ ingredients, technique }) => {
 				/>
 
 				<ResultRow
-					actual={round(sugar(technique, ingredients))}
+					actual={sugar(technique, ingredients)}
+					format={round}
 					range={technique.sugar}
 					label="Sugar (g/100ml)"
 					lowMessage="Not sweet enough"
@@ -90,7 +101,8 @@ const Result = ({ ingredients, technique }) => {
 				/>
 
 				<ResultRow
-					actual={round(acid(technique, ingredients))}
+					actual={acid(technique, ingredients)}
+					format={percentage}
 					range={technique.acid}
 					label="Acid (%)"
 					lowMessage="Not acidic enough"
@@ -107,7 +119,8 @@ Result.defaultProps = {
 
 Result.propTypes = {
 	ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
-	technique: PropTypes.object // eslint-disable-line react/forbid-prop-types
+	technique: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+	unit: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
 export default Result;

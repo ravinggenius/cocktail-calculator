@@ -1,15 +1,17 @@
 import * as INGREDIENT from './constants';
 
-export const addMeasurement = (id, amount) => ({
+export const addMeasurement = (id, amount, position) => ({
 	type: INGREDIENT.ADD_MEASUREMENT,
 	id,
-	amount
+	amount,
+	position
 });
 
-export const updateMeasurement = (id, amount) => ({
+export const updateMeasurement = (id, amount, position) => ({
 	type: INGREDIENT.UPDATE_MEASUREMENT,
 	id,
-	amount
+	amount,
+	position
 });
 
 export const removeMeasurement = id => ({

@@ -1,19 +1,21 @@
 import { connect } from 'react-redux';
 
 import Result from '../../components/Result';
+
+import * as TECHNIQUE from '../SelectTechnique/constants';
 import * as UNIT from '../SelectUnit/constants';
 
-const findById = items => id => items.find(item => item.id === id);
+const findBy = property => items => value => items.find(item => item[property] === value);
 
 const mapStateToProps = ({ ingredient, technique, unit }) => {
-	const findIngredientById = findById(ingredient.available);
+	const findIngredientById = findBy('id')(ingredient.available);
 
 	return {
 		ingredients: ingredient.measurements.map(
 			({ amount, id }) => Object.assign({}, findIngredientById(id), { amount })
 		),
-		technique: findById(technique.available)(technique.selectedId),
-		unit: UNIT.AVAILABLE.find(u => u.code === unit.selectedCode)
+		technique: findBy('code')(TECHNIQUE.AVAILABLE)(technique.selectedCode),
+		unit: findBy('code')(UNIT.AVAILABLE)(unit.selectedCode)
 	};
 };
 
