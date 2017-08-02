@@ -20,18 +20,21 @@ import {
 
 class Ingredients extends React.PureComponent {
 	handleAddIngredient({ target }) {
-		this.props.onAdd(target.value, 0);
+		const position = this.props.measurements.length;
+		this.props.onAdd(target.value, 0, position);
 	}
 
 	handleChangeIngredient({ target }) {
 		const amount = parseFloat(target.dataset.amount, 10);
+		const oldSelected = this.props.measurements.find(({ id }) => id === target.dataset.ingredientId);
 		this.props.onRemove(target.dataset.ingredientId);
-		this.props.onAdd(target.value, amount);
+		this.props.onAdd(target.value, amount, oldSelected.position);
 	}
 
 	handleChangeAmount({ target }) {
 		const amount = parseFloat(target.value, 10);
-		this.props.onUpdate(target.dataset.ingredientId, amount);
+		const selected = this.props.measurements.find(({ id }) => id === target.dataset.ingredientId);
+		this.props.onUpdate(target.dataset.ingredientId, amount, selected.position);
 	}
 
 	handleRemoveIngredient({ target }) {
@@ -66,7 +69,7 @@ class Ingredients extends React.PureComponent {
 			<NumberCell>{format('%', m.acid)}</NumberCell>
 		</tr>;
 
-		return measurements.map(renderMeasurement);
+		return [ ...measurements ].sort(orderByPosition).map(renderMeasurement);
 	}
 
 	renderNewMeasurement() {
