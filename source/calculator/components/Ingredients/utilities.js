@@ -15,3 +15,13 @@ const buildInitial = key => (measurements) => {
 export const ethanol = buildInitial('ethanol');
 export const sugar = buildInitial('sugar');
 export const acid = buildInitial('acid');
+
+export const convertToMl = ({ code }, amount) => ({
+	ml: amount,
+	oz: amount * 28.4131
+}[code]);
+
+export const convertToUnit = ({ code }, amount) => ({
+	ml: round(amount),
+	oz: round(amount * 0.03519503)
+}[code]);

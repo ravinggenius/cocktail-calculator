@@ -16,7 +16,9 @@ import {
 	volume,
 	ethanol,
 	sugar,
-	acid
+	acid,
+	convertToMl,
+	convertToUnit
 } from './utilities';
 
 class Ingredients extends React.PureComponent {
@@ -33,7 +35,9 @@ class Ingredients extends React.PureComponent {
 	}
 
 	handleChangeAmount({ target }) {
-		const amount = parseFloat(target.value, 10);
+		const { unit } = this.props;
+		const rawAmount = parseFloat(target.value, 10);
+		const amount = convertToMl(unit, rawAmount);
 		const selected = this.props.measurements.find(({ id }) => id === target.dataset.ingredientId);
 		this.props.onUpdate(target.dataset.ingredientId, amount, selected.position);
 	}
@@ -48,7 +52,7 @@ class Ingredients extends React.PureComponent {
 	}
 
 	renderMeasurements() {
-		const { measurements } = this.props;
+		const { measurements, unit } = this.props;
 
 		const renderMeasurement = m => <tr key={m.id}>
 			<td>
@@ -62,7 +66,7 @@ class Ingredients extends React.PureComponent {
 				<NumberInput
 					data-ingredient-id={m.id}
 					onChange={e => this.handleChangeAmount(e)}
-					value={m.amount}
+					value={convertToUnit(unit, m.amount)}
 				/>
 			</NumberCell>
 			<NumberCell>{percentage(m.ethanol)}</NumberCell>
@@ -110,7 +114,7 @@ class Ingredients extends React.PureComponent {
 	}
 
 	render() {
-		const { measurements } = this.props;
+		const { measurements, unit } = this.props;
 
 		return <Section>
 			<SectionTitle>Ingredients</SectionTitle>
@@ -138,7 +142,7 @@ class Ingredients extends React.PureComponent {
 				<tfoot>
 					<tr>
 						<th colSpan={2}>Initial Totals</th>
-						<NumberCell><output><NumberInput readOnly value={round(volume(measurements))} /></output></NumberCell>
+						<NumberCell><output><NumberInput readOnly value={convertToUnit(unit, volume(measurements))} /></output></NumberCell>
 						<NumberCell><output>{percentage(ethanol(measurements))}</output></NumberCell>
 						<NumberCell><output>{round(sugar(measurements))}</output></NumberCell>
 						<NumberCell><output>{percentage(acid(measurements))}</output></NumberCell>
@@ -159,7 +163,8 @@ Ingredients.propTypes = {
 	measurements: PropTypes.arrayOf(PropTypes.object).isRequired,
 	onAdd: PropTypes.func.isRequired,
 	onUpdate: PropTypes.func.isRequired,
-	onRemove: PropTypes.func.isRequired
+	onRemove: PropTypes.func.isRequired,
+	unit: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
 export default Ingredients;

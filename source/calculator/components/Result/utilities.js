@@ -55,3 +55,5 @@ export const yiqBrightness = (color) => {
 };
 
 export const contrastFor = (color, light = '#000000', dark = '#FFFFFF') => ((yiqBrightness(color) >= 128) ? light : dark);
+
+export const convertToUnit = unit => amount => initial.convertToUnit(unit, amount);

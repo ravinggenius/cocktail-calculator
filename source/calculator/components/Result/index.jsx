@@ -14,7 +14,8 @@ import {
 	acid,
 	isGood,
 	pickMessage,
-	contrastFor
+	contrastFor,
+	convertToUnit
 } from './utilities';
 
 const ResultRow = ({ actual, format, range: { low, high }, label, lowMessage, highMessage }) => {
@@ -75,7 +76,7 @@ const Result = ({ ingredients, technique, unit }) => {
 
 				<ResultRow
 					actual={volume(technique, ingredients)}
-					format={round}
+					format={convertToUnit(unit)}
 					range={technique.volume}
 					label={`Final Volume (${unit.name})`}
 					lowMessage="Not enough volume"
