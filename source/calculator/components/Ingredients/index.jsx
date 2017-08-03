@@ -54,6 +54,8 @@ class Ingredients extends React.PureComponent {
 	renderMeasurements() {
 		const { measurements, unit } = this.props;
 
+		const step = (unit.code === 'ml') ? 1 : 0.25;
+
 		const renderMeasurement = m => <tr key={m.id}>
 			<td>
 				<LinkButton
@@ -64,7 +66,9 @@ class Ingredients extends React.PureComponent {
 			<td>{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}</td>
 			<NumberCell>
 				<NumberInput
+					{...{ step }}
 					data-ingredient-id={m.id}
+					min={0}
 					onChange={e => this.handleChangeAmount(e)}
 					value={convertToUnit(unit, m.amount)}
 				/>
