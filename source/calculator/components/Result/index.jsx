@@ -6,7 +6,7 @@ import Section, { SectionTitle } from '../Section';
 
 import {
 	percentage,
-	round,
+	round2,
 	dilution,
 	volume,
 	ethanol,
@@ -14,7 +14,8 @@ import {
 	acid,
 	isGood,
 	pickMessage,
-	contrastFor
+	contrastFor,
+	convertToUnit
 } from './utilities';
 
 const ResultRow = ({ actual, format, range: { low, high }, label, lowMessage, highMessage }) => {
@@ -26,7 +27,13 @@ const ResultRow = ({ actual, format, range: { low, high }, label, lowMessage, hi
 	return <tr>
 		<th>{label}</th>
 		<NumberCell {...{ style }}><output>{format(actual)}</output></NumberCell>
-		<td {...{ style }}><output>{pickMessage(low, high, lowMessage, highMessage, actual)}</output></td>
+		<td {...{ style }}><output>{pickMessage(
+			low,
+			high,
+			lowMessage,
+			highMessage,
+			actual
+		)}</output></td>
 		<NumberCell>{format(low)}</NumberCell>
 		<NumberCell>{format(high)}</NumberCell>
 	</tr>;
@@ -75,7 +82,7 @@ const Result = ({ ingredients, technique, unit }) => {
 
 				<ResultRow
 					actual={volume(technique, ingredients)}
-					format={round}
+					format={convertToUnit(unit)}
 					range={technique.volume}
 					label={`Final Volume (${unit.name})`}
 					lowMessage="Not enough volume"
@@ -93,7 +100,7 @@ const Result = ({ ingredients, technique, unit }) => {
 
 				<ResultRow
 					actual={sugar(technique, ingredients)}
-					format={round}
+					format={round2}
 					range={technique.sugar}
 					label="Sugar (g/100ml)"
 					lowMessage="Not sweet enough"

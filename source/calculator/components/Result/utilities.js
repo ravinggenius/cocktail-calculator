@@ -2,7 +2,7 @@ import { parseToRgb } from 'polished';
 
 import * as initial from '../Ingredients/utilities';
 
-export const { percentage, round } = initial;
+export const { percentage, round2 } = initial;
 
 export const dilution = ({ code }, measurements) => {
 	if (!measurements.length) {
@@ -26,7 +26,9 @@ export const dilution = ({ code }, measurements) => {
 	}
 };
 
-export const volume = (technique, measurements) => initial.volume(measurements) * (1 + dilution(technique, measurements));
+export const volume = (technique, measurements) => (
+	initial.volume(measurements) * (1 + dilution(technique, measurements))
+);
 
 const buildFinal = key => (technique, measurements) => {
 	const v = volume(technique, measurements);
@@ -55,3 +57,5 @@ export const yiqBrightness = (color) => {
 };
 
 export const contrastFor = (color, light = '#000000', dark = '#FFFFFF') => ((yiqBrightness(color) >= 128) ? light : dark);
+
+export const convertToUnit = unit => amount => initial.convertToUnit(unit, amount);

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import Ingredients from '../../components/Ingredients';
 
+import * as UNIT from '../SelectUnit/constants';
+
 import { fetchAvailable, addMeasurement, updateMeasurement, removeMeasurement } from './actions';
 
 class SelectIngredients extends React.Component {
@@ -12,7 +14,7 @@ class SelectIngredients extends React.Component {
 	}
 
 	render() {
-		const { available, error, measurements, onAdd, onUpdate, onRemove } = this.props;
+		const { available, error, measurements, onAdd, onUpdate, onRemove, unit } = this.props;
 
 		const measuredIngredients = measurements.map(({ id, amount, position }) => {
 			const found = available.find(ingredient => ingredient.id === id);
@@ -20,7 +22,7 @@ class SelectIngredients extends React.Component {
 		});
 
 		return <Ingredients
-			{...{ available, error, onAdd, onUpdate, onRemove }}
+			{...{ available, error, onAdd, onUpdate, onRemove, unit }}
 			measurements={measuredIngredients}
 		/>;
 	}
@@ -33,13 +35,18 @@ SelectIngredients.propTypes = {
 	measurements: PropTypes.arrayOf(PropTypes.object).isRequired,
 	onAdd: PropTypes.func.isRequired,
 	onUpdate: PropTypes.func.isRequired,
-	onRemove: PropTypes.func.isRequired
+	onRemove: PropTypes.func.isRequired,
+	unit: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
-const mapStateToProps = ({ ingredient: { available, fetchError: error, measurements } }) => ({
+const mapStateToProps = ({
+	ingredient: { available, fetchError: error, measurements },
+	unit: { selectedCode }
+}) => ({
 	available,
 	error,
-	measurements
+	measurements,
+	unit: UNIT.AVAILABLE.find(({ code }) => code === selectedCode)
 });
 
 const mapDispatchToProps = dispatch => ({
