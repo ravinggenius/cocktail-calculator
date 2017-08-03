@@ -27,7 +27,13 @@ const ResultRow = ({ actual, format, range: { low, high }, label, lowMessage, hi
 	return <tr>
 		<th>{label}</th>
 		<NumberCell {...{ style }}><output>{format(actual)}</output></NumberCell>
-		<td {...{ style }}><output>{pickMessage(low, high, lowMessage, highMessage, actual)}</output></td>
+		<td {...{ style }}><output>{pickMessage(
+			low,
+			high,
+			lowMessage,
+			highMessage,
+			actual
+		)}</output></td>
 		<NumberCell>{format(low)}</NumberCell>
 		<NumberCell>{format(high)}</NumberCell>
 	</tr>;

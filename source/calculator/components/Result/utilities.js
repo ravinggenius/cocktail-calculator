@@ -26,7 +26,9 @@ export const dilution = ({ code }, measurements) => {
 	}
 };
 
-export const volume = (technique, measurements) => initial.volume(measurements) * (1 + dilution(technique, measurements));
+export const volume = (technique, measurements) => (
+	initial.volume(measurements) * (1 + dilution(technique, measurements))
+);
 
 const buildFinal = key => (technique, measurements) => {
 	const v = volume(technique, measurements);

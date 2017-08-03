@@ -29,7 +29,9 @@ class Ingredients extends React.PureComponent {
 
 	handleChangeIngredient({ target }) {
 		const amount = parseFloat(target.dataset.amount, 10);
-		const oldSelected = this.props.measurements.find(({ id }) => id === target.dataset.ingredientId);
+		const oldSelected = this.props.measurements.find(
+			({ id }) => id === target.dataset.ingredientId
+		);
 		this.props.onRemove(target.dataset.ingredientId);
 		this.props.onAdd(target.value, amount, oldSelected.position);
 	}
@@ -146,7 +148,10 @@ class Ingredients extends React.PureComponent {
 				<tfoot>
 					<tr>
 						<th colSpan={2}>Initial Totals</th>
-						<NumberCell><output><NumberInput readOnly value={convertToUnit(unit, volume(measurements))} /></output></NumberCell>
+						<NumberCell><output><NumberInput
+							readOnly
+							value={convertToUnit(unit, volume(measurements))}
+						/></output></NumberCell>
 						<NumberCell><output>{percentage(ethanol(measurements))}</output></NumberCell>
 						<NumberCell><output>{round2(sugar(measurements))}</output></NumberCell>
 						<NumberCell><output>{percentage(acid(measurements))}</output></NumberCell>

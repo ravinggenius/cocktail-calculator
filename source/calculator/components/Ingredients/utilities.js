@@ -7,7 +7,10 @@ export const round2 = buildRound(2);
 
 export const percentage = number => `${round2(number * 100)}%`;
 
-export const volume = measurements => measurements.reduce((memo, { amount }) => memo + (amount || 0), 0);
+export const volume = measurements => measurements.reduce(
+	(memo, { amount }) => memo + (amount || 0),
+	0
+);
 
 const buildInitial = key => (measurements) => {
 	const product = measurements.reduce((memo, m) => memo + ((m.amount || 0) * m[key]), 0);

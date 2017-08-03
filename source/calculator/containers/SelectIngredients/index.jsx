@@ -39,7 +39,10 @@ SelectIngredients.propTypes = {
 	unit: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
-const mapStateToProps = ({ ingredient: { available, fetchError: error, measurements }, unit: { selectedCode } }) => ({
+const mapStateToProps = ({
+	ingredient: { available, fetchError: error, measurements },
+	unit: { selectedCode }
+}) => ({
 	available,
 	error,
 	measurements,
