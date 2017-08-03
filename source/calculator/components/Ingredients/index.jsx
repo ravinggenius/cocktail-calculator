@@ -83,20 +83,6 @@ class Ingredients extends React.PureComponent {
 		return [ ...measurements ].sort(orderByPosition).map(renderMeasurement);
 	}
 
-	renderNewMeasurement() {
-		const { measurements } = this.props;
-
-		if (measurements.every(({ amount }) => amount > 0)) {
-			return <tr>
-				<td><LinkButton disabled /></td>
-				<td>{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}</td>
-				<td colSpan={4} />
-			</tr>;
-		} else {
-			return null;
-		}
-	}
-
 	renderSelector(selectedId, amount, onChange) {
 		const { available, measurements } = this.props;
 		const selectedIds = measurements.map(({ id }) => id);
@@ -142,7 +128,11 @@ class Ingredients extends React.PureComponent {
 
 				<tbody>
 					{this.renderMeasurements()}
-					{this.renderNewMeasurement()}
+					<tr>
+						<td><LinkButton disabled /></td>
+						<td>{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}</td>
+						<td colSpan={4} />
+					</tr>
 				</tbody>
 
 				<tfoot>
