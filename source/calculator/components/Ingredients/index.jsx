@@ -69,6 +69,7 @@ class Ingredients extends React.PureComponent {
 			<NumberCell>
 				<NumberInput
 					{...{ step }}
+					autoFocus
 					data-ingredient-id={m.id}
 					min={0}
 					onChange={e => this.handleChangeAmount(e)}
