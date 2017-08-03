@@ -69,6 +69,7 @@ class Ingredients extends React.PureComponent {
 			<NumberCell>
 				<NumberInput
 					{...{ step }}
+					autoFocus
 					data-ingredient-id={m.id}
 					min={0}
 					onChange={e => this.handleChangeAmount(e)}
@@ -81,20 +82,6 @@ class Ingredients extends React.PureComponent {
 		</tr>;
 
 		return [ ...measurements ].sort(orderByPosition).map(renderMeasurement);
-	}
-
-	renderNewMeasurement() {
-		const { measurements } = this.props;
-
-		if (measurements.every(({ amount }) => amount > 0)) {
-			return <tr>
-				<td><LinkButton disabled /></td>
-				<td>{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}</td>
-				<td colSpan={4} />
-			</tr>;
-		} else {
-			return null;
-		}
 	}
 
 	renderSelector(selectedId, amount, onChange) {
@@ -142,7 +129,11 @@ class Ingredients extends React.PureComponent {
 
 				<tbody>
 					{this.renderMeasurements()}
-					{this.renderNewMeasurement()}
+					<tr>
+						<td><LinkButton disabled /></td>
+						<td>{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}</td>
+						<td colSpan={4} />
+					</tr>
 				</tbody>
 
 				<tfoot>
