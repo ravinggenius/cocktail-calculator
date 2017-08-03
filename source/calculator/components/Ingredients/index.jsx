@@ -12,7 +12,7 @@ import { BLANK_OPTION } from './constants';
 import {
 	orderByPosition,
 	percentage,
-	round,
+	round2,
 	volume,
 	ethanol,
 	sugar,
@@ -70,7 +70,7 @@ class Ingredients extends React.PureComponent {
 				/>
 			</NumberCell>
 			<NumberCell>{percentage(m.ethanol)}</NumberCell>
-			<NumberCell>{round(m.sugar)}</NumberCell>
+			<NumberCell>{round2(m.sugar)}</NumberCell>
 			<NumberCell>{percentage(m.acid)}</NumberCell>
 		</tr>;
 
@@ -144,7 +144,7 @@ class Ingredients extends React.PureComponent {
 						<th colSpan={2}>Initial Totals</th>
 						<NumberCell><output><NumberInput readOnly value={convertToUnit(unit, volume(measurements))} /></output></NumberCell>
 						<NumberCell><output>{percentage(ethanol(measurements))}</output></NumberCell>
-						<NumberCell><output>{round(sugar(measurements))}</output></NumberCell>
+						<NumberCell><output>{round2(sugar(measurements))}</output></NumberCell>
 						<NumberCell><output>{percentage(acid(measurements))}</output></NumberCell>
 					</tr>
 				</tfoot>

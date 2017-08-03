@@ -2,7 +2,7 @@ import { parseToRgb } from 'polished';
 
 import * as initial from '../Ingredients/utilities';
 
-export const { percentage, round } = initial;
+export const { percentage, round2 } = initial;
 
 export const dilution = ({ code }, measurements) => {
 	if (!measurements.length) {

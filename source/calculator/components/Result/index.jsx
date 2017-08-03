@@ -6,7 +6,7 @@ import Section, { SectionTitle } from '../Section';
 
 import {
 	percentage,
-	round,
+	round2,
 	dilution,
 	volume,
 	ethanol,
@@ -94,7 +94,7 @@ const Result = ({ ingredients, technique, unit }) => {
 
 				<ResultRow
 					actual={sugar(technique, ingredients)}
-					format={round}
+					format={round2}
 					range={technique.sugar}
 					label="Sugar (g/100ml)"
 					lowMessage="Not sweet enough"

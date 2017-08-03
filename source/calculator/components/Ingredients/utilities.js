@@ -1,8 +1,8 @@
 export const orderByPosition = ({ position: a }, { position: b }) => a - b;
 
-export const round = number => Math.round(number * 100) / 100;
+export const round2 = number => Math.round(number * 100) / 100;
 
-export const percentage = number => `${round(number * 100)}%`;
+export const percentage = number => `${round2(number * 100)}%`;
 
 export const volume = measurements => measurements.reduce((memo, { amount }) => memo + (amount || 0), 0);
 
@@ -22,6 +22,6 @@ export const convertToMl = ({ code }, amount) => ({
 }[code]);
 
 export const convertToUnit = ({ code }, amount) => ({
-	ml: round(amount),
-	oz: round(amount * 0.03519503)
+	ml: round2(amount),
+	oz: round2(amount * 0.03519503)
 }[code]);
