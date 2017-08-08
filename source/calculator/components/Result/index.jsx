@@ -19,7 +19,7 @@ import {
 } from './utilities';
 
 const ResultRow = ({ actual, format, range: { low, high }, label, lowMessage, highMessage }) => {
-	const backgroundColor = isGood(low, high, actual) ? '#5DFD5D' : '#FD5D5D';
+	const backgroundColor = isGood(low, high, actual) ? '#B7E0CD' : '#F4C7C3';
 	const color = contrastFor(backgroundColor);
 
 	const style = { backgroundColor, color };
