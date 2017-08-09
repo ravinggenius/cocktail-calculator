@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import P from '../P';
 import Section, { SectionTitle } from '../Section';
 
 const renderOption = ({ code, name }) => <option key={code} value={code}>
@@ -15,7 +16,7 @@ renderOption.propTypes = {
 const Unit = ({ available, onChange, selectedCode }) => <Section>
 	<SectionTitle>Step 1: Units</SectionTitle>
 
-	<p>What units are you working with?</p>
+	<P>What units are you working with?</P>
 
 	<select {...{ onChange }} value={selectedCode}>
 		{available.map(renderOption)}

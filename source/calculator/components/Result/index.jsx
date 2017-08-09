@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import NumberCell from '../NumberCell';
+import P from '../P';
 import Section, { SectionTitle } from '../Section';
 
 import {
@@ -53,13 +54,13 @@ ResultRow.propTypes = {
 
 const Result = ({ ingredients, technique, unit }) => {
 	if (!technique) {
-		return <p>Select a technique to view results.</p>;
+		return <P>Select a technique to view results.</P>;
 	}
 
 	return <Section>
 		<SectionTitle>Step 4: Results</SectionTitle>
 
-		<p>Review the final cocktail attributes</p>
+		<P>Review the final cocktail attributes</P>
 
 		<table>
 			<thead>

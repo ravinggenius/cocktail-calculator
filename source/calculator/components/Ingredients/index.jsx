@@ -5,6 +5,7 @@ import LinkButton from '../LinkButton';
 import Note from '../Note';
 import NumberCell from '../NumberCell';
 import NumberInput from '../NumberInput';
+import P from '../P';
 import Section, { SectionTitle } from '../Section';
 
 import { BLANK_OPTION } from './constants';
@@ -50,7 +51,7 @@ class Ingredients extends React.PureComponent {
 
 	renderError() {
 		const { error } = this.props;
-		return error ? <p>{error}</p> : null;
+		return error ? <P>{error}</P> : null;
 	}
 
 	renderMeasurements() {
@@ -112,7 +113,7 @@ class Ingredients extends React.PureComponent {
 		return <Section>
 			<SectionTitle>Step 2: Ingredients</SectionTitle>
 
-			<p>Select or search for ingredients and add measurements</p>
+			<P>Select or search for ingredients and add measurements</P>
 
 			{this.renderError()}
 

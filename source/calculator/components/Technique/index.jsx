@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import P from '../P';
 import Section, { SectionTitle } from '../Section';
 
 const renderOption = ({ code, name }) => <option key={code} value={code}>
@@ -22,13 +23,13 @@ const Technique = ({ available, onChange, selectedCode }) => {
 	return <Section>
 		<SectionTitle>Step 3: Technique</SectionTitle>
 
-		<p>Select the type of cocktail</p>
+		<P>Select the type of cocktail</P>
 
 		<select {...{ onChange }} value={selectedCode}>
 			{available.map(renderOption)}
 		</select>
 
-		<p>{selected.description}</p>
+		<P>{selected.description}</P>
 	</Section>;
 };
 
