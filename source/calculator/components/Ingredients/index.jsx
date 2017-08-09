@@ -110,7 +110,7 @@ class Ingredients extends React.PureComponent {
 		const { measurements, unit } = this.props;
 
 		return <Section>
-			<SectionTitle>Ingredients</SectionTitle>
+			<SectionTitle>Step 2: Ingredients</SectionTitle>
 
 			<p>Select or search for ingredients and add measurements</p>
 

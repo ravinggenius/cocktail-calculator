@@ -57,7 +57,7 @@ const Result = ({ ingredients, technique, unit }) => {
 	}
 
 	return <Section>
-		<SectionTitle>Results</SectionTitle>
+		<SectionTitle>Step 4: Results</SectionTitle>
 
 		<p>Review the final cocktail attributes</p>
 

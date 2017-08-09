@@ -20,7 +20,7 @@ const Technique = ({ available, onChange, selectedCode }) => {
 	const selected = findSelected(available, selectedCode);
 
 	return <Section>
-		<SectionTitle>Technique</SectionTitle>
+		<SectionTitle>Step 3: Technique</SectionTitle>
 
 		<p>Select the type of cocktail</p>
 

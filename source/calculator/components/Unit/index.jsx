@@ -13,7 +13,7 @@ renderOption.propTypes = {
 };
 
 const Unit = ({ available, onChange, selectedCode }) => <Section>
-	<SectionTitle>Units</SectionTitle>
+	<SectionTitle>Step 1: Units</SectionTitle>
 
 	<p>What units are you working with?</p>
 
