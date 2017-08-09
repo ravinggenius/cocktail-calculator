@@ -14,7 +14,9 @@ renderOption.propTypes = {
 
 const Unit = ({ available, onChange, selectedCode }) => <Section>
 	<SectionTitle>Units</SectionTitle>
+
 	<p>What units are you working with?</p>
+
 	<select {...{ onChange }} value={selectedCode}>
 		{available.map(renderOption)}
 	</select>

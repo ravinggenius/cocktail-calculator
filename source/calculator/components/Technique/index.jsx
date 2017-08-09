@@ -21,10 +21,13 @@ const Technique = ({ available, onChange, selectedCode }) => {
 
 	return <Section>
 		<SectionTitle>Technique</SectionTitle>
+
 		<p>Select the type of cocktail</p>
+
 		<select {...{ onChange }} value={selectedCode}>
 			{available.map(renderOption)}
 		</select>
+
 		<p>{selected.description}</p>
 	</Section>;
 };

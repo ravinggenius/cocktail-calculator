@@ -111,6 +111,7 @@ class Ingredients extends React.PureComponent {
 
 		return <Section>
 			<SectionTitle>Ingredients</SectionTitle>
+
 			<p>Select or search for ingredients and add measurements</p>
 
 			{this.renderError()}
