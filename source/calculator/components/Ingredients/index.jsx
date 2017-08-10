@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import striptags from 'striptags';
 
 import LinkButton from '../LinkButton';
 import Note from '../Note';
-import NumberCell from '../NumberCell';
 import NumberInput from '../NumberInput';
+import P from '../P';
 import Section, { SectionTitle } from '../Section';
+import Table, { Row, TD, TH, THead, TBody, TFoot } from '../Table';
 
-import { BLANK_OPTION } from './constants';
+import { BLANK_OPTION, WHITELIST_TAGS } from './constants';
 
 import {
 	orderByPosition,
@@ -50,7 +52,7 @@ class Ingredients extends React.PureComponent {
 
 	renderError() {
 		const { error } = this.props;
-		return error ? <p>{error}</p> : null;
+		return error ? <P>{error}</P> : null;
 	}
 
 	renderMeasurements() {
@@ -58,15 +60,17 @@ class Ingredients extends React.PureComponent {
 
 		const step = (unit.code === 'ml') ? 1 : 0.25;
 
-		const renderMeasurement = m => <tr key={m.id}>
-			<td>
+		const renderMeasurement = m => <Row key={m.id}>
+			<TD style={{ textAlign: 'center' }}>
 				<LinkButton
 					onClick={e => this.handleRemoveIngredient(e)}
 					data-ingredient-id={m.id}
 				/>
-			</td>
-			<td>{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}</td>
-			<NumberCell>
+			</TD>
+			<TD data-label="Change">
+				{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}
+			</TD>
+			<TD data-label={`Measurement (${unit.code})`} type="number">
 				<NumberInput
 					{...{ step }}
 					autoFocus
@@ -75,11 +79,17 @@ class Ingredients extends React.PureComponent {
 					onChange={e => this.handleChangeAmount(e)}
 					value={convertToUnit(unit, m.amount)}
 				/>
-			</NumberCell>
-			<NumberCell>{percentage(m.ethanol)}</NumberCell>
-			<NumberCell>{round2(m.sugar)}</NumberCell>
-			<NumberCell>{percentage(m.acid)}</NumberCell>
-		</tr>;
+			</TD>
+			<TD data-label="Ethanol (%abv)" type="number">{percentage(m.ethanol)}</TD>
+			<TD data-label="Sugar (g/100mg)" type="number">{round2(m.sugar)}</TD>
+			<TD data-label="Acid (%)" type="number">{percentage(m.acid)}</TD>
+			<TD
+				data-label="Notes"
+				dangerouslySetInnerHTML={{
+					__html: striptags(m.description, WHITELIST_TAGS)
+				}}
+			/>
+		</Row>;
 
 		return [ ...measurements ].sort(orderByPosition).map(renderMeasurement);
 	}
@@ -110,45 +120,56 @@ class Ingredients extends React.PureComponent {
 		const { measurements, unit } = this.props;
 
 		return <Section>
-			<SectionTitle>Ingredients</SectionTitle>
-			<p>Select or search for ingredients and add measurements</p>
+			<SectionTitle>Step 2: Ingredients</SectionTitle>
+
+			<P>Select or search for ingredients and add measurements</P>
 
 			{this.renderError()}
 
-			<table>
-				<thead>
-					<tr>
-						<th />
-						<th>Ingredient</th>
-						<th>Measurement</th>
-						<th>Ethanol (%abv)</th>
-						<th>Sugar (g/100mg)</th>
-						<th>Acid (%)</th>
-					</tr>
-				</thead>
+			<Table>
+				<THead>
+					<Row>
+						<TH />
+						<TH>Ingredient</TH>
+						<TH>Measurement ({unit.name})</TH>
+						<TH>Ethanol (%abv)</TH>
+						<TH>Sugar (g/100mg)</TH>
+						<TH>Acid (%)</TH>
+						<TH>Notes/Pairings</TH>
+					</Row>
+				</THead>
 
-				<tbody>
+				<TBody>
 					{this.renderMeasurements()}
-					<tr>
-						<td><LinkButton disabled /></td>
-						<td>{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}</td>
-						<td colSpan={4} />
-					</tr>
-				</tbody>
+					<Row>
+						<TD><LinkButton disabled /></TD>
+						<TD data-label="Add">
+							{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}
+						</TD>
+						<TD colSpan={5} />
+					</Row>
+				</TBody>
 
-				<tfoot>
-					<tr>
-						<th colSpan={2}>Initial Totals</th>
-						<NumberCell><output><NumberInput
+				<TFoot>
+					<Row>
+						<TH colSpan={2}>Initial Totals</TH>
+						<TD data-label={`Volume (${unit.code})`} type="number"><output><NumberInput
 							readOnly
 							value={convertToUnit(unit, volume(measurements))}
-						/></output></NumberCell>
-						<NumberCell><output>{percentage(ethanol(measurements))}</output></NumberCell>
-						<NumberCell><output>{round2(sugar(measurements))}</output></NumberCell>
-						<NumberCell><output>{percentage(acid(measurements))}</output></NumberCell>
-					</tr>
-				</tfoot>
-			</table>
+						/></output></TD>
+						<TD data-label="Ethanol (%abv)" type="number">
+							<output>{percentage(ethanol(measurements))}</output>
+						</TD>
+						<TD data-label="Sugar (g/100mg)" type="number">
+							<output>{round2(sugar(measurements))}</output>
+						</TD>
+						<TD data-label="Acid (%)" type="number">
+							<output>{percentage(acid(measurements))}</output>
+						</TD>
+						<TD />
+					</Row>
+				</TFoot>
+			</Table>
 
 			<Note title="egg white" description="30 ml or 1 oz" />
 			<Note title="dash" description="0.8 ml or 0.027 oz" />

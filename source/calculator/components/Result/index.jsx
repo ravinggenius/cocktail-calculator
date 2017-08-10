@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NumberCell from '../NumberCell';
+import P from '../P';
 import Section, { SectionTitle } from '../Section';
+import Table, { Row, TD, TH, THead, TBody } from '../Table';
 
 import {
 	percentage,
@@ -18,25 +19,31 @@ import {
 	convertToUnit
 } from './utilities';
 
+const Accessment = TD.extend.withConfig({
+	displayName: 'Accessment'
+})`
+	text-align: center;
+`;
+
 const ResultRow = ({ actual, format, range: { low, high }, label, lowMessage, highMessage }) => {
-	const backgroundColor = isGood(low, high, actual) ? '#5DFD5D' : '#FD5D5D';
+	const backgroundColor = isGood(low, high, actual) ? '#B7E0CD' : '#F4C7C3';
 	const color = contrastFor(backgroundColor);
 
 	const style = { backgroundColor, color };
 
-	return <tr>
-		<th>{label}</th>
-		<NumberCell {...{ style }}><output>{format(actual)}</output></NumberCell>
-		<td {...{ style }}><output>{pickMessage(
+	return <Row>
+		<TH>{label}</TH>
+		<TD {...{ style }} data-label="Result" type="number"><output>{format(actual)}</output></TD>
+		<Accessment {...{ style }} data-label="Accessment"><output>{pickMessage(
 			low,
 			high,
 			lowMessage,
 			highMessage,
 			actual
-		)}</output></td>
-		<NumberCell>{format(low)}</NumberCell>
-		<NumberCell>{format(high)}</NumberCell>
-	</tr>;
+		)}</output></Accessment>
+		<TD data-label="Expected Low" type="number">{format(low)}</TD>
+		<TD data-label="Expected High" type="number">{format(high)}</TD>
+	</Row>;
 };
 
 ResultRow.propTypes = {
@@ -51,82 +58,74 @@ ResultRow.propTypes = {
 	highMessage: PropTypes.string.isRequired
 };
 
-const Result = ({ ingredients, technique, unit }) => {
-	if (!technique) {
-		return <p>Select a technique to view results.</p>;
-	}
+const Result = ({ ingredients, technique, unit }) => <Section>
+	<SectionTitle>Step 4: Results</SectionTitle>
 
-	return <Section>
-		<SectionTitle>Results</SectionTitle>
-		<p>Review the final cocktail attributes</p>
+	<P>Review the final cocktail attributes</P>
 
-		<table>
-			<thead>
-				<tr>
-					<th>Attribute</th>
-					<th colSpan={2}>Result</th>
-					<th>Expected Low</th>
-					<th>Expected High</th>
-				</tr>
-			</thead>
+	<Table>
+		<THead>
+			<Row>
+				<TH>Attribute</TH>
+				<TH>Result</TH>
+				<TH />
+				<TH>Expected Low</TH>
+				<TH>Expected High</TH>
+			</Row>
+		</THead>
 
-			<tbody>
-				<ResultRow
-					actual={dilution(technique, ingredients)}
-					format={percentage}
-					range={technique.dilution}
-					label="Dilution from mixing (%)"
-					lowMessage="Underdiluted"
-					highMessage="Overdiluted"
-				/>
+		<TBody>
+			<ResultRow
+				actual={dilution(technique, ingredients)}
+				format={percentage}
+				range={technique.dilution}
+				label="Dilution from mixing (%)"
+				lowMessage="Underdiluted"
+				highMessage="Overdiluted"
+			/>
 
-				<ResultRow
-					actual={volume(technique, ingredients)}
-					format={convertToUnit(unit)}
-					range={technique.volume}
-					label={`Final Volume (${unit.name})`}
-					lowMessage="Not enough volume"
-					highMessage="Too much volume"
-				/>
+			<ResultRow
+				actual={volume(technique, ingredients)}
+				format={convertToUnit(unit)}
+				range={technique.volume}
+				label={`Final Volume (${unit.name})`}
+				lowMessage="Not enough volume"
+				highMessage="Too much volume"
+			/>
 
-				<ResultRow
-					actual={ethanol(technique, ingredients)}
-					format={percentage}
-					range={technique.ethanol}
-					label="Ethanol (%abv)"
-					lowMessage="Not enough ethanol"
-					highMessage="Too much ethanol"
-				/>
+			<ResultRow
+				actual={ethanol(technique, ingredients)}
+				format={percentage}
+				range={technique.ethanol}
+				label="Ethanol (%abv)"
+				lowMessage="Not enough ethanol"
+				highMessage="Too much ethanol"
+			/>
 
-				<ResultRow
-					actual={sugar(technique, ingredients)}
-					format={round2}
-					range={technique.sugar}
-					label="Sugar (g/100ml)"
-					lowMessage="Not sweet enough"
-					highMessage="Too sweet"
-				/>
+			<ResultRow
+				actual={sugar(technique, ingredients)}
+				format={round2}
+				range={technique.sugar}
+				label="Sugar (g/100ml)"
+				lowMessage="Not sweet enough"
+				highMessage="Too sweet"
+			/>
 
-				<ResultRow
-					actual={acid(technique, ingredients)}
-					format={percentage}
-					range={technique.acid}
-					label="Acid (%)"
-					lowMessage="Not acidic enough"
-					highMessage="Too acidic"
-				/>
-			</tbody>
-		</table>
-	</Section>;
-};
-
-Result.defaultProps = {
-	technique: null
-};
+			<ResultRow
+				actual={acid(technique, ingredients)}
+				format={percentage}
+				range={technique.acid}
+				label="Acid (%)"
+				lowMessage="Not acidic enough"
+				highMessage="Too acidic"
+			/>
+		</TBody>
+	</Table>
+</Section>;
 
 Result.propTypes = {
 	ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
-	technique: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+	technique: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 	unit: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
