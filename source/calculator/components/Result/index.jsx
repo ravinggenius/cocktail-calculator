@@ -58,84 +58,74 @@ ResultRow.propTypes = {
 	highMessage: PropTypes.string.isRequired
 };
 
-const Result = ({ ingredients, technique, unit }) => {
-	if (!technique) {
-		return <P>Select a technique to view results.</P>;
-	}
+const Result = ({ ingredients, technique, unit }) => <Section>
+	<SectionTitle>Step 4: Results</SectionTitle>
 
-	return <Section>
-		<SectionTitle>Step 4: Results</SectionTitle>
+	<P>Review the final cocktail attributes</P>
 
-		<P>Review the final cocktail attributes</P>
+	<Table>
+		<THead>
+			<Row>
+				<TH>Attribute</TH>
+				<TH>Result</TH>
+				<TH />
+				<TH>Expected Low</TH>
+				<TH>Expected High</TH>
+			</Row>
+		</THead>
 
-		<Table>
-			<THead>
-				<Row>
-					<TH>Attribute</TH>
-					<TH>Result</TH>
-					<TH />
-					<TH>Expected Low</TH>
-					<TH>Expected High</TH>
-				</Row>
-			</THead>
+		<TBody>
+			<ResultRow
+				actual={dilution(technique, ingredients)}
+				format={percentage}
+				range={technique.dilution}
+				label="Dilution from mixing (%)"
+				lowMessage="Underdiluted"
+				highMessage="Overdiluted"
+			/>
 
-			<TBody>
-				<ResultRow
-					actual={dilution(technique, ingredients)}
-					format={percentage}
-					range={technique.dilution}
-					label="Dilution from mixing (%)"
-					lowMessage="Underdiluted"
-					highMessage="Overdiluted"
-				/>
+			<ResultRow
+				actual={volume(technique, ingredients)}
+				format={convertToUnit(unit)}
+				range={technique.volume}
+				label={`Final Volume (${unit.name})`}
+				lowMessage="Not enough volume"
+				highMessage="Too much volume"
+			/>
 
-				<ResultRow
-					actual={volume(technique, ingredients)}
-					format={convertToUnit(unit)}
-					range={technique.volume}
-					label={`Final Volume (${unit.name})`}
-					lowMessage="Not enough volume"
-					highMessage="Too much volume"
-				/>
+			<ResultRow
+				actual={ethanol(technique, ingredients)}
+				format={percentage}
+				range={technique.ethanol}
+				label="Ethanol (%abv)"
+				lowMessage="Not enough ethanol"
+				highMessage="Too much ethanol"
+			/>
 
-				<ResultRow
-					actual={ethanol(technique, ingredients)}
-					format={percentage}
-					range={technique.ethanol}
-					label="Ethanol (%abv)"
-					lowMessage="Not enough ethanol"
-					highMessage="Too much ethanol"
-				/>
+			<ResultRow
+				actual={sugar(technique, ingredients)}
+				format={round2}
+				range={technique.sugar}
+				label="Sugar (g/100ml)"
+				lowMessage="Not sweet enough"
+				highMessage="Too sweet"
+			/>
 
-				<ResultRow
-					actual={sugar(technique, ingredients)}
-					format={round2}
-					range={technique.sugar}
-					label="Sugar (g/100ml)"
-					lowMessage="Not sweet enough"
-					highMessage="Too sweet"
-				/>
-
-				<ResultRow
-					actual={acid(technique, ingredients)}
-					format={percentage}
-					range={technique.acid}
-					label="Acid (%)"
-					lowMessage="Not acidic enough"
-					highMessage="Too acidic"
-				/>
-			</TBody>
-		</Table>
-	</Section>;
-};
-
-Result.defaultProps = {
-	technique: null
-};
+			<ResultRow
+				actual={acid(technique, ingredients)}
+				format={percentage}
+				range={technique.acid}
+				label="Acid (%)"
+				lowMessage="Not acidic enough"
+				highMessage="Too acidic"
+			/>
+		</TBody>
+	</Table>
+</Section>;
 
 Result.propTypes = {
 	ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
-	technique: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+	technique: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 	unit: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
 };
 
