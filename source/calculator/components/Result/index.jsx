@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NumberCell from '../NumberCell';
 import P from '../P';
 import Section, { SectionTitle } from '../Section';
+import Table, { Row, TD, TH, THead, TBody } from '../Table';
 
 import {
 	percentage,
@@ -19,25 +19,31 @@ import {
 	convertToUnit
 } from './utilities';
 
+const Accessment = TD.extend.withConfig({
+	displayName: 'Accessment'
+})`
+	text-align: center;
+`;
+
 const ResultRow = ({ actual, format, range: { low, high }, label, lowMessage, highMessage }) => {
 	const backgroundColor = isGood(low, high, actual) ? '#B7E0CD' : '#F4C7C3';
 	const color = contrastFor(backgroundColor);
 
 	const style = { backgroundColor, color };
 
-	return <tr>
-		<th>{label}</th>
-		<NumberCell {...{ style }}><output>{format(actual)}</output></NumberCell>
-		<td {...{ style }}><output>{pickMessage(
+	return <Row>
+		<TH>{label}</TH>
+		<TD {...{ style }} type="number"><output>{format(actual)}</output></TD>
+		<Accessment {...{ style }}><output>{pickMessage(
 			low,
 			high,
 			lowMessage,
 			highMessage,
 			actual
-		)}</output></td>
-		<NumberCell>{format(low)}</NumberCell>
-		<NumberCell>{format(high)}</NumberCell>
-	</tr>;
+		)}</output></Accessment>
+		<TD type="number">{format(low)}</TD>
+		<TD type="number">{format(high)}</TD>
+	</Row>;
 };
 
 ResultRow.propTypes = {
@@ -62,17 +68,18 @@ const Result = ({ ingredients, technique, unit }) => {
 
 		<P>Review the final cocktail attributes</P>
 
-		<table>
-			<thead>
-				<tr>
-					<th>Attribute</th>
-					<th colSpan={2}>Result</th>
-					<th>Expected Low</th>
-					<th>Expected High</th>
-				</tr>
-			</thead>
+		<Table>
+			<THead>
+				<Row>
+					<TH>Attribute</TH>
+					<TH>Result</TH>
+					<TH />
+					<TH>Expected Low</TH>
+					<TH>Expected High</TH>
+				</Row>
+			</THead>
 
-			<tbody>
+			<TBody>
 				<ResultRow
 					actual={dilution(technique, ingredients)}
 					format={percentage}
@@ -117,8 +124,8 @@ const Result = ({ ingredients, technique, unit }) => {
 					lowMessage="Not acidic enough"
 					highMessage="Too acidic"
 				/>
-			</tbody>
-		</table>
+			</TBody>
+		</Table>
 	</Section>;
 };
 
