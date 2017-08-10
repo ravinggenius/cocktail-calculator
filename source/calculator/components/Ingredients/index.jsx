@@ -69,7 +69,7 @@ class Ingredients extends React.PureComponent {
 			<TD data-label="Change">
 				{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}
 			</TD>
-			<TD data-label="Measurement" type="number">
+			<TD data-label={`Measurement (${unit.code})`} type="number">
 				<NumberInput
 					{...{ step }}
 					autoFocus
@@ -124,7 +124,7 @@ class Ingredients extends React.PureComponent {
 					<Row>
 						<TH />
 						<TH>Ingredient</TH>
-						<TH>Measurement</TH>
+						<TH>Measurement ({unit.name})</TH>
 						<TH>Ethanol (%abv)</TH>
 						<TH>Sugar (g/100mg)</TH>
 						<TH>Acid (%)</TH>
@@ -145,7 +145,7 @@ class Ingredients extends React.PureComponent {
 				<TFoot>
 					<Row>
 						<TH colSpan={2}>Initial Totals</TH>
-						<TD data-label="Volume" type="number"><output><NumberInput
+						<TD data-label={`Volume (${unit.code})`} type="number"><output><NumberInput
 							readOnly
 							value={convertToUnit(unit, volume(measurements))}
 						/></output></TD>
