@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import striptags from 'striptags';
 
 import LinkButton from '../LinkButton';
 import Note from '../Note';
@@ -8,7 +9,7 @@ import P from '../P';
 import Section, { SectionTitle } from '../Section';
 import Table, { Row, TD, TH, THead, TBody, TFoot } from '../Table';
 
-import { BLANK_OPTION } from './constants';
+import { BLANK_OPTION, WHITELIST_TAGS } from './constants';
 
 import {
 	orderByPosition,
@@ -82,6 +83,12 @@ class Ingredients extends React.PureComponent {
 			<TD data-label="Ethanol (%abv)" type="number">{percentage(m.ethanol)}</TD>
 			<TD data-label="Sugar (g/100mg)" type="number">{round2(m.sugar)}</TD>
 			<TD data-label="Acid (%)" type="number">{percentage(m.acid)}</TD>
+			<TD
+				data-label="Notes"
+				dangerouslySetInnerHTML={{
+					__html: striptags(m.description, WHITELIST_TAGS)
+				}}
+			/>
 		</Row>;
 
 		return [ ...measurements ].sort(orderByPosition).map(renderMeasurement);
@@ -128,6 +135,7 @@ class Ingredients extends React.PureComponent {
 						<TH>Ethanol (%abv)</TH>
 						<TH>Sugar (g/100mg)</TH>
 						<TH>Acid (%)</TH>
+						<TH>Notes/Pairings</TH>
 					</Row>
 				</THead>
 
@@ -138,7 +146,7 @@ class Ingredients extends React.PureComponent {
 						<TD data-label="Add">
 							{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}
 						</TD>
-						<TD colSpan={4} />
+						<TD colSpan={5} />
 					</Row>
 				</TBody>
 
@@ -158,6 +166,7 @@ class Ingredients extends React.PureComponent {
 						<TD data-label="Acid (%)" type="number">
 							<output>{percentage(acid(measurements))}</output>
 						</TD>
+						<TD />
 					</Row>
 				</TFoot>
 			</Table>

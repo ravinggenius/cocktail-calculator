@@ -24,6 +24,7 @@
     "redux-devtools": "^3.4.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
+    "striptags": "^3.0.1",
     "styled-components": "^2.1.1"
   },
   "devDependencies": {
