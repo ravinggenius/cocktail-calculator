@@ -66,8 +66,10 @@ class Ingredients extends React.PureComponent {
 					data-ingredient-id={m.id}
 				/>
 			</TD>
-			<TD>{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}</TD>
-			<TD type="number">
+			<TD data-label="Change">
+				{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}
+			</TD>
+			<TD data-label="Measurement" type="number">
 				<NumberInput
 					{...{ step }}
 					autoFocus
@@ -77,9 +79,9 @@ class Ingredients extends React.PureComponent {
 					value={convertToUnit(unit, m.amount)}
 				/>
 			</TD>
-			<TD type="number">{percentage(m.ethanol)}</TD>
-			<TD type="number">{round2(m.sugar)}</TD>
-			<TD type="number">{percentage(m.acid)}</TD>
+			<TD data-label="Ethanol (%abv)" type="number">{percentage(m.ethanol)}</TD>
+			<TD data-label="Sugar (g/100mg)" type="number">{round2(m.sugar)}</TD>
+			<TD data-label="Acid (%)" type="number">{percentage(m.acid)}</TD>
 		</Row>;
 
 		return [ ...measurements ].sort(orderByPosition).map(renderMeasurement);
@@ -133,7 +135,9 @@ class Ingredients extends React.PureComponent {
 					{this.renderMeasurements()}
 					<Row>
 						<TD><LinkButton disabled /></TD>
-						<TD>{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}</TD>
+						<TD data-label="Add">
+							{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}
+						</TD>
 						<TD colSpan={4} />
 					</Row>
 				</TBody>
@@ -141,13 +145,19 @@ class Ingredients extends React.PureComponent {
 				<TFoot>
 					<Row>
 						<TH colSpan={2}>Initial Totals</TH>
-						<TD type="number"><output><NumberInput
+						<TD data-label="Volume" type="number"><output><NumberInput
 							readOnly
 							value={convertToUnit(unit, volume(measurements))}
 						/></output></TD>
-						<TD type="number"><output>{percentage(ethanol(measurements))}</output></TD>
-						<TD type="number"><output>{round2(sugar(measurements))}</output></TD>
-						<TD type="number"><output>{percentage(acid(measurements))}</output></TD>
+						<TD data-label="Ethanol (%abv)" type="number">
+							<output>{percentage(ethanol(measurements))}</output>
+						</TD>
+						<TD data-label="Sugar (g/100mg)" type="number">
+							<output>{round2(sugar(measurements))}</output>
+						</TD>
+						<TD data-label="Acid (%)" type="number">
+							<output>{percentage(acid(measurements))}</output>
+						</TD>
 					</Row>
 				</TFoot>
 			</Table>

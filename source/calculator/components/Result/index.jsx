@@ -33,16 +33,16 @@ const ResultRow = ({ actual, format, range: { low, high }, label, lowMessage, hi
 
 	return <Row>
 		<TH>{label}</TH>
-		<TD {...{ style }} type="number"><output>{format(actual)}</output></TD>
-		<Accessment {...{ style }}><output>{pickMessage(
+		<TD {...{ style }} data-label="Result" type="number"><output>{format(actual)}</output></TD>
+		<Accessment {...{ style }} data-label="Accessment"><output>{pickMessage(
 			low,
 			high,
 			lowMessage,
 			highMessage,
 			actual
 		)}</output></Accessment>
-		<TD type="number">{format(low)}</TD>
-		<TD type="number">{format(high)}</TD>
+		<TD data-label="Expected Low" type="number">{format(low)}</TD>
+		<TD data-label="Expected High" type="number">{format(high)}</TD>
 	</Row>;
 };
 

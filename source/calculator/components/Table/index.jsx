@@ -2,11 +2,19 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 
+const BREAKPOINT = 640;
+const GUTTER = 5;
+
+
 const Table = styled.table.withConfig({
 	displayName: 'Table'
 })`
 	border-collapse: collapse;
 	width: 100%;
+
+	@media screen and (max-width: ${BREAKPOINT}px) {
+		display: block;
+	}
 `;
 
 Table.propTypes = {
@@ -19,6 +27,10 @@ Table.propTypes = {
 const Row = styled.tr.withConfig({
 	displayName: 'Row'
 })`
+	@media screen and (max-width: ${BREAKPOINT}px) {
+		border: 1px solid #CCCCCC;
+		display: block;
+	}
 `;
 
 Row.propTypes = {
@@ -30,7 +42,11 @@ Row.propTypes = {
 
 const Cell = styled.span`
 	border: 1px solid #CCCCCC;
-	padding: 5px;
+	padding: ${GUTTER}px;
+
+	@media screen and (max-width: ${BREAKPOINT}px) {
+		display: block;
+	}
 `;
 
 
@@ -60,6 +76,22 @@ const TD = Cell.withComponent('td').extend.withConfig({
 	displayName: 'TD'
 })`
 	text-align: ${({ type }) => ((type === 'number') ? 'right' : 'left')};
+
+	@media screen and (max-width: ${BREAKPOINT}px) {
+		border-style: none;
+		border-bottom: 1px solid #CCCCCC;
+		position: relative;
+		padding-left: 50%;
+
+		&::before {
+			content: attr(data-label);
+			left: ${GUTTER}px;
+			position: absolute;
+			text-align: left;
+			top: ${GUTTER}px;
+			width: 45%;
+		}
+	}
 `;
 
 TD.defaultProps = {
@@ -78,6 +110,15 @@ TD.propTypes = {
 const THead = styled.thead.withConfig({
 	displayName: 'THead'
 })`
+	@media screen and (max-width: ${BREAKPOINT}px) {
+		display: block;
+
+		& tr {
+			position: absolute;
+			top: -1000px;
+			left: -1000px;
+		}
+	}
 `;
 
 THead.propTypes = {
@@ -90,6 +131,9 @@ THead.propTypes = {
 const TBody = styled.tbody.withConfig({
 	displayName: 'TBody'
 })`
+	@media screen and (max-width: ${BREAKPOINT}px) {
+		display: block;
+	}
 `;
 
 TBody.propTypes = {
@@ -102,6 +146,9 @@ TBody.propTypes = {
 const TFoot = styled.tfoot.withConfig({
 	displayName: 'TFoot'
 })`
+	@media screen and (max-width: ${BREAKPOINT}px) {
+		display: block;
+	}
 `;
 
 TFoot.propTypes = {
