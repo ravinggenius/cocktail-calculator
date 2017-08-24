@@ -7,6 +7,7 @@ import Note from '../Note';
 import NumberInput from '../NumberInput';
 import P from '../P';
 import Section, { SectionTitle } from '../Section';
+import Select from '../Select';
 import Table, { Row, TD, TH, THead, TBody, TFoot } from '../Table';
 
 import { BLANK_OPTION, WHITELIST_TAGS } from './constants';
@@ -22,6 +23,11 @@ import {
 	convertToMl,
 	convertToUnit
 } from './utilities';
+
+const normalizeOption = ({ id, name }) => ({
+	text: name,
+	value: id
+});
 
 class Ingredients extends React.PureComponent {
 	handleAddIngredient({ target }) {
@@ -106,14 +112,12 @@ class Ingredients extends React.PureComponent {
 			...unselected
 		].sort(orderByPosition);
 
-		const wrapOption = ({ id, name }) => <option key={id} value={id}>{name}</option>;
-
-		return <select
+		return <Select
 			{...{ onChange }}
-			data-amount={amount}
-			data-ingredient-id={selectedId}
+			dataSet={{ amount, 'ingredient-id': selectedId }}
+			options={options.map(normalizeOption)}
 			value={selectedId}
-		>{options.map(wrapOption)}</select>;
+		/>;
 	}
 
 	render() {

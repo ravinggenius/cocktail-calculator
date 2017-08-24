@@ -3,24 +3,19 @@ import React from 'react';
 
 import P from '../P';
 import Section, { SectionTitle } from '../Section';
+import Select from '../Select';
 
-const renderOption = ({ code, name }) => <option key={code} value={code}>
-	{name}
-</option>;
-
-renderOption.propTypes = {
-	code: PropTypes.string.isRequired,
-	name: PropTypes.string.isRequired
-};
+const normalizeOption = ({ code, name }) => ({
+	text: name,
+	value: code
+});
 
 const Unit = ({ available, onChange, selectedCode }) => <Section>
 	<SectionTitle>Step 1: Units</SectionTitle>
 
 	<P>What units are you working with?</P>
 
-	<select {...{ onChange }} value={selectedCode}>
-		{available.map(renderOption)}
-	</select>
+	<Select {...{ onChange }} options={available.map(normalizeOption)} value={selectedCode} />
 </Section>;
 
 Unit.propTypes = {

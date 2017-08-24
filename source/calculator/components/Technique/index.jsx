@@ -3,15 +3,12 @@ import React from 'react';
 
 import P from '../P';
 import Section, { SectionTitle } from '../Section';
+import Select from '../Select';
 
-const renderOption = ({ code, name }) => <option key={code} value={code}>
-	{name}
-</option>;
-
-renderOption.propTypes = {
-	code: PropTypes.string.isRequired,
-	name: PropTypes.string.isRequired
-};
+const normalizeOption = ({ code, name }) => ({
+	text: name,
+	value: code
+});
 
 const findSelected = (available, selectedCode) => available.find(
 	technique => technique.code === selectedCode
@@ -25,9 +22,7 @@ const Technique = ({ available, onChange, selectedCode }) => {
 
 		<P>Select the type of cocktail</P>
 
-		<select {...{ onChange }} value={selectedCode}>
-			{available.map(renderOption)}
-		</select>
+		<Select {...{ onChange }} options={available.map(normalizeOption)} value={selectedCode} />
 
 		<P>{selected.description}</P>
 	</Section>;
