@@ -15,6 +15,14 @@ const Table = styled.table.withConfig({
 	@media screen and (max-width: ${BREAKPOINT}px) {
 		display: block;
 	}
+
+	& a {
+		color: #5D5DFD;
+
+		&:hover {
+			color: inherit;
+		}
+	}
 `;
 
 Table.propTypes = {
