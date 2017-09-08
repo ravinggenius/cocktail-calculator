@@ -5,8 +5,10 @@ const NumberInput = styled.input.attrs({
 }).withConfig({
 	displayName: 'NumberInput'
 })`
+	background-color: transparent;
 	border-style: none;
-	padding: 0;
+	margin: -5px;
+	padding: 5px;
 	text-align: right;
 	width: 100%;
 `;

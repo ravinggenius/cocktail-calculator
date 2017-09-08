@@ -2,16 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import P from '../P';
-import Section, { SectionTitle } from '../Section';
+import Section from '../Section';
+import Select from '../Select';
 
-const renderOption = ({ code, name }) => <option key={code} value={code}>
-	{name}
-</option>;
-
-renderOption.propTypes = {
-	code: PropTypes.string.isRequired,
-	name: PropTypes.string.isRequired
-};
+const normalizeOption = ({ code, name }) => ({
+	text: name,
+	value: code
+});
 
 const findSelected = (available, selectedCode) => available.find(
 	technique => technique.code === selectedCode
@@ -20,14 +17,11 @@ const findSelected = (available, selectedCode) => available.find(
 const Technique = ({ available, onChange, selectedCode }) => {
 	const selected = findSelected(available, selectedCode);
 
-	return <Section>
-		<SectionTitle>Step 3: Technique</SectionTitle>
-
-		<P>Select the type of cocktail</P>
-
-		<select {...{ onChange }} value={selectedCode}>
-			{available.map(renderOption)}
-		</select>
+	return <Section
+		title="Step 3: Technique"
+		description="Select the type of cocktail and note the technique involved"
+	>
+		<Select {...{ onChange }} options={available.map(normalizeOption)} value={selectedCode} />
 
 		<P>{selected.description}</P>
 	</Section>;

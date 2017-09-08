@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import P from '../P';
-import Section, { SectionTitle } from '../Section';
+import Section from '../Section';
 import Table, { Row, TD, TH, THead, TBody } from '../Table';
 
 import {
@@ -58,11 +57,14 @@ ResultRow.propTypes = {
 	highMessage: PropTypes.string.isRequired
 };
 
-const Result = ({ ingredients, technique, unit }) => <Section>
-	<SectionTitle>Step 4: Results</SectionTitle>
-
-	<P>Review the final cocktail attributes</P>
-
+const Result = ({
+	ingredients,
+	technique,
+	unit
+}) => <Section
+	title="Step 4: Results"
+	description="Review the final cocktail attributes and try to ensure they stay within the expected range for the selected technique"
+>
 	<Table>
 		<THead>
 			<Row>

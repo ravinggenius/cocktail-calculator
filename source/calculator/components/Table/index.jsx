@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 
 const BREAKPOINT = 640;
@@ -14,6 +14,14 @@ const Table = styled.table.withConfig({
 
 	@media screen and (max-width: ${BREAKPOINT}px) {
 		display: block;
+	}
+
+	& a {
+		color: #5D5DFD;
+
+		&:hover {
+			color: inherit;
+		}
 	}
 `;
 
@@ -30,6 +38,7 @@ const Row = styled.tr.withConfig({
 	@media screen and (max-width: ${BREAKPOINT}px) {
 		border: 1px solid #CCCCCC;
 		display: block;
+		margin-bottom: 1em;
 	}
 `;
 
@@ -72,18 +81,30 @@ TH.propTypes = {
 };
 
 
+const highlighWritable = ({ writable }) => (writable ? css`background-color: #FEFEAE;` : null);
+
+
 const TD = Cell.withComponent('td').extend.withConfig({
 	displayName: 'TD'
 })`
+	${highlighWritable}
 	text-align: ${({ type }) => ((type === 'number') ? 'right' : 'left')};
 
 	@media screen and (max-width: ${BREAKPOINT}px) {
 		border-style: none;
 		border-bottom: 1px solid #CCCCCC;
 		position: relative;
-		padding-left: 50%;
 
-		&::before {
+		&[data-hide] {
+			display: none;
+		}
+
+		&[data-label] {
+			padding-left: 50%;
+			text-align: right;
+		}
+
+		&[data-label]::before {
 			content: attr(data-label);
 			left: ${GUTTER}px;
 			position: absolute;
@@ -95,7 +116,8 @@ const TD = Cell.withComponent('td').extend.withConfig({
 `;
 
 TD.defaultProps = {
-	type: 'string'
+	type: 'string',
+	writable: false
 };
 
 TD.propTypes = {
@@ -103,7 +125,8 @@ TD.propTypes = {
 	type: PropTypes.oneOf([
 		'number',
 		'string'
-	])
+	]),
+	writable: PropTypes.bool
 };
 
 

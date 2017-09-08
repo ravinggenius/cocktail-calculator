@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Select from 'react-select';
 import striptags from 'striptags';
+import styled from 'styled-components';
 
-import LinkButton from '../LinkButton';
 import Note from '../Note';
 import NumberInput from '../NumberInput';
 import P from '../P';
-import Section, { SectionTitle } from '../Section';
+import Section from '../Section';
 import Table, { Row, TD, TH, THead, TBody, TFoot } from '../Table';
 
-import { BLANK_OPTION, WHITELIST_TAGS } from './constants';
+import { WHITELIST_TAGS } from './constants';
 
 import {
 	orderByPosition,
@@ -23,19 +24,58 @@ import {
 	convertToUnit
 } from './utilities';
 
-class Ingredients extends React.PureComponent {
-	handleAddIngredient({ target }) {
-		const position = this.props.measurements.length;
-		this.props.onAdd(target.value, 0, position);
+const normalizeOption = ({ id, name }) => ({
+	label: name,
+	value: id
+});
+
+const StyledSelect = styled(Select).withConfig({
+	displayName: 'StyledSelect'
+})`
+	& .Select-control {
+		background-color: inherit;
+		border-style: none;
+
+		&:hover {
+			box-shadow: none;
+		}
 	}
 
-	handleChangeIngredient({ target }) {
-		const amount = parseFloat(target.dataset.amount, 10);
-		const oldSelected = this.props.measurements.find(
-			({ id }) => id === target.dataset.ingredientId
-		);
-		this.props.onRemove(target.dataset.ingredientId);
-		this.props.onAdd(target.value, amount, oldSelected.position);
+	& .Select-placeholder,
+	&.Select--single > .Select-control .Select-value {
+		padding-left: 0;
+	}
+
+	& .Select-option.is-focused {
+		background-color: #FEFEAE;
+	}
+
+	@media screen and (min-width: 640px) {
+		min-width: 200px;
+	}
+`;
+
+class Ingredients extends React.PureComponent {
+	componentDidMount() {
+		this.props.fetchAvailable();
+	}
+
+	handleAddIngredient({ value }) {
+		const position = this.props.measurements.length;
+		this.props.onAdd(value, 0, position);
+	}
+
+	handleChangeIngredient(option, oldSelectedId, amount) {
+		if (option) {
+			const { value } = option;
+			const oldSelected = this.props.measurements.find(
+				({ id }) => id === oldSelectedId
+			);
+			this.props.onRemove(oldSelectedId);
+			this.props.onAdd(value, amount, oldSelected.position);
+		} else {
+			this.props.onRemove(oldSelectedId);
+		}
 	}
 
 	handleChangeAmount({ target }) {
@@ -44,10 +84,6 @@ class Ingredients extends React.PureComponent {
 		const amount = convertToMl(unit, rawAmount);
 		const selected = this.props.measurements.find(({ id }) => id === target.dataset.ingredientId);
 		this.props.onUpdate(target.dataset.ingredientId, amount, selected.position);
-	}
-
-	handleRemoveIngredient({ target }) {
-		this.props.onRemove(target.dataset.ingredientId);
 	}
 
 	renderError() {
@@ -61,16 +97,10 @@ class Ingredients extends React.PureComponent {
 		const step = (unit.code === 'ml') ? 1 : 0.25;
 
 		const renderMeasurement = m => <Row key={m.id}>
-			<TD style={{ textAlign: 'center' }}>
-				<LinkButton
-					onClick={e => this.handleRemoveIngredient(e)}
-					data-ingredient-id={m.id}
-				/>
+			<TD writable>
+				{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e, m.id, m.amount))}
 			</TD>
-			<TD data-label="Change">
-				{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e))}
-			</TD>
-			<TD data-label={`Measurement (${unit.code})`} type="number">
+			<TD data-label={`Measurement (${unit.code})`} type="number" writable>
 				<NumberInput
 					{...{ step }}
 					autoFocus
@@ -84,7 +114,6 @@ class Ingredients extends React.PureComponent {
 			<TD data-label="Sugar (g/100mg)" type="number">{round2(m.sugar)}</TD>
 			<TD data-label="Acid (%)" type="number">{percentage(m.acid)}</TD>
 			<TD
-				data-label="Notes"
 				dangerouslySetInnerHTML={{
 					__html: striptags(m.description, WHITELIST_TAGS)
 				}}
@@ -101,35 +130,29 @@ class Ingredients extends React.PureComponent {
 		const selected = available.find(({ id }) => id === selectedId);
 		const unselected = available.filter(({ id }) => !selectedIds.includes(id));
 
-		const options = [
-			(selected || BLANK_OPTION),
-			...unselected
-		].sort(orderByPosition);
+		const options = (selected ? [ selected, ...unselected ] : available).sort(orderByPosition);
 
-		const wrapOption = ({ id, name }) => <option key={id} value={id}>{name}</option>;
-
-		return <select
+		return <StyledSelect
 			{...{ onChange }}
-			data-amount={amount}
-			data-ingredient-id={selectedId}
+			options={options.map(normalizeOption)}
+			placeholder="pick..."
+			required
 			value={selectedId}
-		>{options.map(wrapOption)}</select>;
+		/>;
 	}
 
 	render() {
 		const { measurements, unit } = this.props;
 
-		return <Section>
-			<SectionTitle>Step 2: Ingredients</SectionTitle>
-
-			<P>Select or search for ingredients and add measurements</P>
-
+		return <Section
+			title="Step 2: Ingredients"
+			description="Select or search for your ingredients from the dropdown list, then add measurements"
+		>
 			{this.renderError()}
 
 			<Table>
 				<THead>
 					<Row>
-						<TH />
 						<TH>Ingredient</TH>
 						<TH>Measurement ({unit.name})</TH>
 						<TH>Ethanol (%abv)</TH>
@@ -142,17 +165,16 @@ class Ingredients extends React.PureComponent {
 				<TBody>
 					{this.renderMeasurements()}
 					<Row>
-						<TD><LinkButton disabled /></TD>
-						<TD data-label="Add">
-							{this.renderSelector(BLANK_OPTION.id, 0, e => this.handleAddIngredient(e))}
+						<TD writable>
+							{this.renderSelector(undefined, 0, e => this.handleAddIngredient(e))}
 						</TD>
-						<TD colSpan={5} />
+						<TD colSpan={5} data-hide />
 					</Row>
 				</TBody>
 
 				<TFoot>
 					<Row>
-						<TH colSpan={2}>Initial Totals</TH>
+						<TH>Initial Totals</TH>
 						<TD data-label={`Volume (${unit.code})`} type="number"><output><NumberInput
 							readOnly
 							value={convertToUnit(unit, volume(measurements))}
@@ -166,7 +188,7 @@ class Ingredients extends React.PureComponent {
 						<TD data-label="Acid (%)" type="number">
 							<output>{percentage(acid(measurements))}</output>
 						</TD>
-						<TD />
+						<TD data-hide />
 					</Row>
 				</TFoot>
 			</Table>
@@ -181,6 +203,7 @@ class Ingredients extends React.PureComponent {
 Ingredients.propTypes = {
 	available: PropTypes.arrayOf(PropTypes.object).isRequired,
 	error: PropTypes.string.isRequired,
+	fetchAvailable: PropTypes.func.isRequired,
 	measurements: PropTypes.arrayOf(PropTypes.object).isRequired,
 	onAdd: PropTypes.func.isRequired,
 	onUpdate: PropTypes.func.isRequired,
