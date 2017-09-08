@@ -61,7 +61,10 @@ const Result = ({
 	ingredients,
 	technique,
 	unit
-}) => <Section title="Step 4: Results" description="Review the final cocktail attributes">
+}) => <Section
+	title="Step 4: Results"
+	description="Review the final cocktail attributes and try to ensure they stay within the expected range for the selected technique"
+>
 	<Table>
 		<THead>
 			<Row>

@@ -146,7 +146,7 @@ class Ingredients extends React.PureComponent {
 
 		return <Section
 			title="Step 2: Ingredients"
-			description="Select or search for ingredients and add measurements"
+			description="Select or search for your ingredients from the dropdown list, then add measurements"
 		>
 			{this.renderError()}
 
