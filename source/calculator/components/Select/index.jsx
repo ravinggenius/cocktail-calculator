@@ -10,24 +10,11 @@ Option.propTypes = {
 	value: PropTypes.string.isRequired
 };
 
-const prefixDataSet = data => Object.entries(data)
-	.reduce((memo, [ key, value ]) => Object.assign({ [`data-${key}`]: value }, memo), {});
-
-const Select = ({
-	dataSet,
-	onChange,
-	options,
-	value
-}) => <select {...{ onChange, value }} {...prefixDataSet(dataSet)}>
+const Select = ({ onChange, options, value }) => <select {...{ onChange, value }}>
 	{options.map(option => <Option {...option} />)}
 </select>;
 
-Select.defaultProps = {
-	dataSet: {}
-};
-
 Select.propTypes = {
-	dataSet: PropTypes.object,
 	onChange: PropTypes.func.isRequired,
 	options: PropTypes.arrayOf(
 		PropTypes.shape(Option.propTypes)

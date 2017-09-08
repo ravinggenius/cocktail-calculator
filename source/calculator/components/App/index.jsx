@@ -1,6 +1,8 @@
 import React from 'react';
 import { injectGlobal } from 'styled-components';
 
+import 'react-select/dist/react-select.css';
+
 import SelectIngredients from '../../containers/SelectIngredients';
 import SelectTechnique from '../../containers/SelectTechnique';
 import SelectUnit from '../../containers/SelectUnit';
