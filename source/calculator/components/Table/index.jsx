@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 
 const BREAKPOINT = 640;
@@ -81,9 +81,13 @@ TH.propTypes = {
 };
 
 
+const highlighWritable = ({ writable }) => (writable ? css`background-color: #FEFEAE;` : null);
+
+
 const TD = Cell.withComponent('td').extend.withConfig({
 	displayName: 'TD'
 })`
+	${highlighWritable}
 	text-align: ${({ type }) => ((type === 'number') ? 'right' : 'left')};
 
 	@media screen and (max-width: ${BREAKPOINT}px) {
@@ -112,7 +116,8 @@ const TD = Cell.withComponent('td').extend.withConfig({
 `;
 
 TD.defaultProps = {
-	type: 'string'
+	type: 'string',
+	writable: false
 };
 
 TD.propTypes = {
@@ -120,7 +125,8 @@ TD.propTypes = {
 	type: PropTypes.oneOf([
 		'number',
 		'string'
-	])
+	]),
+	writable: PropTypes.bool
 };
 
 

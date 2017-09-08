@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Select from 'react-select';
 import striptags from 'striptags';
+import styled from 'styled-components';
 
 import Note from '../Note';
 import NumberInput from '../NumberInput';
@@ -27,6 +28,32 @@ const normalizeOption = ({ id, name }) => ({
 	label: name,
 	value: id
 });
+
+const StyledSelect = styled(Select).withConfig({
+	displayName: 'StyledSelect'
+})`
+	& .Select-control {
+		background-color: inherit;
+		border-style: none;
+
+		&:hover {
+			box-shadow: none;
+		}
+	}
+
+	& .Select-placeholder,
+	&.Select--single > .Select-control .Select-value {
+		padding-left: 0;
+	}
+
+	& .Select-option.is-focused {
+		background-color: #FEFEAE;
+	}
+
+	@media screen and (min-width: 640px) {
+		min-width: 200px;
+	}
+`;
 
 class Ingredients extends React.PureComponent {
 	handleAddIngredient({ value }) {
@@ -66,10 +93,10 @@ class Ingredients extends React.PureComponent {
 		const step = (unit.code === 'ml') ? 1 : 0.25;
 
 		const renderMeasurement = m => <Row key={m.id}>
-			<TD>
+			<TD writable>
 				{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e, m.id, m.amount))}
 			</TD>
-			<TD data-label={`Measurement (${unit.code})`} type="number">
+			<TD data-label={`Measurement (${unit.code})`} type="number" writable>
 				<NumberInput
 					{...{ step }}
 					autoFocus
@@ -101,7 +128,7 @@ class Ingredients extends React.PureComponent {
 
 		const options = (selected ? [ selected, ...unselected ] : available).sort(orderByPosition);
 
-		return <Select
+		return <StyledSelect
 			{...{ onChange }}
 			options={options.map(normalizeOption)}
 			placeholder="pick..."
@@ -135,7 +162,7 @@ class Ingredients extends React.PureComponent {
 				<TBody>
 					{this.renderMeasurements()}
 					<Row>
-						<TD>
+						<TD writable>
 							{this.renderSelector(undefined, 0, e => this.handleAddIngredient(e))}
 						</TD>
 						<TD colSpan={5} data-hide />
