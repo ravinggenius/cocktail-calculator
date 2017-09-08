@@ -56,6 +56,10 @@ const StyledSelect = styled(Select).withConfig({
 `;
 
 class Ingredients extends React.PureComponent {
+	componentDidMount() {
+		this.props.fetchAvailable();
+	}
+
 	handleAddIngredient({ value }) {
 		const position = this.props.measurements.length;
 		this.props.onAdd(value, 0, position);
@@ -200,6 +204,7 @@ class Ingredients extends React.PureComponent {
 Ingredients.propTypes = {
 	available: PropTypes.arrayOf(PropTypes.object).isRequired,
 	error: PropTypes.string.isRequired,
+	fetchAvailable: PropTypes.func.isRequired,
 	measurements: PropTypes.arrayOf(PropTypes.object).isRequired,
 	onAdd: PropTypes.func.isRequired,
 	onUpdate: PropTypes.func.isRequired,
