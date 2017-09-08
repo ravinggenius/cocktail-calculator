@@ -38,6 +38,7 @@ const Row = styled.tr.withConfig({
 	@media screen and (max-width: ${BREAKPOINT}px) {
 		border: 1px solid #CCCCCC;
 		display: block;
+		margin-bottom: 1em;
 	}
 `;
 
@@ -89,9 +90,17 @@ const TD = Cell.withComponent('td').extend.withConfig({
 		border-style: none;
 		border-bottom: 1px solid #CCCCCC;
 		position: relative;
-		padding-left: 50%;
 
-		&::before {
+		&[data-hide] {
+			display: none;
+		}
+
+		&[data-label] {
+			padding-left: 50%;
+			text-align: right;
+		}
+
+		&[data-label]::before {
 			content: attr(data-label);
 			left: ${GUTTER}px;
 			position: absolute;

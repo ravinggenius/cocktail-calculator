@@ -66,7 +66,7 @@ class Ingredients extends React.PureComponent {
 		const step = (unit.code === 'ml') ? 1 : 0.25;
 
 		const renderMeasurement = m => <Row key={m.id}>
-			<TD data-label="Change">
+			<TD>
 				{this.renderSelector(m.id, m.amount, e => this.handleChangeIngredient(e, m.id, m.amount))}
 			</TD>
 			<TD data-label={`Measurement (${unit.code})`} type="number">
@@ -83,7 +83,6 @@ class Ingredients extends React.PureComponent {
 			<TD data-label="Sugar (g/100mg)" type="number">{round2(m.sugar)}</TD>
 			<TD data-label="Acid (%)" type="number">{percentage(m.acid)}</TD>
 			<TD
-				data-label="Notes"
 				dangerouslySetInnerHTML={{
 					__html: striptags(m.description, WHITELIST_TAGS)
 				}}
@@ -136,10 +135,10 @@ class Ingredients extends React.PureComponent {
 				<TBody>
 					{this.renderMeasurements()}
 					<Row>
-						<TD data-label="Add">
+						<TD>
 							{this.renderSelector(undefined, 0, e => this.handleAddIngredient(e))}
 						</TD>
-						<TD colSpan={5} />
+						<TD colSpan={5} data-hide />
 					</Row>
 				</TBody>
 
@@ -159,7 +158,7 @@ class Ingredients extends React.PureComponent {
 						<TD data-label="Acid (%)" type="number">
 							<output>{percentage(acid(measurements))}</output>
 						</TD>
-						<TD />
+						<TD data-hide />
 					</Row>
 				</TFoot>
 			</Table>
