@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Note from '../Note';
 import NumberInput from '../NumberInput';
 import P from '../P';
-import Section, { SectionTitle } from '../Section';
+import Section from '../Section';
 import Table, { Row, TD, TH, THead, TBody, TFoot } from '../Table';
 
 import { WHITELIST_TAGS } from './constants';
@@ -144,11 +144,10 @@ class Ingredients extends React.PureComponent {
 	render() {
 		const { measurements, unit } = this.props;
 
-		return <Section>
-			<SectionTitle>Step 2: Ingredients</SectionTitle>
-
-			<P>Select or search for ingredients and add measurements</P>
-
+		return <Section
+			title="Step 2: Ingredients"
+			description="Select or search for ingredients and add measurements"
+		>
 			{this.renderError()}
 
 			<Table>

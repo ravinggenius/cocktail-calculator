@@ -1,7 +1,11 @@
+import PropTypes from 'prop-types';
+import React from 'react';
 import styled from 'styled-components';
 
-const Section = styled.section.withConfig({
-	displayName: 'Section'
+import P from '../P';
+
+const Wrapper = styled.section.withConfig({
+	displayName: 'Wrapper'
 })`
 	&:not(:first-of-type) {
 		border-top: solid 1px #F0F0F0;
@@ -10,10 +14,23 @@ const Section = styled.section.withConfig({
 	}
 `;
 
-const SectionTitle = styled.h2.withConfig({
-	displayName: 'SectionTitle'
+const Title = styled.h2.withConfig({
+	displayName: 'Title'
 })`
 `;
 
+const Section = ({ children, description, title }) => <Wrapper>
+	<Title>{title}</Title>
+
+	<P>{description}</P>
+
+	{children}
+</Wrapper>;
+
+Section.propTypes = {
+	children: PropTypes.node.isRequired,
+	description: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired
+};
+
 export default Section;
-export { SectionTitle };

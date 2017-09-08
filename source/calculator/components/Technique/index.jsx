@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import P from '../P';
-import Section, { SectionTitle } from '../Section';
+import Section from '../Section';
 import Select from '../Select';
 
 const normalizeOption = ({ code, name }) => ({
@@ -17,11 +17,7 @@ const findSelected = (available, selectedCode) => available.find(
 const Technique = ({ available, onChange, selectedCode }) => {
 	const selected = findSelected(available, selectedCode);
 
-	return <Section>
-		<SectionTitle>Step 3: Technique</SectionTitle>
-
-		<P>Select the type of cocktail</P>
-
+	return <Section title="Step 3: Technique" description="Select the type of cocktail">
 		<Select {...{ onChange }} options={available.map(normalizeOption)} value={selectedCode} />
 
 		<P>{selected.description}</P>
