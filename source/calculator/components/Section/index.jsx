@@ -19,17 +19,27 @@ const Title = styled.h2.withConfig({
 })`
 `;
 
+const Description = ({ children }) => (children ? <P>{children}</P> : null);
+
+Description.propTypes = {
+	children: PropTypes.node.isRequired
+};
+
 const Section = ({ children, description, title }) => <Wrapper>
 	<Title>{title}</Title>
 
-	<P>{description}</P>
+	<Description>{description}</Description>
 
 	{children}
 </Wrapper>;
 
+Section.defaultProps = {
+	description: null
+};
+
 Section.propTypes = {
 	children: PropTypes.node.isRequired,
-	description: PropTypes.string.isRequired,
+	description: PropTypes.string,
 	title: PropTypes.string.isRequired
 };
 

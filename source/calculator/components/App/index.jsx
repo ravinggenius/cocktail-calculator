@@ -8,6 +8,8 @@ import SelectTechnique from '../../containers/SelectTechnique';
 import SelectUnit from '../../containers/SelectUnit';
 import ShowResult from '../../containers/ShowResult';
 
+import Attribution from '../Attribution';
+
 // eslint-disable-next-line no-unused-expressions
 injectGlobal`
 	.header-announcement-wrapper {
@@ -20,6 +22,7 @@ const App = () => <section>
 	<SelectIngredients />
 	<SelectTechnique />
 	<ShowResult />
+	<Attribution />
 </section>;
 
 export default App;
