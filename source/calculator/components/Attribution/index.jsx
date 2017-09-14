@@ -6,6 +6,7 @@ import P from '../P';
 import Section from '../Section';
 
 const Button = styled.button.attrs({
+	className: 'sqs-system-button sqs-editable-button',
 	type: 'button'
 }).withConfig({
 	displayName: 'Button'
