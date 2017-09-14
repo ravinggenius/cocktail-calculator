@@ -117,6 +117,8 @@ class Ingredients extends React.PureComponent {
 				dangerouslySetInnerHTML={{
 					__html: striptags(m.description, WHITELIST_TAGS)
 				}}
+				data-label="Notes"
+				style={{ paddingLeft: '25%' }}
 			/>
 		</Row>;
 
