@@ -146,7 +146,7 @@ class Ingredients extends React.PureComponent {
 		return <StyledSelect
 			{...{ onChange }}
 			options={options.map(normalizeOption)}
-			placeholder="pick..."
+			placeholder="Select Ingredient"
 			required
 			value={selectedId}
 		/>;
@@ -165,7 +165,7 @@ class Ingredients extends React.PureComponent {
 				<THead>
 					<Row>
 						<TH>Ingredient</TH>
-						<TH>Measurement ({unit.name})</TH>
+						<TH>Measurement ({unit.code})</TH>
 						<TH>Ethanol (%abv)</TH>
 						<TH>Sugar (g/100mg)</TH>
 						<TH>Acid (%)</TH>

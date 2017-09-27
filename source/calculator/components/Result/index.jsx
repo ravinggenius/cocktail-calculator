@@ -90,7 +90,7 @@ const Result = ({
 				actual={volume(technique, ingredients)}
 				format={convertToUnit(unit)}
 				range={technique.volume}
-				label={`Final Volume (${unit.name})`}
+				label={`Final Volume (${unit.code})`}
 				lowMessage="Not enough volume"
 				highMessage="Too much volume"
 			/>
