@@ -55,6 +55,16 @@ const StyledSelect = styled(Select).withConfig({
 	}
 `;
 
+const Notes = TD.extend.withConfig({
+	displayName: 'Notes'
+})`
+	@media screen and (max-width: 640px) {
+		&[data-label] {
+			padding-left: 25%;
+		}
+	}
+`;
+
 class Ingredients extends React.PureComponent {
 	componentDidMount() {
 		this.props.fetchAvailable();
@@ -113,12 +123,11 @@ class Ingredients extends React.PureComponent {
 			<TD data-label="Ethanol (%abv)" type="number">{percentage(m.ethanol)}</TD>
 			<TD data-label="Sugar (g/100mg)" type="number">{round2(m.sugar)}</TD>
 			<TD data-label="Acid (%)" type="number">{percentage(m.acid)}</TD>
-			<TD
+			<Notes
 				dangerouslySetInnerHTML={{
 					__html: striptags(m.description, WHITELIST_TAGS)
 				}}
 				data-label="Notes"
-				style={{ paddingLeft: '25%' }}
 			/>
 		</Row>;
 
