@@ -13,6 +13,14 @@ const Button = styled.button.attrs({
 })`
 `;
 
+const LinkButton = Button.withComponent('a').extend.withConfig({
+	displayName: 'LinkButton'
+})`
+	&&& {
+		padding: 10px 15px;
+	}
+`;
+
 const Small = styled.small.withConfig({
 	displayName: 'Small'
 })`
@@ -55,6 +63,8 @@ class Attribution extends React.PureComponent {
 				<P>Dilution formulas from Dave Arnold&apos;s <A href="https://www.amazon.com/dp/0393089037/_encoding=UTF8?ref=exp_inf_pl_cocktailchemistry">Liquid Intelligence</A>.</P>
 
 				<P>Calculator generously ported by <A href="https://about.me/ravinggenius">Thomas Ingram</A>.</P>
+
+				<P><LinkButton href="/contact">Share Feedback</LinkButton></P>
 
 				<Small>calculator code © Thomas Ingram</Small>
 			</Modal>
