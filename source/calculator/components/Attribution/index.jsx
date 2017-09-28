@@ -52,6 +52,8 @@ class Attribution extends React.PureComponent {
 			<Button onClick={this.handleToggleModal}>About</Button>
 
 			<Modal {...{ isOpen }} onClose={this.handleToggleModal} title="Credits">
+				<P>Dilution formulas from Dave Arnold&apos;s <A href="https://www.amazon.com/dp/0393089037/_encoding=UTF8?ref=exp_inf_pl_cocktailchemistry">Liquid Intelligence</A>.</P>
+
 				<P>Calculator generously ported by <A href="https://about.me/ravinggenius">Thomas Ingram</A>.</P>
 
 				<Small>calculator code © Thomas Ingram</Small>
