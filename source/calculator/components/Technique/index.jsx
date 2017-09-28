@@ -17,10 +17,9 @@ const findSelected = (available, selectedCode) => available.find(
 const Technique = ({ available, onChange, selectedCode }) => {
 	const selected = findSelected(available, selectedCode);
 
-	return <Section
-		title="Step 3: Technique"
-		description="Select the type of cocktail and note the technique involved"
-	>
+	return <Section title="Step 3: Technique">
+		<P>Select the type of cocktail and note the technique involved</P>
+
 		<Select {...{ onChange }} options={available.map(normalizeOption)} value={selectedCode} />
 
 		<P>{selected.description}</P>

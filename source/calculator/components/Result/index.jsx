@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import P from '../P';
 import Section from '../Section';
 import Table, { Row, TD, TH, THead, TBody } from '../Table';
 
@@ -61,10 +62,12 @@ const Result = ({
 	ingredients,
 	technique,
 	unit
-}) => <Section
-	title="Step 4: Results"
-	description="Review the final cocktail attributes and try to ensure they stay within the expected range for the selected technique"
->
+}) => <Section title="Step 4: Results">
+	<P>
+		Review the final cocktail attributes and try to ensure they stay within the expected range
+		for the selected technique
+	</P>
+
 	<Table>
 		<THead>
 			<Row>

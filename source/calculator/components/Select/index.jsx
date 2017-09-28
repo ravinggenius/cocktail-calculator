@@ -16,7 +16,7 @@ const Container = styled.select.withConfig({
 	}
 `;
 
-const Option = ({ text, value }) => <option {...{ value }} key={value}>
+const Option = ({ text, value }) => <option {...{ value }}>
 	{text}
 </option>;
 
@@ -25,8 +25,12 @@ Option.propTypes = {
 	value: PropTypes.string.isRequired
 };
 
-const Select = ({ onChange, options, value }) => <Container {...{ onChange, value }}>
-	{options.map(option => <Option {...option} />)}
+const Select = ({
+	onChange,
+	options,
+	value: selectedValue
+}) => <Container {...{ onChange }} value={selectedValue}>
+	{options.map(({ text, value }) => <Option {...{ text, value }} key={value} />)}
 </Container>;
 
 Select.propTypes = {

@@ -155,17 +155,16 @@ class Ingredients extends React.PureComponent {
 	render() {
 		const { measurements, unit } = this.props;
 
-		return <Section
-			title="Step 2: Ingredients"
-			description="Select or search for your ingredients from the dropdown list, then add measurements"
-		>
+		return <Section title="Step 2: Ingredients">
+			<P>Select or search for your ingredients from the dropdown list, then add measurements</P>
+
 			{this.renderError()}
 
 			<Table>
 				<THead>
 					<Row>
 						<TH>Ingredient</TH>
-						<TH>Measurement ({unit.code})</TH>
+						<TH>{`Measurement (${unit.code})`}</TH>
 						<TH>Ethanol (%abv)</TH>
 						<TH>Sugar (g/100mg)</TH>
 						<TH>Acid (%)</TH>
