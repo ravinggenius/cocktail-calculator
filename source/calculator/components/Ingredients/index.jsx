@@ -117,7 +117,7 @@ class Ingredients extends React.PureComponent {
 					data-ingredient-id={m.id}
 					min={0}
 					onChange={e => this.handleChangeAmount(e)}
-					value={convertToUnit(unit, m.amount)}
+					value={convertToUnit(unit, m.amount).toFixed(unit.precision)}
 				/>
 			</TD>
 			<TD data-label="Ethanol (%abv)" type="number">{percentage(m.ethanol)}</TD>
@@ -187,7 +187,7 @@ class Ingredients extends React.PureComponent {
 						<TH>Initial Totals</TH>
 						<TD data-label={`Volume (${unit.code})`} type="number"><output><NumberInput
 							readOnly
-							value={convertToUnit(unit, volume(measurements))}
+							value={convertToUnit(unit, volume(measurements)).toFixed(unit.precision)}
 						/></output></TD>
 						<TD data-label="Ethanol (%abv)" type="number">
 							<output>{percentage(ethanol(measurements))}</output>
