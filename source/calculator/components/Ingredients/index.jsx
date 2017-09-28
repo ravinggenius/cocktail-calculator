@@ -72,7 +72,7 @@ class Ingredients extends React.PureComponent {
 
 	handleAddIngredient({ value }) {
 		const position = this.props.measurements.length;
-		this.props.onAdd(value, 0, position);
+		this.props.onAdd(value, NaN, position);
 	}
 
 	handleChangeIngredient(option, oldSelectedId, amount) {
