@@ -24,10 +24,10 @@ export const acid = buildInitial('acid');
 
 export const convertToMl = ({ code }, amount) => ({
 	ml: amount,
-	oz: amount * 28.4131
+	oz: amount * 29.57344
 }[code]);
 
 export const convertToUnit = ({ code }, amount) => ({
 	ml: round0(amount),
-	oz: round2(amount * 0.03519503)
+	oz: round2(amount * 0.03381413)
 }[code]);
