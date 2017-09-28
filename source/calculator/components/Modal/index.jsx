@@ -30,7 +30,7 @@ const Inner = styled.section.withConfig({
 	displayName: 'Inner'
 })`
 	background-color: #FFFFFF;
-	border-radius: 0 0 2px 2px;
+	border-radius: 2px;
 	box-shadow: 2px 3px 5px #000000;
 	grid-area: modal;
 	overflow-x: scroll;
@@ -42,6 +42,7 @@ const Header = styled.header.withConfig({
 	align-items: center;
 	background-color: #272727;
 	display: flex;
+	border-radius: 2px 2px 0 0;
 	font-weight: bold;
 	position: sticky;
 	top: 0;
@@ -56,7 +57,7 @@ const Title = styled.h3.withConfig({
 })`
 	font-size: 17px;
 	margin: 0;
-	padding: 5px;
+	padding: 10px;
 	text-align: center;
 	width: 100%;
 `;
@@ -76,7 +77,7 @@ const Close = styled.button.attrs({
 const Body = styled.section.withConfig({
 	displayName: 'Body'
 })`
-	padding: 0 5px 5px;
+	padding: 0 15px 15px;
 `;
 
 const Modal = ({ children, isOpen, onClose, title }) => {

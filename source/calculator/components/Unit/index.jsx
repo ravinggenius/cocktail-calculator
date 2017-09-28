@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import P from '../P';
 import Section from '../Section';
 import Select from '../Select';
 
@@ -13,7 +14,9 @@ const Unit = ({
 	available,
 	onChange,
 	selectedCode
-}) => <Section title="Step 1: Units" description="What units are you working with?">
+}) => <Section title="Step 1: Units">
+	<P>What units are you working with?</P>
+
 	<Select {...{ onChange }} options={available.map(normalizeOption)} value={selectedCode} />
 </Section>;
 

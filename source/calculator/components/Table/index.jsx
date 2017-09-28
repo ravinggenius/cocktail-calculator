@@ -76,8 +76,12 @@ const TH = Cell.withComponent('th').extend.withConfig({
 	}
 `;
 
+TH.defaultProps = {
+	children: null
+};
+
 TH.propTypes = {
-	children: PropTypes.string.isRequired
+	children: PropTypes.string
 };
 
 
@@ -116,12 +120,13 @@ const TD = Cell.withComponent('td').extend.withConfig({
 `;
 
 TD.defaultProps = {
+	children: null,
 	type: 'string',
 	writable: false
 };
 
 TD.propTypes = {
-	children: PropTypes.node.isRequired,
+	children: PropTypes.node,
 	type: PropTypes.oneOf([
 		'number',
 		'string'
@@ -145,9 +150,7 @@ const THead = styled.thead.withConfig({
 `;
 
 THead.propTypes = {
-	children: PropTypes.arrayOf(
-		PropTypes.element.isRequired
-	).isRequired
+	children: PropTypes.element.isRequired
 };
 
 
@@ -160,9 +163,7 @@ const TBody = styled.tbody.withConfig({
 `;
 
 TBody.propTypes = {
-	children: PropTypes.arrayOf(
-		PropTypes.element.isRequired
-	).isRequired
+	children: PropTypes.node.isRequired
 };
 
 
@@ -175,9 +176,7 @@ const TFoot = styled.tfoot.withConfig({
 `;
 
 TFoot.propTypes = {
-	children: PropTypes.arrayOf(
-		PropTypes.element.isRequired
-	).isRequired
+	children: PropTypes.element.isRequired
 };
 
 

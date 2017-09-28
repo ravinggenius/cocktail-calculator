@@ -55,6 +55,16 @@ const StyledSelect = styled(Select).withConfig({
 	}
 `;
 
+const Notes = TD.extend.withConfig({
+	displayName: 'Notes'
+})`
+	@media screen and (max-width: 640px) {
+		&[data-label] {
+			padding-left: 25%;
+		}
+	}
+`;
+
 class Ingredients extends React.PureComponent {
 	componentDidMount() {
 		this.props.fetchAvailable();
@@ -62,7 +72,7 @@ class Ingredients extends React.PureComponent {
 
 	handleAddIngredient({ value }) {
 		const position = this.props.measurements.length;
-		this.props.onAdd(value, 0, position);
+		this.props.onAdd(value, NaN, position);
 	}
 
 	handleChangeIngredient(option, oldSelectedId, amount) {
@@ -107,18 +117,17 @@ class Ingredients extends React.PureComponent {
 					data-ingredient-id={m.id}
 					min={0}
 					onChange={e => this.handleChangeAmount(e)}
-					value={convertToUnit(unit, m.amount)}
+					value={convertToUnit(unit, m.amount).toFixed(unit.precision)}
 				/>
 			</TD>
 			<TD data-label="Ethanol (%abv)" type="number">{percentage(m.ethanol)}</TD>
 			<TD data-label="Sugar (g/100mg)" type="number">{round2(m.sugar)}</TD>
 			<TD data-label="Acid (%)" type="number">{percentage(m.acid)}</TD>
-			<TD
+			<Notes
 				dangerouslySetInnerHTML={{
 					__html: striptags(m.description, WHITELIST_TAGS)
 				}}
 				data-label="Notes"
-				style={{ paddingLeft: '25%' }}
 			/>
 		</Row>;
 
@@ -137,7 +146,7 @@ class Ingredients extends React.PureComponent {
 		return <StyledSelect
 			{...{ onChange }}
 			options={options.map(normalizeOption)}
-			placeholder="pick..."
+			placeholder="Select Ingredient"
 			required
 			value={selectedId}
 		/>;
@@ -146,17 +155,16 @@ class Ingredients extends React.PureComponent {
 	render() {
 		const { measurements, unit } = this.props;
 
-		return <Section
-			title="Step 2: Ingredients"
-			description="Select or search for your ingredients from the dropdown list, then add measurements"
-		>
+		return <Section title="Step 2: Ingredients">
+			<P>Select or search for your ingredients from the dropdown list, then add measurements</P>
+
 			{this.renderError()}
 
 			<Table>
 				<THead>
 					<Row>
 						<TH>Ingredient</TH>
-						<TH>Measurement ({unit.name})</TH>
+						<TH>{`Measurement (${unit.code})`}</TH>
 						<TH>Ethanol (%abv)</TH>
 						<TH>Sugar (g/100mg)</TH>
 						<TH>Acid (%)</TH>
@@ -179,7 +187,7 @@ class Ingredients extends React.PureComponent {
 						<TH>Initial Totals</TH>
 						<TD data-label={`Volume (${unit.code})`} type="number"><output><NumberInput
 							readOnly
-							value={convertToUnit(unit, volume(measurements))}
+							value={convertToUnit(unit, volume(measurements)).toFixed(unit.precision)}
 						/></output></TD>
 						<TD data-label="Ethanol (%abv)" type="number">
 							<output>{percentage(ethanol(measurements))}</output>

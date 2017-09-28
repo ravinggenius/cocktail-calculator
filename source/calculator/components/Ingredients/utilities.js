@@ -1,9 +1,6 @@
 export const orderByPosition = ({ position: a }, { position: b }) => a - b;
 
-export const buildRound = places => number => Math.round(number * (10 ** places)) / (10 ** places);
-
-export const round0 = buildRound(0);
-export const round2 = buildRound(2);
+export const round2 = number => number.toFixed(2);
 
 export const percentage = number => `${round2(number * 100)}%`;
 
@@ -24,10 +21,10 @@ export const acid = buildInitial('acid');
 
 export const convertToMl = ({ code }, amount) => ({
 	ml: amount,
-	oz: amount * 28.4131
+	oz: amount * 29.57344
 }[code]);
 
 export const convertToUnit = ({ code }, amount) => ({
-	ml: round0(amount),
-	oz: round2(amount * 0.03519503)
+	ml: amount,
+	oz: amount * 0.03381413
 }[code]);
