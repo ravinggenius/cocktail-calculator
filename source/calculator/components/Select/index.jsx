@@ -5,7 +5,6 @@ import styled from 'styled-components';
 const Container = styled.select.withConfig({
 	displayName: 'Container'
 })`
-	appearance: none;
 	background-color: #FEFEAE;
 	border: #CCCCCC 1px solid;
 	border-radius: 0;
