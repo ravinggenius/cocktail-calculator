@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Select from 'react-select';
-import striptags from 'striptags';
 import styled from 'styled-components';
 
 import Note from '../Note';
@@ -9,8 +8,6 @@ import NumberInput from '../NumberInput';
 import P from '../P';
 import Section from '../Section';
 import Table, { Row, TD, TH, THead, TBody, TFoot } from '../Table';
-
-import { WHITELIST_TAGS } from './constants';
 
 import {
 	orderByPosition,
@@ -122,7 +119,7 @@ class Ingredients extends React.PureComponent {
 			<TD data-label="Acid (%)" type="number">{percentage(m.acid)}</TD>
 			<Notes
 				dangerouslySetInnerHTML={{
-					__html: striptags(m.description, WHITELIST_TAGS)
+					__html: m.description
 				}}
 				data-label="Notes"
 			/>

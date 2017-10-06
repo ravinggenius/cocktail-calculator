@@ -1,3 +1,5 @@
+import striptags from 'striptags';
+
 import * as INGREDIENT from './constants';
 
 export const addMeasurement = (id, amount, position) => ({
@@ -33,7 +35,7 @@ const normalize = item => ({
 	id: item.id,
 	position: item.displayIndex,
 	name: item.title,
-	description: item.body,
+	description: striptags(item.body, INGREDIENT.WHITELIST_TAGS),
 	ethanol: parseFloat(item.customContent.ethanol),
 	sugar: parseFloat(item.customContent.sugar),
 	acid: parseFloat(item.customContent.acid)
