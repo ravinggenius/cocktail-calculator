@@ -34,9 +34,9 @@ const normalize = item => ({
 	position: item.displayIndex,
 	name: item.title,
 	description: item.body,
-	ethanol: parseFloat(item.customContent.ethanol, 10),
-	sugar: parseFloat(item.customContent.sugar, 10),
-	acid: parseFloat(item.customContent.acid, 10)
+	ethanol: parseFloat(item.customContent.ethanol),
+	sugar: parseFloat(item.customContent.sugar),
+	acid: parseFloat(item.customContent.acid)
 });
 
 export const fetchAvailableSuccess = response => dispatch => response.json()

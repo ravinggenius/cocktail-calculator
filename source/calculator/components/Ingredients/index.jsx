@@ -90,7 +90,7 @@ class Ingredients extends React.PureComponent {
 
 	handleChangeAmount(ingredientId, value) {
 		const { unit } = this.props;
-		const rawAmount = parseFloat(value, 10);
+		const rawAmount = parseFloat(value);
 		const amount = convertToMl(unit, rawAmount);
 		const selected = this.props.measurements.find(({ id }) => id === ingredientId);
 		this.props.onUpdate(ingredientId, amount, selected.position);
