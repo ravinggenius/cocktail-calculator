@@ -19,8 +19,8 @@ import {
 	convertToUnit
 } from './utilities';
 
-const Accessment = TD.extend.withConfig({
-	displayName: 'Accessment'
+const Assessment = TD.extend.withConfig({
+	displayName: 'Assessment'
 })`
 	text-align: center;
 `;
@@ -34,13 +34,13 @@ const ResultRow = ({ actual, format, range: { low, high }, label, lowMessage, hi
 	return <Row>
 		<TH>{label}</TH>
 		<TD {...{ style }} data-label="Result" type="number"><output>{format(actual)}</output></TD>
-		<Accessment {...{ style }} data-label="Accessment"><output>{pickMessage(
+		<Assessment {...{ style }} data-label="Assessment"><output>{pickMessage(
 			low,
 			high,
 			lowMessage,
 			highMessage,
 			actual
-		)}</output></Accessment>
+		)}</output></Assessment>
 		<TD data-label="Expected Low" type="number">{format(low)}</TD>
 		<TD data-label="Expected High" type="number">{format(high)}</TD>
 	</Row>;
