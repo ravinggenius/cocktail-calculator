@@ -185,10 +185,12 @@ class Ingredients extends React.PureComponent {
 				<TFoot>
 					<Row>
 						<TH>Initial Totals</TH>
-						<TD data-label={`Volume (${unit.code})`} type="number"><output><NumberInput
-							readOnly
-							value={convertToUnit(unit, volume(measurements)).toFixed(unit.precision)}
-						/></output></TD>
+						<TD data-label={`Volume (${unit.code})`} type="number">
+							<output><NumberInput
+								readOnly
+								value={convertToUnit(unit, volume(measurements)).toFixed(unit.precision)}
+							/></output>
+						</TD>
 						<TD data-label="Ethanol (%abv)" type="number">
 							<output>{percentage(ethanol(measurements))}</output>
 						</TD>
