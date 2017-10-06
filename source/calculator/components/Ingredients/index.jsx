@@ -88,12 +88,12 @@ class Ingredients extends React.PureComponent {
 		}
 	}
 
-	handleChangeAmount({ target }) {
+	handleChangeAmount(ingredientId, value) {
 		const { unit } = this.props;
-		const rawAmount = parseFloat(target.value, 10);
+		const rawAmount = parseFloat(value, 10);
 		const amount = convertToMl(unit, rawAmount);
-		const selected = this.props.measurements.find(({ id }) => id === target.dataset.ingredientId);
-		this.props.onUpdate(target.dataset.ingredientId, amount, selected.position);
+		const selected = this.props.measurements.find(({ id }) => id === ingredientId);
+		this.props.onUpdate(ingredientId, amount, selected.position);
 	}
 
 	renderError() {
@@ -113,10 +113,7 @@ class Ingredients extends React.PureComponent {
 			<TD data-label={`Measurement (${unit.code})`} type="number" writable>
 				<NumberInput
 					{...{ step }}
-					autoFocus
-					data-ingredient-id={m.id}
-					min={0}
-					onChange={e => this.handleChangeAmount(e)}
+					onChange={value => this.handleChangeAmount(m.id, value)}
 					value={convertToUnit(unit, m.amount).toFixed(unit.precision)}
 				/>
 			</TD>
