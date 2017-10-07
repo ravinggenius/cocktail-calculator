@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Select from 'react-select';
-import striptags from 'striptags';
 import styled from 'styled-components';
 
 import Note from '../Note';
@@ -9,8 +8,6 @@ import NumberInput from '../NumberInput';
 import P from '../P';
 import Section from '../Section';
 import Table, { Row, TD, TH, THead, TBody, TFoot } from '../Table';
-
-import { WHITELIST_TAGS } from './constants';
 
 import {
 	orderByPosition,
@@ -88,12 +85,12 @@ class Ingredients extends React.PureComponent {
 		}
 	}
 
-	handleChangeAmount({ target }) {
+	handleChangeAmount(ingredientId, value) {
 		const { unit } = this.props;
-		const rawAmount = parseFloat(target.value, 10);
+		const rawAmount = parseFloat(value);
 		const amount = convertToMl(unit, rawAmount);
-		const selected = this.props.measurements.find(({ id }) => id === target.dataset.ingredientId);
-		this.props.onUpdate(target.dataset.ingredientId, amount, selected.position);
+		const selected = this.props.measurements.find(({ id }) => id === ingredientId);
+		this.props.onUpdate(ingredientId, amount, selected.position);
 	}
 
 	renderError() {
@@ -113,10 +110,7 @@ class Ingredients extends React.PureComponent {
 			<TD data-label={`Measurement (${unit.code})`} type="number" writable>
 				<NumberInput
 					{...{ step }}
-					autoFocus
-					data-ingredient-id={m.id}
-					min={0}
-					onChange={e => this.handleChangeAmount(e)}
+					onChange={value => this.handleChangeAmount(m.id, value)}
 					value={convertToUnit(unit, m.amount).toFixed(unit.precision)}
 				/>
 			</TD>
@@ -125,7 +119,7 @@ class Ingredients extends React.PureComponent {
 			<TD data-label="Acid (%)" type="number">{percentage(m.acid)}</TD>
 			<Notes
 				dangerouslySetInnerHTML={{
-					__html: striptags(m.description, WHITELIST_TAGS)
+					__html: m.description
 				}}
 				data-label="Notes"
 			/>
@@ -185,10 +179,12 @@ class Ingredients extends React.PureComponent {
 				<TFoot>
 					<Row>
 						<TH>Initial Totals</TH>
-						<TD data-label={`Volume (${unit.code})`} type="number"><output><NumberInput
-							readOnly
-							value={convertToUnit(unit, volume(measurements)).toFixed(unit.precision)}
-						/></output></TD>
+						<TD data-label={`Volume (${unit.code})`} type="number">
+							<output><NumberInput
+								readOnly
+								value={convertToUnit(unit, volume(measurements)).toFixed(unit.precision)}
+							/></output>
+						</TD>
 						<TD data-label="Ethanol (%abv)" type="number">
 							<output>{percentage(ethanol(measurements))}</output>
 						</TD>
