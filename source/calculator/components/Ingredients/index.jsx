@@ -52,6 +52,14 @@ const StyledSelect = styled(Select).withConfig({
 	}
 `;
 
+const NotesHeader = TH.extend.withConfig({
+	displayName: 'NotesHeader'
+})`
+	@media screen and (min-width: 641px) {
+		width: 40%;
+	}
+`;
+
 const Notes = TD.extend.withConfig({
 	displayName: 'Notes'
 })`
@@ -164,7 +172,7 @@ class Ingredients extends React.PureComponent {
 						<TH>Ethanol (%abv)</TH>
 						<TH>Sugar (g/100mg)</TH>
 						<TH>Acid (%)</TH>
-						<TH>Notes/Pairings</TH>
+						<NotesHeader>Notes/Pairings</NotesHeader>
 					</Row>
 				</THead>
 
