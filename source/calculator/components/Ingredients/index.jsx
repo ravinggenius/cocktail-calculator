@@ -139,6 +139,8 @@ class Ingredients extends React.PureComponent {
 
 		return <StyledSelect
 			{...{ onChange }}
+			backspaceRemoves={false}
+			deleteRemoves={false}
 			options={options.map(normalizeOption)}
 			placeholder="Select Ingredient"
 			required
