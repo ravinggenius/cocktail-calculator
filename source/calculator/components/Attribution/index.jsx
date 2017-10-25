@@ -1,40 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 
+import A from '../A';
+import Button from '../Button';
+import LinkButton from '../LinkButton';
 import Modal from '../Modal';
 import P from '../P';
 import Section from '../Section';
-
-const Button = styled.button.attrs({
-	className: 'sqs-system-button sqs-editable-button',
-	type: 'button'
-}).withConfig({
-	displayName: 'Button'
-})`
-`;
-
-const LinkButton = Button.withComponent('a').extend.withConfig({
-	displayName: 'LinkButton'
-})`
-	&&& {
-		padding: 10px 15px;
-	}
-`;
-
-const Small = styled.small.withConfig({
-	displayName: 'Small'
-})`
-`;
-
-const A = styled.a.withConfig({
-	displayName: 'A'
-})`
-	color: #5D5DFD;
-
-	&:hover {
-		color: inherit;
-	}
-`;
+import Small from '../Small';
 
 class Attribution extends React.PureComponent {
 	constructor(props) {

@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
+import { anchorStyles } from '../A';
+
 
 const BREAKPOINT = 640;
 const GUTTER = 5;
@@ -17,11 +19,7 @@ const Table = styled.table.withConfig({
 	}
 
 	& a {
-		color: #5D5DFD;
-
-		&:hover {
-			color: inherit;
-		}
+		${anchorStyles}
 	}
 `;
 
