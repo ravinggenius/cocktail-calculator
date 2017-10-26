@@ -18,12 +18,8 @@ const CenteredSection = styled(Section).withConfig({
 const ButtonGroup = styled.div.withConfig({
 	displayName: 'ButtonGroup'
 })`
-	& :first-child {
-		margin-right: 5px;
-	}
-
-	& :last-child {
-		margin-left: 5px;
+	& > * {
+		margin: 5px;
 	}
 `;
 
