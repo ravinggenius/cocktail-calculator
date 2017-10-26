@@ -73,7 +73,7 @@ const Result = ({
 			<Row>
 				<TH>Attribute</TH>
 				<TH>Result</TH>
-				<TH />
+				<TH>Assessment</TH>
 				<TH>Expected Low</TH>
 				<TH>Expected High</TH>
 			</Row>

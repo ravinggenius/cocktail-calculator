@@ -12,6 +12,7 @@ const Overlay = styled.article.withConfig({
 	height: 100%;
 	left: 0;
 	position: fixed;
+	text-align: initial;
 	top: 0;
 	width: 100%;
 	z-index: 100000;
