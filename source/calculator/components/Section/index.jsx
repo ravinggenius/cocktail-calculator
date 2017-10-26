@@ -17,7 +17,7 @@ const Title = styled.h2.withConfig({
 })`
 `;
 
-const Section = ({ children, title }) => <Wrapper>
+const Section = ({ children, className, title }) => <Wrapper {...{ className }}>
 	<Title>{title}</Title>
 
 	{children}
@@ -25,6 +25,7 @@ const Section = ({ children, title }) => <Wrapper>
 
 Section.propTypes = {
 	children: PropTypes.node.isRequired,
+	className: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired
 };
 
