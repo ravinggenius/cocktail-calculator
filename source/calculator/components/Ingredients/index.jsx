@@ -65,7 +65,7 @@ const Notes = TD.extend.withConfig({
 })`
 	@media screen and (max-width: 640px) {
 		&[data-label] {
-			padding-left: 25%;
+			padding-left: ${p => p['data-label'].length}ch;
 		}
 	}
 `;
@@ -129,7 +129,7 @@ class Ingredients extends React.PureComponent {
 				dangerouslySetInnerHTML={{
 					__html: m.description
 				}}
-				data-label="Notes"
+				data-label="Notes/Pairings"
 			/>
 		</Row>;
 
