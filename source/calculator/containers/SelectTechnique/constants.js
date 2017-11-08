@@ -33,17 +33,6 @@ export const AVAILABLE = [
 	},
 
 	{
-		code: 'built',
-		name: 'Built',
-		description: 'Stir directly in your cocktail glass with 120 grams of 1.25 inch ice cubes (~4 cubes) for 15 seconds',
-		dilution: { low: 0.24, high: 0.24 },
-		volume: { low: 88, high: 93 },
-		ethanol: { low: 0.27, high: 0.32 },
-		sugar: { low: 7, high: 8 },
-		acid: { low: 0, high: 0 }
-	},
-
-	{
 		code: 'carbonated',
 		name: 'Carbonated',
 		description: 'Pour ingredients into glass with ice, quick stir to mix ingredients',

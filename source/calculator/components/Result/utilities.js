@@ -12,8 +12,6 @@ export const dilution = ({ code }, measurements) => {
 	let e;
 
 	switch (code) {
-	case 'built':
-		return 0.24;
 	case 'stirred':
 		e = initial.ethanol(measurements);
 		return (-1.21 * (e ** 2)) + (1.246 * e) + 0.145;
