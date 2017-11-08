@@ -23,9 +23,13 @@ const Section = ({ children, className, title }) => <Wrapper {...{ className }}>
 	{children}
 </Wrapper>;
 
+Section.defaultProps = {
+	className: null
+};
+
 Section.propTypes = {
 	children: PropTypes.node.isRequired,
-	className: PropTypes.string.isRequired,
+	className: PropTypes.string,
 	title: PropTypes.string.isRequired
 };
 
