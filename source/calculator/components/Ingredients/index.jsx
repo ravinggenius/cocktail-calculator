@@ -65,7 +65,7 @@ const Notes = TD.extend.withConfig({
 })`
 	@media screen and (max-width: 640px) {
 		&[data-label] {
-			padding-left: 25%;
+			padding-left: ${p => p['data-label'].length}ch;
 		}
 	}
 `;
@@ -129,7 +129,7 @@ class Ingredients extends React.PureComponent {
 				dangerouslySetInnerHTML={{
 					__html: m.description
 				}}
-				data-label="Notes"
+				data-label="Notes/Pairings"
 			/>
 		</Row>;
 
@@ -209,7 +209,6 @@ class Ingredients extends React.PureComponent {
 				</TFoot>
 			</Table>
 
-			<Note title="egg white" description="30 ml or 1 oz" />
 			<Note title="dash" description="0.8 ml or 0.027 oz" />
 			<Note title="barspoon" description="4 ml or ~0.125 oz" />
 		</Section>;
