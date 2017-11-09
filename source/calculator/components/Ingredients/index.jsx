@@ -209,7 +209,6 @@ class Ingredients extends React.PureComponent {
 				</TFoot>
 			</Table>
 
-			<Note title="egg white" description="30 ml or 1 oz" />
 			<Note title="dash" description="0.8 ml or 0.027 oz" />
 			<Note title="barspoon" description="4 ml or ~0.125 oz" />
 		</Section>;
