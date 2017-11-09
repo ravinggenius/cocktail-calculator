@@ -5,7 +5,6 @@ import 'react-select/dist/react-select.css';
 
 import Introduction from '../../containers/Introduction';
 import SelectIngredients from '../../containers/SelectIngredients';
-import SelectTechnique from '../../containers/SelectTechnique';
 import ShowResult from '../../containers/ShowResult';
 
 import Attribution from '../Attribution';
@@ -20,7 +19,6 @@ injectGlobal`
 const App = () => <section>
 	<Introduction />
 	<SelectIngredients />
-	<SelectTechnique />
 	<ShowResult />
 	<Attribution />
 </section>;
