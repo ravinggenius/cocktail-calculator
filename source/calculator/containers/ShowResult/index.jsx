@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import Result from '../../components/Result';
 
-import * as UNIT from '../Introduction/constants';
+import * as UNIT from '../Introduction/constants_unit';
 import * as TECHNIQUE from '../SelectTechnique/constants';
 
 const findBy = property => items => value => items.find(item => item[property] === value);

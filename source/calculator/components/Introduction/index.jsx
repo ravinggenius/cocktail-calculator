@@ -11,19 +11,23 @@ const normalizeOption = ({ code, name }) => ({
 });
 
 const Introduction = ({
-	available,
-	onChange,
-	selectedCode
+	availableUnits,
+	selectedUnitCode,
+	updateSelectedUnit
 }) => <Section title="Step 1: Units">
 	<P>What units are you working with?</P>
 
-	<Select {...{ onChange }} options={available.map(normalizeOption)} value={selectedCode} />
+	<Select
+		onChange={updateSelectedUnit}
+		options={availableUnits.map(normalizeOption)}
+		value={selectedUnitCode}
+	/>
 </Section>;
 
 Introduction.propTypes = {
-	available: PropTypes.arrayOf(PropTypes.object).isRequired,
-	onChange: PropTypes.func.isRequired,
-	selectedCode: PropTypes.string.isRequired
+	availableUnits: PropTypes.arrayOf(PropTypes.object).isRequired,
+	selectedUnitCode: PropTypes.string.isRequired,
+	updateSelectedUnit: PropTypes.func.isRequired
 };
 
 export default Introduction;

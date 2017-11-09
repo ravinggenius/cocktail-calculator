@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import Ingredients from '../../components/Ingredients';
 
-import * as UNIT from '../Introduction/constants';
+import * as UNIT from '../Introduction/constants_unit';
 
 import { fetchAvailable, addMeasurement, updateMeasurement, removeMeasurement } from './actions';
 
