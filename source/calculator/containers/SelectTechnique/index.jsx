@@ -2,16 +2,16 @@ import { connect } from 'react-redux';
 
 import Technique from '../../components/Technique';
 
-import * as TECHNIQUE from './constants';
-import { updateSelected } from './actions';
+import * as TECHNIQUE from './constants_technique';
+import { updateSelectedTechnique } from './actions_technique';
 
-const mapStateToProps = ({ technique: { selectedCode } }) => ({
-	available: TECHNIQUE.AVAILABLE,
-	selectedCode
+const mapStateToProps = ({ technique: { selectedCode: selectedTechniqueCode } }) => ({
+	availableTechniques: TECHNIQUE.AVAILABLE,
+	selectedTechniqueCode
 });
 
-const mapDispatchToProps = dispatch => ({
-	onChange: event => dispatch(updateSelected(event))
-});
+const mapDispatchToProps = {
+	updateSelectedTechnique
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Technique);
