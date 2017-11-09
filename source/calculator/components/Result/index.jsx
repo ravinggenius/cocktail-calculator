@@ -63,6 +63,8 @@ const Result = ({
 	technique,
 	unit
 }) => <Section title="Step 3: Results">
+	<P>{technique.description}</P>
+
 	<P>
 		Review the final cocktail attributes and try to ensure they stay within the expected range
 		for the selected technique
