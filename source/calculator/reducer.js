@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
+import technique from './containers/Introduction/reducer_technique';
+import unit from './containers/Introduction/reducer_unit';
 import ingredient from './containers/SelectIngredients/reducer';
-import technique from './containers/SelectTechnique/reducer';
-import unit from './containers/SelectUnit/reducer';
 
 export default combineReducers({
 	ingredient,

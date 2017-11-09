@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import * as UNIT from './constants';
+import * as UNIT from './constants_unit';
 
 const selectedCode = (state = UNIT.AVAILABLE[0].code, action) => {
 	switch (action.type) {

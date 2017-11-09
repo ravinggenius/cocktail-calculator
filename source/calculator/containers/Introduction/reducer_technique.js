@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import * as TECHNIQUE from './constants';
+import * as TECHNIQUE from './constants_technique';
 
 const selectedCode = (state = TECHNIQUE.AVAILABLE[0].code, action) => {
 	switch (action.type) {
