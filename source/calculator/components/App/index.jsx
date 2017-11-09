@@ -3,9 +3,9 @@ import { injectGlobal } from 'styled-components';
 
 import 'react-select/dist/react-select.css';
 
+import Introduction from '../../containers/Introduction';
 import SelectIngredients from '../../containers/SelectIngredients';
 import SelectTechnique from '../../containers/SelectTechnique';
-import SelectUnit from '../../containers/SelectUnit';
 import ShowResult from '../../containers/ShowResult';
 
 import Attribution from '../Attribution';
@@ -18,7 +18,7 @@ injectGlobal`
 `;
 
 const App = () => <section>
-	<SelectUnit />
+	<Introduction />
 	<SelectIngredients />
 	<SelectTechnique />
 	<ShowResult />

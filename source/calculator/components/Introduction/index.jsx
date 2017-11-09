@@ -10,7 +10,7 @@ const normalizeOption = ({ code, name }) => ({
 	value: code
 });
 
-const Unit = ({
+const Introduction = ({
 	available,
 	onChange,
 	selectedCode
@@ -20,10 +20,10 @@ const Unit = ({
 	<Select {...{ onChange }} options={available.map(normalizeOption)} value={selectedCode} />
 </Section>;
 
-Unit.propTypes = {
+Introduction.propTypes = {
 	available: PropTypes.arrayOf(PropTypes.object).isRequired,
 	onChange: PropTypes.func.isRequired,
 	selectedCode: PropTypes.string.isRequired
 };
 
-export default Unit;
+export default Introduction;
