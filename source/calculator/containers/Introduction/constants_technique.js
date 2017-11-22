@@ -7,7 +7,8 @@ export const AVAILABLE = [
 		volume: { low: 156, high: 178 },
 		ethanol: { low: 0.15, high: 0.2 },
 		sugar: { low: 5, high: 8.9 },
-		acid: { low: 0.0076, high: 0.0094 }
+		acid: { low: 0.0076, high: 0.0094 },
+		sugarAcid: { low: 7.5, high: 11 }
 	},
 
 	{
