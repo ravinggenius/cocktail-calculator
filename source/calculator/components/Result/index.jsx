@@ -13,6 +13,7 @@ import {
 	ethanol,
 	sugar,
 	acid,
+	sugarAcid,
 	isGood,
 	pickMessage,
 	contrastFor,
@@ -56,6 +57,12 @@ ResultRow.propTypes = {
 	label: PropTypes.string.isRequired,
 	lowMessage: PropTypes.string.isRequired,
 	highMessage: PropTypes.string.isRequired
+};
+
+const OptionalResultRow = ({ enabled, ...rest }) => (enabled ? <ResultRow {...rest} /> : null);
+
+OptionalResultRow.propTypes = {
+	enabled: PropTypes.bool.isRequired
 };
 
 const Result = ({
@@ -125,6 +132,16 @@ const Result = ({
 				label="Acid (%)"
 				lowMessage="Not acidic enough"
 				highMessage="Too acidic"
+			/>
+
+			<OptionalResultRow
+				enabled={!!technique.sugarAcid}
+				actual={sugarAcid(technique, ingredients)}
+				format={round2}
+				range={technique.sugarAcid}
+				label="Sugar/Acid Balance"
+				lowMessage="Too much acid vs sugar"
+				highMessage="Too much sugar vs acid"
 			/>
 		</TBody>
 	</Table>

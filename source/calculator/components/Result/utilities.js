@@ -37,6 +37,15 @@ export const ethanol = buildFinal('ethanol');
 export const sugar = buildFinal('sugar');
 export const acid = buildFinal('acid');
 
+export const sugarAcid = (technique, measurements) => {
+	const finalSugar = sugar(technique, measurements) / 100;
+	const finalAcid = acid(technique, measurements);
+
+	const reply = finalSugar / finalAcid;
+
+	return Number.isNaN(reply) ? 0 : reply;
+};
+
 export const isGood = (low, high, actual) => (actual >= low) && (actual <= high);
 
 export const pickMessage = (low, high, lowMessage, highMessage, actual) => {
