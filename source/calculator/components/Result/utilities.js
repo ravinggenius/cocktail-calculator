@@ -41,9 +41,11 @@ export const sugarAcid = (technique, measurements) => {
 	const finalSugar = sugar(technique, measurements) / 100;
 	const finalAcid = acid(technique, measurements);
 
-	const reply = finalSugar / finalAcid;
+	if ((finalSugar === 0) || (finalAcid === 0)) {
+		return 0;
+	}
 
-	return Number.isNaN(reply) ? 0 : reply;
+	return finalSugar / finalAcid;
 };
 
 export const isGood = (low, high, actual) => (actual >= low) && (actual <= high);
