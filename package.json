@@ -40,6 +40,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.5.1",
+    "git-describe": "^4.0.2",
     "rimraf": "^2.6.2",
     "rollup": "^0.43.1",
     "rollup-plugin-babel": "^2.7.1",

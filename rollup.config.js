@@ -1,3 +1,4 @@
+import { gitDescribeSync } from 'git-describe';
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import eslint from 'rollup-plugin-eslint';
@@ -39,6 +40,7 @@ export default {
 		}),
 		replace({
 			values: {
+				GIT_DESCRIBE: gitDescribeSync(__dirname).semverString,
 				'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 			}
 		}),
