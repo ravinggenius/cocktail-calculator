@@ -9,7 +9,7 @@
     "build": "rollup --config",
     "build:watch": "rollup --config --watch",
     "clean": "rimraf scripts/calculator*",
-    "lint": "eslint --ext .js --ext .jsx source/**",
+    "lint": "eslint --ext .js --ext .jsx *.js source/**",
     "start": "npm run build:watch & npm run start:dev",
     "start:dev": "squarespace-server https://thomas-ingram-82lh.squarespace.com --auth",
     "test": "echo \"Error: no test specified\" && exit 1"

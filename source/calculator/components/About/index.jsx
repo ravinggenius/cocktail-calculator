@@ -23,7 +23,7 @@ const ButtonGroup = styled.div.withConfig({
 	}
 `;
 
-class Attribution extends React.PureComponent {
+class About extends React.PureComponent {
 	constructor(props) {
 		super(props);
 
@@ -60,4 +60,4 @@ class Attribution extends React.PureComponent {
 	}
 }
 
-export default Attribution;
+export default About;

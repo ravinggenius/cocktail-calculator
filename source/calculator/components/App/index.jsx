@@ -7,7 +7,7 @@ import Introduction from '../../containers/Introduction';
 import SelectIngredients from '../../containers/SelectIngredients';
 import ShowResult from '../../containers/ShowResult';
 
-import Attribution from '../Attribution';
+import About from '../About';
 import P from '../P';
 
 // eslint-disable-next-line no-unused-expressions
@@ -26,7 +26,7 @@ const App = () => <section>
 	<Introduction />
 	<SelectIngredients />
 	<ShowResult />
-	<Attribution />
+	<About />
 </section>;
 
 export default App;
