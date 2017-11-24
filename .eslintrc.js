@@ -12,6 +12,7 @@ module.exports = {
 		'no-else-return': [ 'off' ],
 		'no-tabs': [ 'off' ],
 		'no-unused-vars': [ 'error', { argsIgnorePattern: '^_' } ],
+		'quote-props': [ 'error', 'consistent-as-needed' ],
 		'react/forbid-prop-types': [ 'off' ],
 		'react/jsx-indent': [ 'error', 'tab' ],
 		'react/jsx-indent-props': [ 'error', 'tab' ],
