@@ -55,6 +55,8 @@ class About extends React.PureComponent {
 				<P>Calculator generously ported by <A href="https://about.me/ravinggenius">Thomas Ingram</A>.</P>
 
 				<Small>calculator code © Thomas Ingram</Small>
+				<br />
+				<Small>version GIT_DESCRIBE</Small>
 			</Modal>
 		</CenteredSection>;
 	}
