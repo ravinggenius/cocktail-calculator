@@ -40,7 +40,7 @@ export default {
 		}),
 		replace({
 			values: {
-				GIT_DESCRIBE: gitDescribeSync(__dirname).semverString,
+				'GIT_DESCRIBE': gitDescribeSync(__dirname).semverString,
 				'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 			}
 		}),
