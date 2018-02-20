@@ -23,6 +23,30 @@ const ButtonGroup = styled.div.withConfig({
 	}
 `;
 
+const Embed = styled.div.attrs({
+	// eslint-disable-next-line jsx-a11y/iframe-has-title, react/prop-types
+	children: ({ src, title }) => <iframe {...{ src, title }} allowFullScreen frameBorder="0" />
+}).withConfig({
+	displayName: 'Embed'
+})`
+	height: 0;
+	margin: 17px auto;
+	max-width: 100%;
+	overflow: hidden;
+	padding-bottom: ${({ height, width }) => (height / width) * 100}%;
+	position: relative;
+
+	& embed,
+	& iframe,
+	& object {
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+`;
+
 class About extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -50,6 +74,13 @@ class About extends React.PureComponent {
 			</ButtonGroup>
 
 			<Modal {...{ isOpen }} onClose={this.handleToggleModal} title="Credits">
+				<Embed
+					src="https://www.youtube-nocookie.com/embed/IlgdwNd1WyM"
+					title="Introducing New Live Classes and Cocktail Calculator"
+					height={315}
+					width={560}
+				/>
+
 				<P>Dilution formulas from Dave Arnold&apos;s <A href="https://www.amazon.com/dp/0393089037/_encoding=UTF8?ref=exp_inf_pl_cocktailchemistry">Liquid Intelligence</A>.</P>
 
 				<P>Calculator generously ported by <A href="https://about.me/ravinggenius">Thomas Ingram</A>.</P>
