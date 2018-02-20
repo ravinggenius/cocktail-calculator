@@ -25,11 +25,19 @@ const measurements = (state = [], action) => {
 
 	switch (action.type) {
 	case INGREDIENT.ADD_MEASUREMENT:
-		return state.concat({ id: action.id, amount: action.amount, position: action.position });
+		return state.concat({
+			id: action.id,
+			amount: action.amount,
+			position: action.position
+		});
 	case INGREDIENT.UPDATE_MEASUREMENT:
 		return state
 			.filter(withoutMeasurement)
-			.concat({ id: action.id, amount: action.amount, position: action.position });
+			.concat({
+				id: action.id,
+				amount: action.amount,
+				position: action.position
+			});
 	case INGREDIENT.REMOVE_MEASUREMENT:
 		return state.filter(withoutMeasurement);
 	default:

@@ -140,7 +140,7 @@ const Result = ({
 				format={round2}
 				range={technique.sugarAcid}
 				label="Sugar/Acid Balance"
-				lowMessage="Too much acid vs sugar"
+				lowMessage={acid(technique, ingredients) === 0 ? 'Too much sugar vs acid' : 'Too much acid vs sugar'}
 				highMessage="Too much sugar vs acid"
 			/>
 		</TBody>

@@ -123,7 +123,7 @@ class Ingredients extends React.PureComponent {
 				/>
 			</TD>
 			<TD data-label="Ethanol (%abv)" type="number">{percentage(m.ethanol)}</TD>
-			<TD data-label="Sugar (g/100mg)" type="number">{round2(m.sugar)}</TD>
+			<TD data-label="Sugar (g/100ml)" type="number">{round2(m.sugar)}</TD>
 			<TD data-label="Acid (%)" type="number">{percentage(m.acid)}</TD>
 			<Notes
 				dangerouslySetInnerHTML={{
@@ -170,7 +170,7 @@ class Ingredients extends React.PureComponent {
 						<TH>Ingredient</TH>
 						<TH>{`Measurement (${unit.code})`}</TH>
 						<TH>Ethanol (%abv)</TH>
-						<TH>Sugar (g/100mg)</TH>
+						<TH>Sugar (g/100ml)</TH>
 						<TH>Acid (%)</TH>
 						<NotesHeader>Notes/Pairings</NotesHeader>
 					</Row>
@@ -198,7 +198,7 @@ class Ingredients extends React.PureComponent {
 						<TD data-label="Ethanol (%abv)" type="number">
 							<output>{percentage(ethanol(measurements))}</output>
 						</TD>
-						<TD data-label="Sugar (g/100mg)" type="number">
+						<TD data-label="Sugar (g/100ml)" type="number">
 							<output>{round2(sugar(measurements))}</output>
 						</TD>
 						<TD data-label="Acid (%)" type="number">
